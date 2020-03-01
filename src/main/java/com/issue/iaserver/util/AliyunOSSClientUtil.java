@@ -33,10 +33,10 @@ public class AliyunOSSClientUtil {
     private static String BACKET_NAME;
     //初始化属性
     static{
-        ENDPOINT = util.OSSClientConstants.ENDPOINT;
-        ACCESS_KEY_ID = util.OSSClientConstants.ACCESS_KEY_ID;
-        ACCESS_KEY_SECRET = util.OSSClientConstants.ACCESS_KEY_SECRET;
-        BACKET_NAME = util.OSSClientConstants.BACKET_NAME;
+        ENDPOINT = OSSClientConstants.ENDPOINT;
+        ACCESS_KEY_ID = OSSClientConstants.ACCESS_KEY_ID;
+        ACCESS_KEY_SECRET = OSSClientConstants.ACCESS_KEY_SECRET;
+        BACKET_NAME = OSSClientConstants.BACKET_NAME;
     }
 
     /**
