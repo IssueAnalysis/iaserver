@@ -28,8 +28,12 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import java.net.MalformedURLException;
 
 /**
  * 读取外部csv文件配置类
@@ -42,7 +46,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class BatchConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(BatchConfiguration.class);
 
-    private String fileURL = "https://iaserver.oss-cn-hangzhou.aliyuncs.com/ASF%20JIRA%202020-01-18T01_02_48%2B0000.csv";
+    private String fileURL = "csv/ASF JIRA 2020-01-18T01_02_48+00002.csv";
     /**
      * 读取外部文件方法
      * @return
@@ -51,7 +55,11 @@ public class BatchConfiguration {
     public ItemReader<CsvDO> reader() {
         logger.info("=========reader========");
         FlatFileItemReader<CsvDO> reader = new FlatFileItemReader<CsvDO>();
-        reader.setResource(new ClassPathResource(fileURL));
+        try {
+            reader.setResource(new UrlResource("https://iaserver.oss-cn-hangzhou.aliyuncs.com/ASF%20JIRA%202020-01-18T01_02_48%2B0000.csv"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         reader.setLineMapper(lineMapper());
         return reader;
     }

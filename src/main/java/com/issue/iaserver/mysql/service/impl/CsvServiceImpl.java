@@ -4,7 +4,9 @@ import com.issue.iaserver.mysql.dao.CsvDao;
 import com.issue.iaserver.mysql.service.CsvService;
 import com.issue.iaserver.mysql.entity.CsvDO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -13,6 +15,8 @@ import java.util.List;
  * @author 钟镇鸿
  * @since 2020/3/21 0:34
  */
+@Service("CsvService")
+@Transactional
 public class CsvServiceImpl implements CsvService {
     private CsvDao csvDao;
 

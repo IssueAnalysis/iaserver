@@ -9,6 +9,7 @@ import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 监听类
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author 钟镇鸿
  * @since 2020/3/15 0:31
  */
+@Component
 public class JobCompletionNotificationListener extends JobExecutionListenerSupport {
 
     private static final Logger logger = LoggerFactory.getLogger(JobCompletionNotificationListener.class);
