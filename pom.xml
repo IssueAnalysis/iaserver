@@ -39,6 +39,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-redis</artifactId>
+            <version>2.2.5.RELEASE</version>
         </dependency>
 
         <!-- Spring Boot Mail 依赖 -->
@@ -62,6 +63,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.2</version>
         </dependency>
 
         <!-- mysql connector -->
@@ -80,6 +82,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
+            <version>1.1.21</version>
         </dependency>
 
         <!-- Spring Boot Web 依赖 -->
