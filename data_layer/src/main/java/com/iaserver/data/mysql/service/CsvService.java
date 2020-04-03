@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface CsvService {
     /**
-     * 保存黑名单数据
+     * 保存数据
      * @param csvDO
      * @return
      */

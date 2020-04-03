@@ -150,18 +150,17 @@ public class AliyunOSSClientUtil {
     }
 
     /**
-     * 上传图片至OSS
+     * 上传单个csv文件至OSS
      * @param ossClient  oss连接
-     * @param file 上传文件（文件全路径如：D:\\image\\cake.jpg）
+     * @param filePath 上传文件（文件全路径如：D:\\image\\cake.jpg）
      * @param bucketName  存储空间
      * @param folder 此为图片所在的文件夹，将它设置为requestid，如requestid为1——设为"1/"
      * @return ArrayList<String> 返回的图片网络地址组成的list
      * */
-    public static  ArrayList<String> uploadObject2OSS(OSSClient ossClient, ArrayList<File> files, String bucketName, String folder) {
+    public static  ArrayList<String> uploadObject2OSS(OSSClient ossClient, String filePath, String bucketName, String folder) {
         ArrayList<String> resultPath =  new ArrayList<String>();
         try {
-            for(int i=0 ; i<files.size() ; i++) {
-                File file = files.get(i);
+            File file = new File(filePath) ;
                 //以输入流的形式上传文件
                 InputStream is = new FileInputStream(file);
                 //文件名
@@ -188,9 +187,8 @@ public class AliyunOSSClientUtil {
                 PutObjectResult putResult = ossClient.putObject(bucketName, folder + fileName, is, metadata);
                 //解析结果
                 //resultStr = putResult.getETag();
-                String path = "https://songzi-picture.oss-cn-shenzhen.aliyuncs.com/" + folder + fileName;
+                String path = OSSClientConstants.URL + folder + fileName;
                 resultPath.add(path);
-            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -235,11 +233,11 @@ public class AliyunOSSClientUtil {
             return "text/xml";
         }
         //默认返回类型
-        return "image/jpeg";
+        return "csv";
     }
 
     //方法使用实例
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         //初始化OSSClient
         OSSClient ossClient=getOSSClient();
         //要上传的zip文件，本地地址
@@ -255,7 +253,7 @@ public class AliyunOSSClientUtil {
         ArrayList<File> files2 = upzipFile(zipFile2,"/home/songzi/se_file/2");
         ArrayList<String> path = uploadObject2OSS(ossClient2, files2, BACKET_NAME, "2/");
         System.out.println(path.get(0));
-    }
+    }*/
 
 
 }
