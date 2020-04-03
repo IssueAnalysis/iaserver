@@ -1,6 +1,6 @@
-package redis;
+package com.iaserver.data.redis;
 
-import redis.service.*;
+import com.iaserver.data.redis.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

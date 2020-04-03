@@ -1,11 +1,11 @@
-package redis.service.impl;
+package com.iaserver.data.redis.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import org.assertj.core.util.Lists;
-import redis.service.StringTemplateService;
-import util.JsonSerializer;
-import util.SystemClock;
-import util.TimeUnitUtil;
+import com.iaserver.data.redis.service.StringTemplateService;
+import com.iaserver.data.util.JsonSerializer;
+import com.iaserver.data.util.SystemClock;
+import com.iaserver.data.util.TimeUnitUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 

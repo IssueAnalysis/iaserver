@@ -1,7 +1,7 @@
-package redis.service.impl;
+package com.iaserver.data.redis.service.impl;
 
-import redis.service.KeyTemplateService;
-import util.TimeUnitUtil;
+import com.iaserver.data.redis.service.KeyTemplateService;
+import com.iaserver.data.util.TimeUnitUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 

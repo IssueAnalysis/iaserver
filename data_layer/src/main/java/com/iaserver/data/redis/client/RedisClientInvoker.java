@@ -1,4 +1,4 @@
-package redis.client;
+package com.iaserver.data.redis.client;
 
 import redis.clients.jedis.Jedis;
 

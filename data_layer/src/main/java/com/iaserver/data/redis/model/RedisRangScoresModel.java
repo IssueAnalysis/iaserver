@@ -1,4 +1,4 @@
-package redis.model;
+package com.iaserver.data.redis.model;
 
 /**
  * zet的分数

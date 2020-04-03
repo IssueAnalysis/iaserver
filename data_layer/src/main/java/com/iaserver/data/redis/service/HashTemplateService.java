@@ -1,4 +1,4 @@
-package redis.service;
+package com.iaserver.data.redis.service;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;

@@ -1,7 +1,7 @@
-package redis.service.impl;
+package com.iaserver.data.redis.service.impl;
 
-import redis.service.ListTemplateService;
-import util.JsonSerializer;
+import com.iaserver.data.redis.service.ListTemplateService;
+import com.iaserver.data.util.JsonSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import redis.clients.jedis.BinaryClient;

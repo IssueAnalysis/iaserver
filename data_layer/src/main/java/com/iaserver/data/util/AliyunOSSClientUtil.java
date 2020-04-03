@@ -1,4 +1,4 @@
-package util;
+package com.iaserver.data.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -157,8 +157,8 @@ public class AliyunOSSClientUtil {
      * @param folder 此为图片所在的文件夹，将它设置为requestid，如requestid为1——设为"1/"
      * @return ArrayList<String> 返回的图片网络地址组成的list
      * */
-    public static  ArrayList<String> uploadObject2OSS(OSSClient ossClient, String filePath, String bucketName, String folder) {
-        ArrayList<String> resultPath =  new ArrayList<String>();
+    public static String uploadObject2OSS(OSSClient ossClient, String filePath, String bucketName, String folder) {
+        String path = "";
         try {
             File file = new File(filePath) ;
                 //以输入流的形式上传文件
@@ -187,14 +187,13 @@ public class AliyunOSSClientUtil {
                 PutObjectResult putResult = ossClient.putObject(bucketName, folder + fileName, is, metadata);
                 //解析结果
                 //resultStr = putResult.getETag();
-                String path = OSSClientConstants.URL + folder + fileName;
-                resultPath.add(path);
+                path = OSSClientConstants.URL + folder + fileName;
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("上传阿里云OSS服务器异常." + e.getMessage());
         }
-        return resultPath;
+        return path;
     }
 
     /**

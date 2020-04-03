@@ -1,4 +1,4 @@
-package redis.service;
+package com.iaserver.data.redis.service;
 
 /**
  * Redis 发布订阅 -相关操作

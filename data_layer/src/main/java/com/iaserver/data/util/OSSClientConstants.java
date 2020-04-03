@@ -1,4 +1,4 @@
-package util;
+package com.iaserver.data.util;
 
 /**
  * @class:OSSClientConstants
@@ -6,7 +6,7 @@ package util;
  */
 public class OSSClientConstants {
     //阿里云API的外网域名
-    public static final String ENDPOINT = ".oss-cn-hangzhou.aliyuncs.com";
+    public static final String ENDPOINT = "oss-cn-hangzhou.aliyuncs.com";
     //阿里云API的密钥Access Key ID
     public static final String ACCESS_KEY_ID = "LTAIkqlGIbs5wyV8";
     //阿里云API的密钥Access Key Secret

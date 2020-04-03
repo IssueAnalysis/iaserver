@@ -1,7 +1,7 @@
-package redis.service.impl;
+package com.iaserver.data.redis.service.impl;
 
-import redis.client.RedisClient;
-import util.TimeUnitUtil;
+import com.iaserver.data.redis.client.RedisClient;
+import com.iaserver.data.util.TimeUnitUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;

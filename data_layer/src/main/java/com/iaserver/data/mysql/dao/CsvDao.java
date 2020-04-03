@@ -1,6 +1,6 @@
-package mysql.dao;
+package com.iaserver.data.mysql.dao;
 
-import mysql.entity.CsvDO;
+import com.iaserver.data.mysql.entity.CsvDO;
 import org.springframework.data.repository.CrudRepository;
 
 /**

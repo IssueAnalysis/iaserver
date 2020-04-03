@@ -1,4 +1,4 @@
-package mysql.entity;
+package com.iaserver.data.mysql.entity;
 
 import java.io.Serializable;
 

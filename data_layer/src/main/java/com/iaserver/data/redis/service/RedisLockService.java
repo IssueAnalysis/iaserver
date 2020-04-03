@@ -1,4 +1,4 @@
-package redis.service;
+package com.iaserver.data.redis.service;
 
 /**
  * Redis 分布式锁-相关操作接口

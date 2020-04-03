@@ -1,4 +1,4 @@
-package util;
+package com.iaserver.data.util;
 
 import com.alibaba.fastjson.JSON;
 

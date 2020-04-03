@@ -1,8 +1,8 @@
-package redis.service.impl;
+package com.iaserver.data.redis.service.impl;
 
 import org.assertj.core.util.Lists;
-import redis.service.PipelineTemplateService;
-import util.JsonSerializer;
+import com.iaserver.data.redis.service.PipelineTemplateService;
+import com.iaserver.data.util.JsonSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import redis.clients.jedis.Pipeline;

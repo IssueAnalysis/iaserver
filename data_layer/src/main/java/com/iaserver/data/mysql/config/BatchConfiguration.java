@@ -1,11 +1,11 @@
-package mysql.config;
+package com.iaserver.data.mysql.config;
 
 import javax.sql.DataSource;
 
-import mysql.entity.CsvDO;
-import mysql.util.CsvDOItemProcessor;
-import mysql.util.CsvFieldSetMapper;
-import mysql.util.CsvItemWriter;
+import com.iaserver.data.mysql.entity.CsvDO;
+import com.iaserver.data.mysql.util.CsvDOItemProcessor;
+import com.iaserver.data.mysql.util.CsvFieldSetMapper;
+import com.iaserver.data.mysql.util.CsvItemWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -43,17 +43,17 @@ import java.net.MalformedURLException;
 public class BatchConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(BatchConfiguration.class);
 
-    private String fileURL = "csv/ASF JIRA 2020-01-18T01_02_48+00002.csv";
+    //private String fileURL = "csv/ASF JIRA 2020-01-18T01_02_48+00002.csv";
     /**
      * 读取外部文件方法
      * @return
      */
     @Bean
-    public ItemReader<CsvDO> reader() {
+    public ItemReader<CsvDO> reader(String fileURL) {
         logger.info("=========reader========");
         FlatFileItemReader<CsvDO> reader = new FlatFileItemReader<CsvDO>();
         try {
-            reader.setResource(new UrlResource("https://iaserver.oss-cn-hangzhou.aliyuncs.com/ASF%20JIRA%202020-01-18T01_02_48%2B0000.csv"));
+            reader.setResource(new UrlResource(fileURL));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

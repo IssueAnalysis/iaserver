@@ -1,4 +1,4 @@
-package mail.service;
+package com.iaserver.data.mail.service;
 
 import java.util.List;
 

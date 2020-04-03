@@ -1,6 +1,6 @@
-package redis.service.impl;
-import redis.service.PublishTemplateService;
-import util.JsonSerializer;
+package com.iaserver.data.redis.service.impl;
+import com.iaserver.data.redis.service.PublishTemplateService;
+import com.iaserver.data.util.JsonSerializer;
 import org.springframework.stereotype.Component;
 
 /**

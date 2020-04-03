@@ -1,8 +1,8 @@
-package mysql.service.impl;
+package com.iaserver.data.mysql.service.impl;
 
-import mysql.dao.CsvDao;
-import mysql.service.CsvService;
-import mysql.entity.CsvDO;
+import com.iaserver.data.mysql.dao.CsvDao;
+import com.iaserver.data.mysql.service.CsvService;
+import com.iaserver.data.mysql.entity.CsvDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

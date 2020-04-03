@@ -1,6 +1,6 @@
-package redis.service;
+package com.iaserver.data.redis.service;
 
-import redis.model.RedisRangScoresModel;
+import com.iaserver.data.redis.model.RedisRangScoresModel;
 
 import java.util.List;
 import java.util.Map;

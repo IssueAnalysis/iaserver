@@ -1,9 +1,9 @@
-package mysql.util;
+package com.iaserver.data.mysql.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mysql.entity.CsvDO;
-import mysql.service.CsvService;
+import com.iaserver.data.mysql.entity.CsvDO;
+import com.iaserver.data.mysql.service.CsvService;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,7 +1,7 @@
-package mail.service.impl;
+package com.iaserver.data.mail.service.impl;
 
-import mail.MailConfigProperty;
-import mail.service.MailService;
+import com.iaserver.data.mail.MailConfigProperty;
+import com.iaserver.data.mail.service.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

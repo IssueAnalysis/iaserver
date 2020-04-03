@@ -1,6 +1,6 @@
-package mysql.util;
+package com.iaserver.data.mysql.util;
 
-import mysql.entity.CsvDO;
+import com.iaserver.data.mysql.entity.CsvDO;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,8 @@
-package redis.service.impl;
+package com.iaserver.data.redis.service.impl;
 
-import redis.model.RedisRangScoresModel;
-import redis.service.ZsetTemplateService;
-import util.JsonSerializer;
+import com.iaserver.data.redis.model.RedisRangScoresModel;
+import com.iaserver.data.redis.service.ZsetTemplateService;
+import com.iaserver.data.util.JsonSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import redis.clients.jedis.Tuple;

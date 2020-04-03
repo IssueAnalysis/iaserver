@@ -1,10 +1,10 @@
-package redis.service.impl;
+package com.iaserver.data.redis.service.impl;
 
-import redis.service.RedisLockService;
+import com.iaserver.data.redis.service.RedisLockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.JedisPool;
-import redis.client.RedisClient;
+import com.iaserver.data.redis.client.RedisClient;
 
 import java.util.Collections;
 

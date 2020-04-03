@@ -1,4 +1,4 @@
-package mail;
+package com.iaserver.data.mail;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

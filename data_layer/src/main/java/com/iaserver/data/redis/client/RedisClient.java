@@ -1,4 +1,4 @@
-package redis.client;
+package com.iaserver.data.redis.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

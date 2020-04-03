@@ -1,4 +1,4 @@
-package redis.config;
+package com.iaserver.data.redis.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
