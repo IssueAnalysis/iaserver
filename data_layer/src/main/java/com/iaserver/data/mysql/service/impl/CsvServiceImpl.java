@@ -15,18 +15,13 @@ import java.util.List;
  * @author 钟镇鸿
  * @since 2020/3/21 0:34
  */
-@Service("CsvService")
-@Transactional
+@Service
 public class CsvServiceImpl implements CsvService {
+    @Autowired
     private CsvDao csvDao;
 
-    @Autowired
-    public CsvServiceImpl(CsvDao csvDao) {
-        this.csvDao = csvDao;
-    }
-
     /**
-     * 保存黑名单数据
+     * 保存数据
      * @param csvDO
      * @return
      */

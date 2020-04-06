@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**主入口*/
 @SpringBootApplication
-@ComponentScan
+@ComponentScan("com.iaserver.data")
 public class IaserverApplication {
 
     public static void main(String[] args) {

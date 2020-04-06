@@ -43,13 +43,13 @@ import java.net.MalformedURLException;
 public class BatchConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(BatchConfiguration.class);
 
-    //private String fileURL = "csv/ASF JIRA 2020-01-18T01_02_48+00002.csv";
+    private String fileURL = "https://iaserver.oss-cn-hangzhou.aliyuncs.com/test.csv";
     /**
      * 读取外部文件方法
      * @return
      */
     @Bean
-    public ItemReader<CsvDO> reader(String fileURL) {
+    public ItemReader<CsvDO> reader() {
         logger.info("=========reader========");
         FlatFileItemReader<CsvDO> reader = new FlatFileItemReader<CsvDO>();
         try {

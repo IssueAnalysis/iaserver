@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 //这里的参数待定，很重要
 @Entity
-@Table(name = "csv")
+@Table(name="csv")
 public class CsvDO implements Serializable {
     private static final long serialVersionUID = 659538418080127758L;
 
@@ -28,6 +28,7 @@ public class CsvDO implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
 
 
 }
