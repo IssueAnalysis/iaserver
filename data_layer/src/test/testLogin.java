@@ -1,7 +1,6 @@
 import com.iaserver.data.IaserverApplication;
-import com.iaserver.data.mysql.dao.CsvDao;
 import com.iaserver.data.mysql.entity.UserDO;
-import com.iaserver.data.mysql.service.UserService;
+import com.iaserver.data.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package com.iaserver.data.mysql.service.impl;
+package com.iaserver.data.service.impl;
 
 import com.iaserver.data.mysql.dao.UserDao;
 import com.iaserver.data.mysql.entity.UserDO;
-import com.iaserver.data.mysql.service.UserService;
+import com.iaserver.data.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

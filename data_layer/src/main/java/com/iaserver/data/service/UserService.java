@@ -1,4 +1,4 @@
-package com.iaserver.data.mysql.service;
+package com.iaserver.data.service;
 
 import com.iaserver.data.mysql.entity.UserDO;
 
