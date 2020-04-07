@@ -25,7 +25,7 @@ public class UserDO implements Serializable {
     public UserDO() {
     }
 
-    public UserDO(Integer id, String name, String password, String job) {
+    public UserDO(long id, String name, String password, String job) {
         this.id = id;
         this.name = name;
         this.password = password;

@@ -99,7 +99,8 @@ public class DBOperation {
      * @param database
      */
     //查询文档数据
-    public void selectData(MongoDatabase database, String collectionName){
+    public ArrayList<Document> selectData(MongoDatabase database, String collectionName){
+        ArrayList<Document> list = new ArrayList<>();
         try{
             //获取数据库中的user集合
             MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -107,14 +108,16 @@ public class DBOperation {
             FindIterable<Document> iterable = collection.find();
             //通过迭代器遍历找到的文档中的信息
             MongoCursor<Document> iterator = iterable.iterator();
-            while(iterator.hasNext()){
-                System.out.println(iterator.next().toJson());
+            while(iterator.hasNext()) {
+                Document str = iterator.next();
+                list.add(str);
             }
             System.out.println("[INFO] : Select data success！");
         }catch(MongoException e){
             e.printStackTrace();
             System.out.println("[ERROR] : Select data field！");
         }
+        return list;
     }
 
     //插入数据

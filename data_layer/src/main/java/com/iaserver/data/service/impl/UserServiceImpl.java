@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDO login(long id, String password) {
+        //System.out.println(userDao == null);
         if(userDao.existsById(id)){
             Optional<UserDO> user = userDao.findById(id);
             UserDO userDO = user.get();
