@@ -14,4 +14,6 @@ public interface UserService {
     UserDO login(long id, String password);
     //注册
     long addUser(UserDO userDO);
+
+    UserDO getOne(long id);
 }

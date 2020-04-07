@@ -1,7 +1,11 @@
 package com.iaserver.data.mysql.entity;
 
+import com.iaserver.data.mongdb.CSVitem;
+import org.bson.Document;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * 存放在mysql中得csv单项
@@ -11,8 +15,8 @@ import java.io.Serializable;
  * Description:
  */
 @Entity
-@Table(name="csvitem")
-public class CSVitemDO implements Serializable {
+@Table(name="csv")
+public class CSVDO implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -22,6 +26,14 @@ public class CSVitemDO implements Serializable {
     private String url;
 
     @Basic
+    @Column(name = "intension")
+    private String intension;
+
+    @Basic
+    @Column(name = "consideration")
+    private String consideration;
+
+    @Basic
     @Column(name = "user_id", insertable = false, updatable = false)
     private long userId;
 
@@ -29,11 +41,15 @@ public class CSVitemDO implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private UserDO userByUserId;
 
-    public CSVitemDO(long id, String url, long userId, UserDO userByUserId) {
+    public CSVDO(){
+    }
+    public CSVDO(long id, String url, String intension, String consideration, long userId, UserDO userByUserId) {
         this.id = id;
         this.url = url;
         this.userId = userId;
         this.userByUserId = userByUserId;
+        this.intension = intension;
+        this.consideration = consideration;
     }
 
     public long getId() {
@@ -66,5 +82,21 @@ public class CSVitemDO implements Serializable {
 
     public void setUserByUserId(UserDO userByUserId) {
         this.userByUserId = userByUserId;
+    }
+
+    public String getIntension() {
+        return intension;
+    }
+
+    public void setIntension(String intension) {
+        this.intension = intension;
+    }
+
+    public String getConsideration() {
+        return consideration;
+    }
+
+    public void setConsideration(String consideration) {
+        this.consideration = consideration;
     }
 }

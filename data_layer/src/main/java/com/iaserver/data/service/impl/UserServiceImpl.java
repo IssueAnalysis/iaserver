@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService {
         userDao.save(userDO);
         return userDO.getId();
     }
+
+    @Override
+    public UserDO getOne(long id){
+        return userDao.getOne(id);
+    }
 }

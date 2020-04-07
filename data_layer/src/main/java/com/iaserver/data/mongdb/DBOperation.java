@@ -49,7 +49,8 @@ public class DBOperation {
      * @param database
      */
     //查询指定数据库中所有集合
-    public void selectCollection(MongoDatabase database){
+    public ArrayList<Document> selectCollection(MongoDatabase database){
+        ArrayList<Document> csVitemDOS = new ArrayList<Document>();
         try{
             //查询Test数据库中所有集合名称
             MongoIterable<String> colNameList = database.listCollectionNames();
@@ -60,6 +61,7 @@ public class DBOperation {
             e.printStackTrace();
             System.out.println("[ERROR] : Select collection field！");
         }
+        return csVitemDOS;
     }
 
 
@@ -94,11 +96,8 @@ public class DBOperation {
 
 
     /**
-     * 操作数据库数据：
-     * 查询、插入、修改、删除
-     * @param database
-     */
-    //查询文档数据
+     * 查询单个collection的数据
+     * */
     public ArrayList<Document> selectData(MongoDatabase database, String collectionName){
         ArrayList<Document> list = new ArrayList<>();
         try{
@@ -110,6 +109,7 @@ public class DBOperation {
             MongoCursor<Document> iterator = iterable.iterator();
             while(iterator.hasNext()) {
                 Document str = iterator.next();
+
                 list.add(str);
             }
             System.out.println("[INFO] : Select data success！");
@@ -121,18 +121,15 @@ public class DBOperation {
     }
 
     //插入数据
-    public String insertData(MongoDatabase database, String url){
-
+    public String insertData(MongoDatabase database, long csvId, String url){
         InputStreamReader isReader = null;
         CSVParser csvFileParser = null;
 
         MongoClient mongoClient = null;
 
-        String collectionName = null;
+        String collectionName = csvId+"";
         try {
             //新建集合
-            String[] un = url.split("/");
-            collectionName = un[un.length-1];
             createCollection(database, collectionName);
             // ---------- Creating Collection -------------------------//
             MongoCollection<Document> table = database.getCollection(collectionName);
@@ -162,7 +159,7 @@ public class DBOperation {
                 CSVRecord record = csvRecords.get(i);
                 // Create a new student object and fill his data
                 CSVitem item = new CSVitem(
-                        url,
+                        csvId,
                         record.get("Summary"),
                         record.get("Issue key"),
                         record.get("Issue id"),
@@ -178,10 +175,7 @@ public class DBOperation {
                         record.get("Priority"),
                         record.get("Resolution"),
                         record.get("Description"),
-                        record.get("Comment"),
-                        /*这两个参数是此时并没有获得*/
-                        "",
-                        ""
+                        record.get("Comment")
                 );
 
                 csVitems.add(item);
@@ -190,7 +184,8 @@ public class DBOperation {
             // Print the new csv list
             for (CSVitem item : csVitems) {
                 // ---------- Creating Document ---------------------------//
-                Document doc = new Document("url", item.getUrl());
+                Document doc = new Document();
+                doc.append("CSV id", item.getCSVid());
                 doc.append("Summary", item.getSummary());
                 doc.append("Issue key", item.getIssue_key());
                 doc.append("Issue id", item.getIssue_id());
@@ -207,9 +202,6 @@ public class DBOperation {
                 doc.append("Resolution", item.getResolution());
                 doc.append("Description", item.getDescription());
                 doc.append("Comment", item.getComment());
-
-                doc.append("Intension", item.getIntension());
-                doc.append("Consideration", item.getConsideration());
                 // ----------- Inserting Data ------------------------------//
                 table.insertOne(doc);
 
@@ -244,7 +236,6 @@ public class DBOperation {
         }
 
     }
-
 
     //删除数据
     public void deleteData(MongoDatabase database){

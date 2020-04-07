@@ -8,26 +8,26 @@ package com.iaserver.data.mongdb;
  * Description:
  */
 public class CSVitem {
+
     /*- Summary
-- Issue key
-- Issue id
-- Parent id
-- Issue Type
-- Status
-- Project key
-- Project name
-- Project type
-- Project lead
-- Project description
-- Project url
-- Priority
-- Resolution
-- description
-- intension(更新)
-- consideration（更新）
-- comment（更新）*/
-    /**文件地址*/
-    private String url;
+    - Issue key
+    - Issue id
+    - Parent id
+    - Issue Type
+    - Status
+    - Project key
+    - Project name
+    - Project type
+    - Project lead
+    - Project description
+    - Project url
+    - Priority
+    - Resolution
+    - description
+    - intension(更新)
+    - consideration（更新）
+    - comment（更新）*/
+    private long CSVid;
 
     private String summary;
     private String issue_key;
@@ -46,18 +46,15 @@ public class CSVitem {
     private String description;
     private String comment;
 
-    /**识别的结果*/
-    private String intension;
-    private String consideration;
+
 
     /**单项测试用构造器*/
-    public CSVitem(String url, String summary){
-        this.url = url;
+    public CSVitem(String summary){
         this.summary = summary;
     }
 
-    public CSVitem(String url, String summary, String issue_key, String issue_id, String parent_id, String issue_type, String status, String project_key, String project_name, String project_type, String project_lead, String project_description, String project_url, String priority, String resolution, String description, String comment, String intension, String consideration) {
-        this.url = url;
+    public CSVitem(long CSVid, String summary, String issue_key, String issue_id, String parent_id, String issue_type, String status, String project_key, String project_name, String project_type, String project_lead, String project_description, String project_url, String priority, String resolution, String description, String comment) {
+        this.CSVid = CSVid;
         this.summary = summary;
         this.issue_key = issue_key;
         this.issue_id = issue_id;
@@ -74,16 +71,14 @@ public class CSVitem {
         this.resolution = resolution;
         this.description = description;
         this.comment = comment;
-        this.intension = intension;
-        this.consideration = consideration;
     }
 
-    public String getUrl() {
-        return url;
+    public long getCSVid() {
+        return CSVid;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setCSVid(long CSVid) {
+        this.CSVid = CSVid;
     }
 
     public String getSummary() {
@@ -206,21 +201,6 @@ public class CSVitem {
         this.comment = comment;
     }
 
-    public String getIntension() {
-        return intension;
-    }
-
-    public void setIntension(String intension) {
-        this.intension = intension;
-    }
-
-    public String getConsideration() {
-        return consideration;
-    }
-
-    public void setConsideration(String consideration) {
-        this.consideration = consideration;
-    }
 
     public String getStatus() {
         return status;
@@ -233,8 +213,7 @@ public class CSVitem {
     @Override
     public String toString() {
         return "CSVitem[" +
-                "url='" + url + '\'' +
-                ", summary='" + summary + '\'' +
+                "summary='" + summary + '\'' +
                 ", issue_key='" + issue_key + '\'' +
                 ", issue_id='" + issue_id + '\'' +
                 ", parent_id='" + parent_id + '\'' +
@@ -249,8 +228,6 @@ public class CSVitem {
                 ", resolution='" + resolution + '\'' +
                 ", description='" + description + '\'' +
                 ", comment='" + comment + '\'' +
-                ", intension='" + intension + '\'' +
-                ", consideration='" + consideration + '\'' +
                 ']';
     }
 }

@@ -1,5 +1,6 @@
 import com.iaserver.data.IaserverApplication;
 import com.iaserver.data.mysql.dao.UserDao;
+import com.iaserver.data.mysql.entity.CSVDO;
 import com.iaserver.data.mysql.entity.UserDO;
 import com.iaserver.data.service.OperateFileService;
 import com.iaserver.data.service.impl.OperateFileServiceImpl;
@@ -8,6 +9,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * TODO ..
@@ -30,5 +35,11 @@ public class testOperateFileService {
         UserDO userDO = userDao.getOne((long)1);
         System.out.println(userDO.getId());
         o.uploadFile(userDO,"C:\\Users\\m1885\\Desktop\\my_csv_simple2.csv");
+    }
+
+    @Test
+    public void test2(){
+        List<CSVDO> l = o.getCSVByText("HDFS-15124");
+        assertEquals(l.size(), 2);
     }
 }
