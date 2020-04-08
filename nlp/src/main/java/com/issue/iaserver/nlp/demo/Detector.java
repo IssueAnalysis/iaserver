@@ -11,17 +11,16 @@ import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.util.Span;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+@Component
 public class Detector {
-    public static void main(String[] args){
-        System.out.println("yeah");
-    }
 
     private Models models;
 
-    public Detector(){
+    public Detector() {
         models = new Models();
     }
 
@@ -49,6 +48,12 @@ public class Detector {
         ChunkerModel chunkerModel = models.loadChunkerModel();
         ChunkerME chunkerME = new ChunkerME(chunkerModel);
         return chunkerME.chunk(detectTokens(text), detectPos(text));
+    }
+
+    public Span[] getChunkSpan(String text) throws ModelNotFoundException, IOException {
+        ChunkerModel chunkerModel = models.loadChunkerModel();
+        ChunkerME chunkerME = new ChunkerME(chunkerModel);
+        return chunkerME.chunkAsSpans(detectTokens(text), detectPos(text));
     }
 
 }
