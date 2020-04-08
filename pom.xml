@@ -66,12 +66,6 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.2</version>
-        </dependency>
-
         <!-- mysql connector -->
         <dependency>
             <groupId>mysql</groupId>
@@ -136,6 +130,18 @@
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
             <version>3.5.4</version>
+        </dependency>
+
+        <!--mongdb-->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <!-- json -->
