@@ -2,7 +2,9 @@ package com.issue.iaserver.nlp.model;
 
 public enum ModelType {
     SENTENCE_MODEL("sentence"),
-    TOKEN_MODEL("token");
+    POS_MODEL("pos"),
+    TOKEN_MODEL("token"),
+    CHUNKER_MODEL("chunker");
 
     private String type;
 

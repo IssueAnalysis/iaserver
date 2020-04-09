@@ -1,6 +1,11 @@
 package com.issue.iaserver.nlp.model;
 
+import opennlp.tools.chunker.ChunkerModel;
+import opennlp.tools.postag.POSModel;
 import opennlp.tools.sentdetect.SentenceModel;
+import opennlp.tools.tokenize.TokenizerModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -10,15 +15,15 @@ import java.util.Properties;
 @Component
 public class Models {
 
+
     private Properties properties;
 
     public Models(){
         try {
             initProperties();
         } catch (IOException e) {
-
-            // TODO 尝试一个更好的解决方案
-            e.printStackTrace();
+            Logger modelLogger = LoggerFactory.getLogger(Models.class);
+            modelLogger.error(e.getMessage());
         }
     }
 
@@ -46,6 +51,18 @@ public class Models {
 
     public SentenceModel loadSentenceModel() throws ModelNotFoundException, IOException {
         return new SentenceModel(getModelStream(ModelType.SENTENCE_MODEL));
+    }
+
+    public TokenizerModel loadTokenizerModel() throws ModelNotFoundException, IOException {
+        return new TokenizerModel(getModelStream(ModelType.TOKEN_MODEL));
+    }
+
+    public POSModel loadPosModel() throws ModelNotFoundException, IOException {
+        return new POSModel(getModelStream(ModelType.POS_MODEL));
+    }
+    
+    public ChunkerModel loadChunkerModel() throws ModelNotFoundException, IOException {
+        return new ChunkerModel(getModelStream(ModelType.CHUNKER_MODEL));
     }
 
 }
