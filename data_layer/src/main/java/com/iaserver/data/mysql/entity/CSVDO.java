@@ -26,14 +26,6 @@ public class CSVDO implements Serializable {
     private String url;
 
     @Basic
-    @Column(name = "intension")
-    private String intension;
-
-    @Basic
-    @Column(name = "consideration")
-    private String consideration;
-
-    @Basic
     @Column(name = "user_id", insertable = false, updatable = false)
     private long userId;
 
@@ -43,13 +35,11 @@ public class CSVDO implements Serializable {
 
     public CSVDO(){
     }
-    public CSVDO(long id, String url, String intension, String consideration, long userId, UserDO userByUserId) {
+    public CSVDO(long id, String url, long userId, UserDO userByUserId) {
         this.id = id;
         this.url = url;
         this.userId = userId;
         this.userByUserId = userByUserId;
-        this.intension = intension;
-        this.consideration = consideration;
     }
 
     public long getId() {
@@ -82,21 +72,5 @@ public class CSVDO implements Serializable {
 
     public void setUserByUserId(UserDO userByUserId) {
         this.userByUserId = userByUserId;
-    }
-
-    public String getIntension() {
-        return intension;
-    }
-
-    public void setIntension(String intension) {
-        this.intension = intension;
-    }
-
-    public String getConsideration() {
-        return consideration;
-    }
-
-    public void setConsideration(String consideration) {
-        this.consideration = consideration;
     }
 }

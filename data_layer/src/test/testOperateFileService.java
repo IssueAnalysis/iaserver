@@ -1,4 +1,5 @@
 import com.iaserver.data.IaserverApplication;
+import com.iaserver.data.mongdb.CSVitem;
 import com.iaserver.data.mysql.dao.UserDao;
 import com.iaserver.data.mysql.entity.CSVDO;
 import com.iaserver.data.mysql.entity.UserDO;
@@ -34,12 +35,34 @@ public class testOperateFileService {
     public void test1(){
         UserDO userDO = userDao.getOne((long)1);
         System.out.println(userDO.getId());
-        o.uploadFile(userDO,"C:\\Users\\m1885\\Desktop\\my_csv_simple2.csv");
+        o.uploadFile((long)1,"C:\\Users\\m1885\\Desktop\\test.csv");
     }
 
     @Test
     public void test2(){
-        List<CSVDO> l = o.getCSVByText("HDFS-15124");
-        assertEquals(l.size(), 2);
+        assertEquals(689,o.getCSVitemByCSVid((long)4434).size());
+    }
+
+    @Test
+    public void test3(){
+        assertEquals(2,o.getAllCSV().size());
+    }
+
+    @Test
+    public void test4(){
+        assertEquals(2,o.getCSVByUser((long)1).size());
+    }
+
+    @Test
+    public void test5(){
+
+        CSVitem csVitem = o.getCSVitemByCSVid((long)4434).get(0);
+        csVitem.setConsideration("ok");
+        csVitem.setIntension("log");
+        o.updateCSV((long)4434, csVitem);
+
+        CSVitem csVitem2 = o.getCSVitemByCSVid((long)4434).get(0);
+        assertEquals("ok",csVitem2.getConsideration());
+        assertEquals("log",csVitem2.getIntension());
     }
 }

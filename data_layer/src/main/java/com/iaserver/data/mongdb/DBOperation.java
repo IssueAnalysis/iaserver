@@ -23,8 +23,9 @@ import java.util.*;
  * Description:
  */
 public class DBOperation {
-
     private final String[] FILE_HEADER_MAPPING = {
+            "id",
+            "CSV id",
             "Summary",
             "Issue key",
             "Issue id",
@@ -40,7 +41,9 @@ public class DBOperation {
             "Priority",
             "Resolution",
             "Description",
-            "Comment"
+            "Comment",
+            "Intension",
+            "Consideration"
     };
 
     /**
@@ -98,8 +101,8 @@ public class DBOperation {
     /**
      * 查询单个collection的数据
      * */
-    public ArrayList<Document> selectData(MongoDatabase database, String collectionName){
-        ArrayList<Document> list = new ArrayList<>();
+    public ArrayList<CSVitem> selectData(MongoDatabase database, String collectionName){
+        ArrayList<CSVitem> list = new ArrayList<>();
         try{
             //获取数据库中的user集合
             MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -109,8 +112,19 @@ public class DBOperation {
             MongoCursor<Document> iterator = iterable.iterator();
             while(iterator.hasNext()) {
                 Document str = iterator.next();
-
-                list.add(str);
+                CSVitem item = new CSVitem(
+                        str.getLong(FILE_HEADER_MAPPING[0]), str.getLong(FILE_HEADER_MAPPING[1]),
+                        str.getString(FILE_HEADER_MAPPING[2]),str.getString(FILE_HEADER_MAPPING[3]),
+                        str.getString(FILE_HEADER_MAPPING[4]),str.getString(FILE_HEADER_MAPPING[5]),
+                        str.getString(FILE_HEADER_MAPPING[6]),str.getString(FILE_HEADER_MAPPING[7]),
+                        str.getString(FILE_HEADER_MAPPING[8]),str.getString(FILE_HEADER_MAPPING[9]),
+                        str.getString(FILE_HEADER_MAPPING[10]),str.getString(FILE_HEADER_MAPPING[11]),
+                        str.getString(FILE_HEADER_MAPPING[12]),str.getString(FILE_HEADER_MAPPING[13]),
+                        str.getString(FILE_HEADER_MAPPING[14]),str.getString(FILE_HEADER_MAPPING[15]),
+                        str.getString(FILE_HEADER_MAPPING[16]),str.getString(FILE_HEADER_MAPPING[17]),
+                        str.getString(FILE_HEADER_MAPPING[18]),str.getString(FILE_HEADER_MAPPING[19])
+                );
+                list.add(item);
             }
             System.out.println("[INFO] : Select data success！");
         }catch(MongoException e){
@@ -122,6 +136,8 @@ public class DBOperation {
 
     //插入数据
     public String insertData(MongoDatabase database, long csvId, String url){
+        long id = 0;
+
         InputStreamReader isReader = null;
         CSVParser csvFileParser = null;
 
@@ -159,6 +175,7 @@ public class DBOperation {
                 CSVRecord record = csvRecords.get(i);
                 // Create a new student object and fill his data
                 CSVitem item = new CSVitem(
+                        id++,
                         csvId,
                         record.get("Summary"),
                         record.get("Issue key"),
@@ -175,7 +192,9 @@ public class DBOperation {
                         record.get("Priority"),
                         record.get("Resolution"),
                         record.get("Description"),
-                        record.get("Comment")
+                        record.get("Comment"),
+                        "",
+                        ""
                 );
 
                 csVitems.add(item);
@@ -185,6 +204,7 @@ public class DBOperation {
             for (CSVitem item : csVitems) {
                 // ---------- Creating Document ---------------------------//
                 Document doc = new Document();
+                doc.append("id", item.getId());
                 doc.append("CSV id", item.getCSVid());
                 doc.append("Summary", item.getSummary());
                 doc.append("Issue key", item.getIssue_key());
@@ -202,6 +222,9 @@ public class DBOperation {
                 doc.append("Resolution", item.getResolution());
                 doc.append("Description", item.getDescription());
                 doc.append("Comment", item.getComment());
+                doc.append("Intension", item.getIntension());
+                doc.append("Consideration", item.getConsideration());
+
                 // ----------- Inserting Data ------------------------------//
                 table.insertOne(doc);
 
@@ -222,13 +245,17 @@ public class DBOperation {
     }
 
     //修改数据，只允许修改intension、consideration
-    public void updateData(MongoDatabase database){
+    public void updateData(MongoDatabase database, long csvid, long csvitem_id, String intension, String consideration){
         try {
-            MongoCollection mongoCollection = database.getCollection("user");
+            MongoCollection mongoCollection = database.getCollection(csvid+"");
             //修改满足条件的第一条数据
-            mongoCollection.updateOne(Filters.eq("user_name","test"),new Document("$set",new Document("user_pwd","tttt")));
+            mongoCollection.updateOne(Filters.eq("id",csvitem_id),
+                    new Document("$set",new Document("Intension",intension)));
+            mongoCollection.updateOne(Filters.eq("id",csvitem_id),
+                    new Document("$set",new Document("Consideration",consideration)));
+            //System.out.println("ok");
             //修改满足条件的所有数据
-            mongoCollection.updateMany(Filters.eq("user_name","test"),new Document("$set",new Document("user_pwd","tttt")));
+            //mongoCollection.updateMany(Filters.eq("user_name","test"),new Document("$set",new Document("user_pwd","tttt")));
             System.out.println("[INFO] : Update data success！");
         }catch(MongoException e){
             e.printStackTrace();

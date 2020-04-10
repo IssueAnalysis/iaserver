@@ -11,12 +11,27 @@
 
     <artifactId>webserver</artifactId>
 
+
     <dependencies>
         <dependency>
             <groupId>com.issue</groupId>
             <artifactId>nlp</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.issue</groupId>
+            <artifactId>data_layer</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>4.1</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>

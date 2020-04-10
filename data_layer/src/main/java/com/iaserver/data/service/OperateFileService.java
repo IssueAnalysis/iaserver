@@ -1,10 +1,10 @@
 package com.iaserver.data.service;
 
+import com.iaserver.data.mongdb.CSVitem;
 import com.iaserver.data.mysql.entity.CSVDO;
 import com.iaserver.data.mysql.entity.UserDO;
 import org.bson.Document;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,23 +17,20 @@ import java.util.List;
 public interface OperateFileService {
     /**
      * 上传文件
-     * @param user 用户实体类
+     * @param user_id 用户实体类
      * @param filePath 上传文件的本地地址
      * */
-    void uploadFile(UserDO user, String filePath);
+    void uploadFile(long user_id, String filePath);
 
-    /**通过csvid来获取csv实体类*/
-    List<Document> getDocumentByCSVid(long csvId);
+    /**通过csvid来获取list item*/
+    List<CSVitem> getCSVitemByCSVid(long csvId);
 
     /**获取全部csv文件*/
     List<CSVDO> getAllCSV();
 
-    /**通过用户id获取csv文件，也就是用户上传的csv文件*/
+    /**通过用户id获取csvitem，也就是用户上传的csv文件*/
     List<CSVDO> getCSVByUser(long userid);
 
-    /**通过内容获取csv文件*/
-    List<CSVDO> getCSVByText(String content);
-
     /**修改csv文件的intension，consideration*/
-    CSVDO updateCSV(CSVDO csvdo);
+    void updateCSV(long csv_id, CSVitem csVitem);
 }
