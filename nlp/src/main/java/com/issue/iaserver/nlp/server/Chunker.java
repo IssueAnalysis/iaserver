@@ -12,4 +12,8 @@ public interface Chunker {
 
     SpanInCn[] chunkAsSpanInCn(String text);
 
+    SpanInCn[] getAllNPChunks(String text);
+
+    SpanInCn[] getAllVPChunks(String text);
+
 }
