@@ -1,6 +1,10 @@
 package webserver.controller;
 
 
+import data.mysql.dao.UserDao;
+import data.mysql.entity.UserDO;
+import data.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import webserver.model.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,16 +16,26 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/api/user")
 public class UserController {
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping("/log_in")
-    public boolean login(@RequestParam String user_name, @RequestParam String passed, HttpSession session) {
+    public boolean login(@RequestParam String username, @RequestParam String password, HttpSession session) {
 
         return true;
     }
 
     @RequestMapping("/log_out")
-    public boolean logout(HttpSession session) {
+    public void logout(HttpSession session) {
 
-        return true;
+    }
+
+    @RequestMapping("/sign_up")
+    public void signup(@RequestParam String username, @RequestParam String password){
+        UserDO userDO = new UserDO();
+        userDO.setName(username);
+        userDO.setPassword(password);
+        userService.addUser(userDO);
     }
 
     @RequestMapping("/info")

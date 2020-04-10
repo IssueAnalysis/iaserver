@@ -8,4 +8,6 @@ public interface IssueService {
 
     public List<Issue> getAllIssues();
 
+    public void uploadFile(String filePath);
+
 }
