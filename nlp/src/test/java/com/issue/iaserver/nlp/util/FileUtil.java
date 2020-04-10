@@ -1,8 +1,5 @@
 package com.issue.iaserver.nlp.util;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-
 import java.io.*;
 
 
