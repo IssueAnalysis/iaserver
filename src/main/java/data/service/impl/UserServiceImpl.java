@@ -4,8 +4,10 @@ import data.mysql.dao.UserDao;
 import data.mysql.entity.UserDO;
 import data.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -22,11 +24,11 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public UserDO login(long id, String password) {
+    public UserDO login(String name, String password) {
         //System.out.println(userDao == null);
-        if(userDao.existsById(id)){
-            Optional<UserDO> user = userDao.findById(id);
-            UserDO userDO = user.get();
+        ArrayList<UserDO> userDOArrayList = userDao.getUserByName(name);
+        if(userDOArrayList.size() == 1){
+            UserDO userDO = userDOArrayList.get(0);
             if(userDO.getPassword().equals(password)) {
                 return userDO;
             }
@@ -36,8 +38,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public long addUser(UserDO userDO) {
-        userDao.save(userDO);
-        return userDO.getId();
+        String name = userDO.getName();
+        ArrayList<UserDO> userDOS = userDao.getUserByName(name);
+        if(userDOS.size() == 0){
+            userDao.save(userDO);
+            return userDO.getId();
+        }
+        return -1;
     }
 
     @Override

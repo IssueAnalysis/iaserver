@@ -11,7 +11,7 @@ import data.mysql.entity.UserDO;
  */
 public interface UserService {
     //登录判断
-    UserDO login(long id, String password);
+    UserDO login(String name, String password);
     //注册
     long addUser(UserDO userDO);
 
