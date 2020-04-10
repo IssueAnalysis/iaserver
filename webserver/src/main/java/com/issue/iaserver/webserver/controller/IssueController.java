@@ -1,6 +1,8 @@
 package com.issue.iaserver.webserver.controller;
 
 import com.issue.iaserver.webserver.model.Issue;
+import com.issue.iaserver.webserver.service.IssueService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,20 +14,19 @@ import java.util.List;
 
 public class IssueController {
 
+    private final
+    IssueService issueService;
+
+    @Autowired
+    public IssueController(IssueService issueService) {
+        this.issueService = issueService;
+    }
 
     @RequestMapping("/find_all")
     public List<Issue> findAll(){
 
-        Issue issue1 = new Issue("s1", "d1", "i1", "c1");
-        Issue issue2 = new Issue("s2", "d2", "i2", "c2");
-        Issue issue3 = new Issue("s3", "d3", "i3", "c3");
+        return issueService.getAllIssues();
 
-        List<Issue> issues = new ArrayList<>();
-        issues.add(issue1);
-        issues.add(issue2);
-        issues.add(issue3);
-
-        return issues;
     }
 
 
