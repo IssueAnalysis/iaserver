@@ -9,24 +9,33 @@ package com.iaserver.data.mongdb;
  */
 public class CSVitem {
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     /*- Summary
-    - Issue key
-    - Issue id
-    - Parent id
-    - Issue Type
-    - Status
-    - Project key
-    - Project name
-    - Project type
-    - Project lead
-    - Project description
-    - Project url
-    - Priority
-    - Resolution
-    - description
-    - intension(更新)
-    - consideration（更新）
-    - comment（更新）*/
+        - Issue key
+        - Issue id
+        - Parent id
+        - Issue Type
+        - Status
+        - Project key
+        - Project name
+        - Project type
+        - Project lead
+        - Project description
+        - Project url
+        - Priority
+        - Resolution
+        - description
+        - intension(更新)
+        - consideration（更新）
+        - comment（更新）*/
+    private long id;
     private long CSVid;
 
     private String summary;
@@ -46,6 +55,26 @@ public class CSVitem {
     private String description;
     private String comment;
 
+    private String intension;
+    private String consideration;
+
+    public String getIntension() {
+        return intension;
+    }
+
+    public void setIntension(String intension) {
+        this.intension = intension;
+    }
+
+    public String getConsideration() {
+        return consideration;
+    }
+
+    public void setConsideration(String consideration) {
+        this.consideration = consideration;
+    }
+
+
 
 
     /**单项测试用构造器*/
@@ -53,7 +82,11 @@ public class CSVitem {
         this.summary = summary;
     }
 
-    public CSVitem(long CSVid, String summary, String issue_key, String issue_id, String parent_id, String issue_type, String status, String project_key, String project_name, String project_type, String project_lead, String project_description, String project_url, String priority, String resolution, String description, String comment) {
+    public CSVitem(long id, long CSVid, String summary, String issue_key, String issue_id, String parent_id,
+                   String issue_type, String status, String project_key, String project_name, String project_type,
+                   String project_lead, String project_description, String project_url, String priority, String resolution,
+                   String description, String comment, String intension, String consideration) {
+        this.id = id;
         this.CSVid = CSVid;
         this.summary = summary;
         this.issue_key = issue_key;
@@ -71,6 +104,8 @@ public class CSVitem {
         this.resolution = resolution;
         this.description = description;
         this.comment = comment;
+        this.consideration = consideration;
+        this.intension = intension;
     }
 
     public long getCSVid() {
@@ -213,6 +248,7 @@ public class CSVitem {
     @Override
     public String toString() {
         return "CSVitem[" +
+                "id='" + id + '\'' +
                 "summary='" + summary + '\'' +
                 ", issue_key='" + issue_key + '\'' +
                 ", issue_id='" + issue_id + '\'' +

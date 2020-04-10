@@ -1,6 +1,7 @@
 package com.iaserver.data.service.impl;
 
 import com.aliyun.oss.OSSClient;
+import com.iaserver.data.mongdb.CSVitem;
 import com.iaserver.data.mongdb.DBOperation;
 import com.iaserver.data.mongdb.MongoDBConnection;
 import com.iaserver.data.mysql.dao.CSVDao;
@@ -12,7 +13,6 @@ import com.iaserver.data.util.AliyunOSSClientUtil;
 import com.iaserver.data.util.OSSClientConstants;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
-import io.lettuce.core.dynamic.annotation.Param;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class OperateFileServiceImpl implements OperateFileService {
     public CSVDao csvDao;
 
     @Override
-    public void uploadFile(UserDO user, String filePath){
+    public void uploadFile(long user_id, String filePath){
         OSSClient ossClient = AliyunOSSClientUtil.getOSSClient();
         String url = AliyunOSSClientUtil.uploadObject2OSS(ossClient,
                 filePath,
@@ -48,7 +48,8 @@ public class OperateFileServiceImpl implements OperateFileService {
         MongoClient mongoClient = mongoDBConnection.getConn();
         MongoDatabase mongoDatabase = mongoClient.getDatabase("iadb");
 
-        CSVDO csvDO = new CSVDO(0, url, "", "", user.getId(), user);
+        UserDO user = userDao.getOne(user_id);
+        CSVDO csvDO = new CSVDO(0, url, user.getId(), user);
         csvDao.saveAndFlush(csvDO);
         long csvId = csvDO.getId();
 
@@ -59,34 +60,45 @@ public class OperateFileServiceImpl implements OperateFileService {
         mongoClient.close();
     }
 
+
+    /**通过csvid来获取list item*/
     @Override
-    public List<Document> getDocumentByCSVid(long csvId){
+    public List<CSVitem> getCSVitemByCSVid(long csvId){
         DBOperation dbOperation = new DBOperation();
         MongoDBConnection mongoDBConnection = new MongoDBConnection();
         MongoClient mongoClient = mongoDBConnection.getConn();
         MongoDatabase mongoDatabase = mongoClient.getDatabase("iadb");
 
-        ArrayList<Document> document = dbOperation.selectData(mongoDatabase, csvId+"");
-
-        return document;
+        ArrayList<CSVitem> csVitems = dbOperation.selectData(mongoDatabase, csvId+"");
+        return csVitems;
     }
 
     /**获取全部csv文件*/
     @Override
-    public List<CSVDO> getAllCSV() {
-        List<CSVDO> csvdo = csvDao.findAll();
-        return csvdo;
+    public List<CSVDO> getAllCSV(){
+        return csvDao.findAll();
     }
 
-    /**通过用户id获取csv文件，也就是用户上传的csv文件*/
+    /**通过用户id获取csv，也就是用户上传的csv文件*/
     @Override
-    public List<CSVDO> getCSVByUser(long userid) {
+    public List<CSVDO> getCSVByUser(long userid){
         List<CSVDO> csvdo = csvDao.getCSVByUserId(userid);
         return csvdo;
     }
 
-    /**通过内容获取csv文件*/
+    /**修改csv文件的intension，consideration*/
     @Override
+    public void updateCSV(long csv_id, CSVitem csVitem){
+        DBOperation dbOperation = new DBOperation();
+        MongoDBConnection mongoDBConnection = new MongoDBConnection();
+        MongoClient mongoClient = mongoDBConnection.getConn();
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("iadb");
+        dbOperation.updateData(mongoDatabase, csv_id, csVitem.getId(), csVitem.getIntension(), csVitem.getConsideration());
+    }
+
+
+    /**通过内容获取csv文件*/
+   /* @Override
     public List<CSVDO> getCSVByText(String content) {
         List<CSVDO> csvdos = getAllCSV();
         List<CSVDO> res = new ArrayList<CSVDO>();
@@ -99,12 +111,5 @@ public class OperateFileServiceImpl implements OperateFileService {
             }
         }
         return res;
-    }
-
-    /**修改csv文件的intension，consideration*/
-    @Override
-    public CSVDO updateCSV(CSVDO csvdo) {
-        csvDao.saveAndFlush(csvdo);
-        return csvdo;
-    }
+    }*/
 }
