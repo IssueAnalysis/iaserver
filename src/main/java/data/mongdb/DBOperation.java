@@ -24,8 +24,6 @@ import java.util.*;
  */
 public class DBOperation {
     private final String[] FILE_HEADER_MAPPING = {
-            "id",
-            "CSV id",
             "Summary",
             "Issue key",
             "Issue id",
@@ -41,9 +39,7 @@ public class DBOperation {
             "Priority",
             "Resolution",
             "Description",
-            "Comment",
-            "Intension",
-            "Consideration"
+            "Comment"
     };
 
     /**
@@ -113,7 +109,8 @@ public class DBOperation {
             while(iterator.hasNext()) {
                 Document str = iterator.next();
                 CSVitem item = new CSVitem(
-                        str.getLong(FILE_HEADER_MAPPING[0]), str.getLong(FILE_HEADER_MAPPING[1]),
+                        0, Long.valueOf(collectionName),
+                        str.getString(FILE_HEADER_MAPPING[0]), str.getString(FILE_HEADER_MAPPING[1]),
                         str.getString(FILE_HEADER_MAPPING[2]),str.getString(FILE_HEADER_MAPPING[3]),
                         str.getString(FILE_HEADER_MAPPING[4]),str.getString(FILE_HEADER_MAPPING[5]),
                         str.getString(FILE_HEADER_MAPPING[6]),str.getString(FILE_HEADER_MAPPING[7]),
@@ -121,9 +118,7 @@ public class DBOperation {
                         str.getString(FILE_HEADER_MAPPING[10]),str.getString(FILE_HEADER_MAPPING[11]),
                         str.getString(FILE_HEADER_MAPPING[12]),str.getString(FILE_HEADER_MAPPING[13]),
                         str.getString(FILE_HEADER_MAPPING[14]),str.getString(FILE_HEADER_MAPPING[15]),
-                        str.getString(FILE_HEADER_MAPPING[16]),str.getString(FILE_HEADER_MAPPING[17]),
-                        str.getString(FILE_HEADER_MAPPING[18]),str.getString(FILE_HEADER_MAPPING[19])
-                );
+                        str.getString("Intension"),str.getString("Consideration"));
                 list.add(item);
             }
             System.out.println("[INFO] : Select data success！");
@@ -167,6 +162,7 @@ public class DBOperation {
             // initialize CSVParser object
             csvFileParser = new CSVParser(isReader, csvFileFormat);
 
+            //Iterable<CSVRecord> records = CSVFormat.RFC4180.parse(isReader);
             // Get a list of CSV file records
             List<CSVRecord> csvRecords = csvFileParser.getRecords();
 
@@ -174,6 +170,7 @@ public class DBOperation {
             for (int i = 1; i < csvRecords.size(); i++) {
                 CSVRecord record = csvRecords.get(i);
                 // Create a new student object and fill his data
+                //System.out.println( record);
                 CSVitem item = new CSVitem(
                         id++,
                         csvId,
@@ -191,8 +188,8 @@ public class DBOperation {
                         record.get("Project url"),
                         record.get("Priority"),
                         record.get("Resolution"),
-                        record.get("Description"),
-                        record.get("Comment"),
+                        record.get(41)+record.get(42)+record.get(43)+record.get(44)+record.get(45),
+                        record.get(265)+record.get(266)+record.get(267)+record.get(268)+record.get(269),
                         "",
                         ""
                 );
