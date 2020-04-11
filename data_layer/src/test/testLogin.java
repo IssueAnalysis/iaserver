@@ -1,4 +1,3 @@
-import com.iaserver.data.IaserverApplication;
 import com.iaserver.data.mysql.entity.UserDO;
 import com.iaserver.data.service.UserService;
 import org.junit.Test;

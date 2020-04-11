@@ -1,4 +1,3 @@
-import com.iaserver.data.IaserverApplication;
 import com.iaserver.data.mysql.entity.CSVDO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
