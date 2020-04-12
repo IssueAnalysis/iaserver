@@ -41,6 +41,8 @@ public class SpanInCn {
         return span.getEnd();
     }
 
+    public String getType(){ return span.getType();}
+
     public String getTypeInCn() {
         return typeInCn;
     }

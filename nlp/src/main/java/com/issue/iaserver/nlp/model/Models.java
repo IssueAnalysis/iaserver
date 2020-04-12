@@ -1,68 +1,157 @@
 package com.issue.iaserver.nlp.model;
 
 import opennlp.tools.chunker.ChunkerModel;
+import opennlp.tools.lemmatizer.DictionaryLemmatizer;
+import opennlp.tools.namefind.TokenNameFinderModel;
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.tokenize.TokenizerModel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
 
 @Component
+@Configuration
+@PropertySource("classpath:models/model.properties")
 public class Models {
 
+    @Value("${root}")
+    private String root;
 
-    private Properties properties;
+    @Value("${sentence}")
+    private String sentenceModel;
 
-    public Models(){
-        try {
-            initProperties();
-        } catch (IOException e) {
-            Logger modelLogger = LoggerFactory.getLogger(Models.class);
-            modelLogger.error(e.getMessage());
-        }
-    }
+    @Value("${token}")
+    private String tokenModel;
 
-    private void initProperties() throws IOException {
-        String propertiesPath = "models/model.properties";
-        properties = new Properties();
-        try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(propertiesPath)) {
-            if(inputStream != null){
-                properties.load(inputStream);
-            }
-        }
-    }
+    @Value("${pos}")
+    private String posModel;
 
-    private InputStream getModelStream(ModelType modelType) throws ModelNotFoundException {
-        String rootPath = properties.getProperty("root");
-        String modelFileName = properties.getProperty(modelType.getType(), "");
-        if(modelFileName.equals("")){
+    @Value("${chunker}")
+    private String chunkerModel;
+
+    @Value("${lemmatizer}")
+    private String lemmatizerModel;
+
+    @Value("${name.location}")
+    private String nameFinderLocationModel;
+
+    @Value("${name.money}")
+    private String nameFinderMoneyModel;
+
+    @Value("${name.organization}")
+    private String nameFinderOrganizationModel;
+
+    @Value("${name.percentage}")
+    private String nameFinderPercentageModel;
+
+    @Value("${name.person}")
+    private String nameFinderPersonModel;
+
+    @Value("${name.time}")
+    private String nameFinderTimeModel;
+
+    @Value("${name.date")
+    private String nameFinderDateModel;
+
+
+    private InputStream getModelStream(String model) throws ModelNotFoundException {
+        String rootPath = root;
+        if(model.equals("")){
             // 模型不存在
             throw new ModelNotFoundException("Model doesn't exist!");
         }else{
-            return Thread.currentThread().getContextClassLoader().getResourceAsStream(rootPath + modelFileName);
+            return Thread.currentThread().getContextClassLoader().getResourceAsStream(rootPath + model);
         }
 
     }
 
     public SentenceModel loadSentenceModel() throws ModelNotFoundException, IOException {
-        return new SentenceModel(getModelStream(ModelType.SENTENCE_MODEL));
+        InputStream inputStream = getModelStream(sentenceModel);
+        SentenceModel sentenceModel1 =  new SentenceModel(inputStream);
+        inputStream.close();
+        return sentenceModel1;
     }
 
     public TokenizerModel loadTokenizerModel() throws ModelNotFoundException, IOException {
-        return new TokenizerModel(getModelStream(ModelType.TOKEN_MODEL));
+        InputStream inputStream = getModelStream(tokenModel);
+        TokenizerModel tokenizerModel1 = new TokenizerModel(inputStream);
+        inputStream.close();
+        return tokenizerModel1;
     }
 
     public POSModel loadPosModel() throws ModelNotFoundException, IOException {
-        return new POSModel(getModelStream(ModelType.POS_MODEL));
+        InputStream inputStream = getModelStream(posModel);
+        POSModel posModel1 = new POSModel(inputStream);
+        inputStream.close();
+        return posModel1;
     }
     
     public ChunkerModel loadChunkerModel() throws ModelNotFoundException, IOException {
-        return new ChunkerModel(getModelStream(ModelType.CHUNKER_MODEL));
+        InputStream inputStream = getModelStream(chunkerModel);
+        ChunkerModel chunkerModel1 = new ChunkerModel(inputStream);
+        inputStream.close();
+        return chunkerModel1;
+    }
+
+    public DictionaryLemmatizer loadLemmatizer() throws ModelNotFoundException, IOException {
+        InputStream inputStream = getModelStream(lemmatizerModel);
+        DictionaryLemmatizer dictionaryLemmatizer = new DictionaryLemmatizer(getModelStream(lemmatizerModel));
+        inputStream.close();
+        return dictionaryLemmatizer;
+    }
+
+    public TokenNameFinderModel loadLocationNameFinder() throws ModelNotFoundException, IOException {
+        InputStream inputStream = getModelStream(nameFinderLocationModel);
+        TokenNameFinderModel tokenNameFinderModel = new TokenNameFinderModel(inputStream);
+        inputStream.close();
+        return tokenNameFinderModel;
+    }
+
+    public TokenNameFinderModel loadMoneyNameFinder() throws ModelNotFoundException, IOException {
+        InputStream inputStream = getModelStream(nameFinderMoneyModel);
+        TokenNameFinderModel tokenNameFinderModel = new TokenNameFinderModel(inputStream);
+        inputStream.close();
+        return tokenNameFinderModel;
+    }
+
+    public TokenNameFinderModel loadOrganizationNameFinder() throws ModelNotFoundException, IOException {
+        InputStream inputStream = getModelStream(nameFinderOrganizationModel);
+        TokenNameFinderModel tokenNameFinderModel = new TokenNameFinderModel(inputStream);
+        inputStream.close();
+        return tokenNameFinderModel;
+    }
+
+    public TokenNameFinderModel loadPercentageNameFinder() throws ModelNotFoundException, IOException {
+        InputStream inputStream = getModelStream(nameFinderPercentageModel);
+        TokenNameFinderModel tokenNameFinderModel = new TokenNameFinderModel(inputStream);
+        inputStream.close();
+        return tokenNameFinderModel;
+    }
+
+    public TokenNameFinderModel loadPersonNameFinder() throws ModelNotFoundException, IOException {
+        InputStream inputStream = getModelStream(nameFinderPersonModel);
+        TokenNameFinderModel tokenNameFinderModel = new TokenNameFinderModel(inputStream);
+        inputStream.close();
+        return tokenNameFinderModel;
+    }
+
+    public TokenNameFinderModel loadTimeNameFinder() throws ModelNotFoundException, IOException {
+        InputStream inputStream = getModelStream(nameFinderTimeModel);
+        TokenNameFinderModel tokenNameFinderModel = new TokenNameFinderModel(inputStream);
+        inputStream.close();
+        return tokenNameFinderModel;
+    }
+
+    public TokenNameFinderModel loadDateNameFinder() throws ModelNotFoundException, IOException {
+        InputStream inputStream = getModelStream(nameFinderTimeModel);
+        TokenNameFinderModel tokenNameFinderModel = new TokenNameFinderModel(inputStream);
+        inputStream.close();
+        return tokenNameFinderModel;
     }
 
 }

@@ -28,4 +28,22 @@ class TextChunkerTest {
             System.out.println(spanInCn.toString());
         }
     }
+
+    @Test
+    void getAllNPChunks() throws IOException {
+        String s = new FileUtil().getTestText();
+        SpanInCn[] spanInCns = chunker.getAllNPChunks(s);
+        for(SpanInCn spanInCn : spanInCns){
+            System.out.println(spanInCn.toString());
+        }
+    }
+
+    @Test
+    void getAllVPChunks() throws IOException {
+        String s = new FileUtil().getTestText();
+        SpanInCn[] spanInCns = chunker.getAllVPChunks(s);
+        for(SpanInCn spanInCn : spanInCns){
+            System.out.println(spanInCn.toString());
+        }
+    }
 }
