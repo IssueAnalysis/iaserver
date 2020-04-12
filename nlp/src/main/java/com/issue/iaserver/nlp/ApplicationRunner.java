@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 @SpringBootApplication
 public class ApplicationRunner {
     public static void main(String[] args){
-        SpringApplication.run(ApplicationRunner.class,args);
+        SpringApplication.run(ApplicationRunner.class,"--debug");
     }
 }

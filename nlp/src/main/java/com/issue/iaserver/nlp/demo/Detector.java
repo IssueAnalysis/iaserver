@@ -11,6 +11,7 @@ import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.util.Span;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -18,39 +19,56 @@ import java.io.IOException;
 @Component
 public class Detector {
 
-    private Models models;
+    private final Models models;
 
-    public Detector() {
-        models = new Models();
+    @Autowired
+    public Detector(Models models) {
+        this.models = models;
     }
+
+    private SentenceModel sentenceModel;
+    private TokenizerModel tokenizerModel;
+    private POSModel posModel;
+    private ChunkerModel chunkerModel;
 
 
     public String[] detectSentences(String text) throws ModelNotFoundException, IOException {
-        SentenceModel sentenceModel = models.loadSentenceModel();
+        if(sentenceModel == null){
+            sentenceModel = models.loadSentenceModel();
+        }
         SentenceDetectorME sentenceDetectorME = new SentenceDetectorME(sentenceModel);
         return sentenceDetectorME.sentDetect(text);
     }
 
     public String[] detectTokens(String text) throws ModelNotFoundException, IOException {
-        TokenizerModel tokenizerModel = models.loadTokenizerModel();
+        if(tokenizerModel == null){
+            tokenizerModel = models.loadTokenizerModel();
+        }
         TokenizerME tokenizerME = new TokenizerME(tokenizerModel);
         return tokenizerME.tokenize(text);
     }
 
     public String[] detectPos(String text) throws ModelNotFoundException, IOException {
-        POSModel posModel = models.loadPosModel();
+        if(posModel == null){
+            posModel = models.loadPosModel();
+        }
         POSTaggerME posTaggerME = new POSTaggerME(posModel);
         String[] tokens = detectTokens(text);
         return posTaggerME.tag(tokens);
     }
 
     public String[] detectChunker(String text) throws ModelNotFoundException, IOException {
-        ChunkerModel chunkerModel = models.loadChunkerModel();
+        if(chunkerModel == null){
+            chunkerModel = models.loadChunkerModel();
+        }
         ChunkerME chunkerME = new ChunkerME(chunkerModel);
         return chunkerME.chunk(detectTokens(text), detectPos(text));
     }
 
     public Span[] getChunkSpan(String text) throws ModelNotFoundException, IOException {
+        if(chunkerModel == null){
+            chunkerModel = models.loadChunkerModel();
+        }
         ChunkerModel chunkerModel = models.loadChunkerModel();
         ChunkerME chunkerME = new ChunkerME(chunkerModel);
         return chunkerME.chunkAsSpans(detectTokens(text), detectPos(text));
