@@ -1,6 +1,6 @@
 package com.issue.iaserver.data;
 
-import com.issue.iaserver.data.IaserverApplication;
+import com.issue.iaserver.Main;
 import com.issue.iaserver.data.mysql.entity.UserDO;
 import com.issue.iaserver.data.service.UserService;
 import org.junit.Test;
@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IaserverApplication.class)
+@SpringBootTest(classes = Main.class)
 public class testLogin {
     @Autowired
     UserService userService;

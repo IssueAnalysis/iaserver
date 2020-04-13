@@ -1,16 +1,10 @@
 package com.issue.iaserver.data;
 
-import com.issue.iaserver.data.IaserverApplication;
-import com.issue.iaserver.data.mysql.entity.CSVDO;
+import com.issue.iaserver.Main;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * TODO ..
@@ -20,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Description:
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IaserverApplication.class)
+@SpringBootTest(classes = Main.class)
 public class testCSVitemDao {
     // TODO 报错先注释了
 //    @Autowired

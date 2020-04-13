@@ -1,21 +1,17 @@
 package com.issue.iaserver.data;
 
 import com.aliyun.oss.OSSClient;
-import com.issue.iaserver.data.IaserverApplication;
+import com.issue.iaserver.Main;
+import com.issue.iaserver.data.util.AliyunOSSClientUtil;
+import com.issue.iaserver.data.util.OSSClientConstants;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.issue.iaserver.data.util.AliyunOSSClientUtil;
-import com.issue.iaserver.data.util.OSSClientConstants;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IaserverApplication.class)
+@SpringBootTest(classes = Main.class)
 public class testSaveFile {
 
     @Test

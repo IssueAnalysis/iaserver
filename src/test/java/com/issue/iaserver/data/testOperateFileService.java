@@ -1,19 +1,15 @@
 package com.issue.iaserver.data;
 
-import com.issue.iaserver.data.IaserverApplication;
+import com.issue.iaserver.Main;
 import com.issue.iaserver.data.mongdb.CSVitem;
 import com.issue.iaserver.data.mysql.dao.UserDao;
-import com.issue.iaserver.data.mysql.entity.CSVDO;
 import com.issue.iaserver.data.mysql.entity.UserDO;
 import com.issue.iaserver.data.service.OperateFileService;
-import com.issue.iaserver.data.service.impl.OperateFileServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Description:
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IaserverApplication.class)
+@SpringBootTest(classes = Main.class)
 public class testOperateFileService {
 
     @Autowired
