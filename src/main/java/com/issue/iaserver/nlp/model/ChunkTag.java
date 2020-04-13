@@ -1,6 +1,6 @@
 package com.issue.iaserver.nlp.model;
 
-public enum PosTags {
+public enum ChunkTag {
     NOUN_PHASE("NP","名词组"),
     VERB_PHASE("VP","动词组"),
     ADJECTIVE_PHASE("ADJP","形容词组"),
@@ -11,7 +11,7 @@ public enum PosTags {
     private String type;
     private String typeInCn;
 
-    PosTags(String type,String typeInCN){
+    ChunkTag(String type, String typeInCN){
         this.type = type;
         this.typeInCn = typeInCN;
     }

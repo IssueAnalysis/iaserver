@@ -1,6 +1,6 @@
 package com.issue.iaserver.nlp.demo;
 
-import com.issue.iaserver.nlp.ApplicationRunner;
+import com.issue.iaserver.Main;
 import com.issue.iaserver.nlp.model.ModelNotFoundException;
 import com.issue.iaserver.nlp.util.FileUtil;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import java.io.IOException;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {ApplicationRunner.class})
+@SpringBootTest(classes = {Main.class})
 class LemmatizerTest {
 
 

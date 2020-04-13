@@ -14,9 +14,10 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.InputStream;
 
-@Component
+
 @Configuration
 @PropertySource("classpath:models/model.properties")
+@Component
 public class Models {
 
     @Value("${root}")

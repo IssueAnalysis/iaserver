@@ -1,6 +1,6 @@
 package com.issue.iaserver.nlp.demo;
 
-import com.issue.iaserver.nlp.ApplicationRunner;
+import com.issue.iaserver.Main;
 import com.issue.iaserver.nlp.model.ModelNotFoundException;
 import com.issue.iaserver.nlp.util.FileUtil;
 import opennlp.tools.util.Span;
@@ -14,7 +14,7 @@ import java.io.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {ApplicationRunner.class})
+@SpringBootTest(classes = {Main.class})
 class DetectorTest {
 
 
@@ -36,8 +36,18 @@ class DetectorTest {
         Span[] spans = detector.getChunkSpan(s);
         System.out.println(tokens.length);
 
-        for(String str : tokens){
+        for(String str : pos){
             System.out.println(str.toString());
+        }
+    }
+
+    @Test
+    void detectPos() throws IOException {
+        String s = new FileUtil().getTestText();
+        String[] pos = detector.detectPos(s);
+        String[] tokens = detector.detectTokens(s);
+        for(int i = 0; i < pos.length; i++){
+            System.out.println(pos[i] + ":" + tokens[i]);
         }
     }
 }

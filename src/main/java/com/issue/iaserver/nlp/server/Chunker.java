@@ -10,6 +10,14 @@ import org.springframework.stereotype.Service;
 @Service
 public interface Chunker {
 
+    /**
+     * 将文本分块，并将每块的type额外翻译为中文
+     * @param text 英文文本
+     * @return Span数组，用于表示文本的分块
+     * 若无法分块则返回数组长度为0
+     *
+     *
+     */
     SpanInCn[] chunkAsSpanInCn(String text);
 
     SpanInCn[] getAllNPChunks(String text);

@@ -1,6 +1,6 @@
 package com.issue.iaserver.nlp.server;
 
-import com.issue.iaserver.nlp.ApplicationRunner;
+import com.issue.iaserver.Main;
 import com.issue.iaserver.nlp.pojos.SpanInCn;
 import com.issue.iaserver.nlp.util.FileUtil;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {ApplicationRunner.class})
+@SpringBootTest(classes = {Main.class})
 class TextChunkerTest {
 
 
