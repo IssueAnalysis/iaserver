@@ -3,6 +3,11 @@ package com.issue.iaserver.data.mongdb;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 
 import java.util.*;
 
@@ -14,8 +19,9 @@ import java.util.*;
  * Description:
  */
 public class MongoDBConnection {
+    final String pass = "348FKYbcty";
     //链接数据库
-    public MongoClient getConn(){
+    public MongoClient getConn2(){
         MongoClient mongoClient = new MongoClient("106.54.135.213",27017);
 
         //MongoClientURI mongoClientURI = new MongoClientURI("mongodb://localhost:27017");
@@ -24,16 +30,16 @@ public class MongoDBConnection {
     }
 
     //通过用户密码认证链接数据库
-    public MongoClient getConnByCredit(){
-        String name = "test";//用户名
+    public MongoClient getConn(){
+        String name = "ia2";//用户名
 
         String dbName = "iadb";//数据库名
 
-        char [] pwd = "test".toCharArray();//用户密码(将字符串转换成字符数组)
+        char [] pwd = pass.toCharArray();//用户密码(将字符串转换成字符数组)
         List<ServerAddress> addresses = new ArrayList<>();
 
         //服务器地址：链接地址,端口号
-        ServerAddress address = new ServerAddress("localhost",27017);
+        ServerAddress address = new ServerAddress("106.54.135.213",27017);
         addresses.add(address);
         List<MongoCredential> credentials = new ArrayList<>();
 
@@ -44,5 +50,22 @@ public class MongoDBConnection {
         //创建链接对象
         MongoClient mongoClient = new MongoClient(addresses,credentials);
         return mongoClient;
+    }
+
+    public static void main(String [] args){
+        MongoDBConnection mongoDBConnection = new MongoDBConnection();
+        MongoClient mongoClient = mongoDBConnection.getConn();
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("iadb");
+        //获取数据库中的user集合
+        MongoCollection<Document> collection = mongoDatabase.getCollection("4450");
+        //获取user集合中的文档
+        FindIterable<Document> iterable = collection.find();
+        //通过迭代器遍历找到的文档中的信息
+        MongoCursor<Document> iterator = iterable.iterator();
+        int count = 0;
+        while(iterator.hasNext()) {
+            count++;
+            System.out.println(count);
+        }
     }
 }
