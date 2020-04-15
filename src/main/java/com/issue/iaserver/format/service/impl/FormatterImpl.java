@@ -18,4 +18,5 @@ public class FormatterImpl implements Formatter {
     public String format(String description) {
         return description;
     }
+
 }
