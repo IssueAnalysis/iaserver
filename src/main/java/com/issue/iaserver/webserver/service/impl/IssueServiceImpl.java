@@ -30,7 +30,7 @@ public class IssueServiceImpl implements IssueService {
             long csvId = csvdo.getId();
             List<CSVitem> csvItems = operateFileService.getCSVitemByCSVid(csvId);
             for(CSVitem item : csvItems){
-                Issue issue = new Issue(item.getSummary(), item.getDescription(), item.getIntension(), item.getConsideration());
+                Issue issue = new Issue(item);
                 issues.add(issue);
             }
         }

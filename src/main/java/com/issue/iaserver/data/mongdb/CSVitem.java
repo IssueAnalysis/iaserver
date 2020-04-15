@@ -17,6 +17,14 @@ public class CSVitem {
         this.id = id;
     }
 
+    public boolean isCollect() {
+        return isCollect;
+    }
+
+    public void setCollect(boolean collect) {
+        isCollect = collect;
+    }
+
     /*- Summary
         - Issue key
         - Issue id
@@ -37,6 +45,7 @@ public class CSVitem {
         - comment（更新）*/
     private long id;
     private long CSVid;
+    private boolean isCollect;
 
     private String summary;
     private String issue_key;
@@ -88,6 +97,8 @@ public class CSVitem {
                    String description, String comment, String intension, String consideration) {
         this.id = id;
         this.CSVid = CSVid;
+        this.isCollect = false;
+
         this.summary = summary;
         this.issue_key = issue_key;
         this.issue_id = issue_id;
@@ -249,7 +260,7 @@ public class CSVitem {
     public String toString() {
         return "CSVitem[" +
                 "id='" + id + '\'' +
-                "summary='" + summary + '\'' +
+                ", summary='" + summary + '\'' +
                 ", issue_key='" + issue_key + '\'' +
                 ", issue_id='" + issue_id + '\'' +
                 ", parent_id='" + parent_id + '\'' +

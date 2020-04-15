@@ -16,7 +16,7 @@ public class test {
     public void readFile(){
         try {
 
-            BufferedReader br = new BufferedReader(new FileReader("com/issue/iaserver/webserver/src/main/resources/datamini.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\m1885\\Desktop\\simple6.csv"));
 
             CSVReader csvReader = new CSVReader(br);
             List<String[]> csvFile = csvReader.readAll();

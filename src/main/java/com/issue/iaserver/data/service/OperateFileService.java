@@ -2,7 +2,9 @@ package com.issue.iaserver.data.service;
 
 import com.issue.iaserver.data.mongdb.CSVitem;
 import com.issue.iaserver.data.mysql.entity.CSVDO;
+import com.issue.iaserver.data.mysql.entity.CollectDO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,4 +33,7 @@ public interface OperateFileService {
 
     /**修改csv文件的intension，consideration*/
     void updateCSV(long csv_id, CSVitem csVitem);
+
+    /**通过userid，csvid,itemid 获取isse列表*/
+    List<CSVitem> getCSVitemByUeserInCollect(long user_id);
 }

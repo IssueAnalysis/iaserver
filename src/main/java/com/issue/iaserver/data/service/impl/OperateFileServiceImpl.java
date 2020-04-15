@@ -5,8 +5,10 @@ import com.issue.iaserver.data.mongdb.CSVitem;
 import com.issue.iaserver.data.mongdb.DBOperation;
 import com.issue.iaserver.data.mongdb.MongoDBConnection;
 import com.issue.iaserver.data.mysql.dao.CSVDao;
+import com.issue.iaserver.data.mysql.dao.CollectDao;
 import com.issue.iaserver.data.mysql.dao.UserDao;
 import com.issue.iaserver.data.mysql.entity.CSVDO;
+import com.issue.iaserver.data.mysql.entity.CollectDO;
 import com.issue.iaserver.data.mysql.entity.UserDO;
 import com.issue.iaserver.data.service.OperateFileService;
 import com.issue.iaserver.data.util.AliyunOSSClientUtil;
@@ -16,8 +18,8 @@ import com.mongodb.client.MongoDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * 对csv文件进行操作的接口
@@ -33,6 +35,8 @@ public class OperateFileServiceImpl implements OperateFileService {
     public UserDao userDao;
     @Autowired
     public CSVDao csvDao;
+    @Autowired
+    public CollectDao collectDao;
 
     @Override
     public void uploadFile(long user_id, String filePath){
@@ -93,6 +97,30 @@ public class OperateFileServiceImpl implements OperateFileService {
         MongoClient mongoClient = mongoDBConnection.getConn();
         MongoDatabase mongoDatabase = mongoClient.getDatabase("iadb");
         dbOperation.updateData(mongoDatabase, csv_id, csVitem.getId(), csVitem.getIntension(), csVitem.getConsideration());
+    }
+
+    @Override
+    /**通过userid，csvid,itemid 获取issue列表*/
+    public List<CSVitem> getCSVitemByUeserInCollect(long user_id){
+        List<CollectDO> collectDOS = collectDao.getCollectByUserId(user_id);
+
+        DBOperation dbOperation = new DBOperation();
+        MongoDBConnection mongoDBConnection = new MongoDBConnection();
+        MongoClient mongoClient = mongoDBConnection.getConn();
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("iadb");
+
+
+        List<CSVitem> csVitems = new ArrayList<CSVitem>();
+        //双重循环
+        for(CollectDO collectDO : collectDOS){
+            ArrayList<CSVitem> items = dbOperation.selectData(mongoDatabase, collectDO.getCsv_id()+"");
+            for(CSVitem csVitem : items){
+                if(csVitem.getId() == collectDO.getItem_id()){
+                    csVitems.add(csVitem);
+                }
+            }
+        }
+        return csVitems;
     }
 
 

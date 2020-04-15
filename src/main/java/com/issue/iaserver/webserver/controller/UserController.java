@@ -19,13 +19,16 @@ public class UserController {
     UserService userService;
 
     @RequestMapping("/log_in")
-    public boolean login(@RequestParam String username, @RequestParam String password, HttpSession session) {
+    public boolean logIn(@RequestParam String username, @RequestParam String password, HttpSession session) {
 
-        return true;
+        if(userService.login(username, password) != null){
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping("/log_out")
-    public void logout(HttpSession session) {
+    public void logOut(HttpSession session) {
 
     }
 
