@@ -1,8 +1,16 @@
 package com.issue.iaserver.webserver.model;
 
+import com.issue.iaserver.data.mysql.entity.UserDO;
+
 public class User {
-    String user_id;
+    long user_id;
     private String user_name;
+
+    public User(){}
+    public User(UserDO userDO){
+        this.user_id = userDO.getId();
+        this.user_name = userDO.getName();
+    }
 
     public void setUser_name(String user_name) {
         this.user_name = user_name;

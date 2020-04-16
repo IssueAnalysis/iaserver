@@ -39,7 +39,7 @@ public class IssueController {
     public List<Issue> findAdd(@RequestParam String user_id) {
 
         List<Issue> issues = new ArrayList<>();
-        List<CSVDO> csvdos = operateFileService.getCSVByUser(Long.valueOf(user_id));
+        List<CSVDO> csvdos = operateFileService.getCSVByUser(Long.parseLong(user_id));
         for(CSVDO csvdo : csvdos){
             List<CSVitem> csVitems = operateFileService.getCSVitemByCSVid(csvdo.getId());
             for(CSVitem csVitem : csVitems){
@@ -55,7 +55,7 @@ public class IssueController {
 
         List<Issue> issues = new ArrayList<>();
 
-        List<CSVitem> csVitems = operateFileService.getCSVitemByUeserInCollect(Long.valueOf(user_id));
+        List<CSVitem> csVitems = operateFileService.getCSVitemByUeserInCollect(Long.parseLong(user_id));
         for(CSVitem csVitem : csVitems){
             issues.add(new Issue(csVitem));
         }
@@ -64,9 +64,8 @@ public class IssueController {
     }
 
     @PostMapping("/post_file")
-    public String postIssuesByFile(HttpSession session, @RequestParam("csv_file_path") String filePath) {
-        operateFileService.uploadFile((Long) session.getAttribute("user_id"),filePath);
-
+    public String postIssuesByFile(@RequestParam String user_id, @RequestParam("csv_file_path") String filePath) {
+        operateFileService.uploadFile(Long.parseLong(user_id), filePath);
         return "";
     }
 }
