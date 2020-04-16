@@ -8,4 +8,15 @@ public class FormatterImpl implements Formatter {
     public RichDescription getRichDescription(String description) {
         return null;
     }
+
+    @Override
+    public String getBriefDescription(String description) {
+        return description;
+    }
+
+    @Override
+    public String format(String description) {
+        return description;
+    }
+
 }
