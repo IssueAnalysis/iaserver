@@ -7,6 +7,15 @@ public class User {
     private String user_name;
 
     public User(){}
+
+    public long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
+    }
+
     public User(UserDO userDO){
         this.user_id = userDO.getId();
         this.user_name = userDO.getName();

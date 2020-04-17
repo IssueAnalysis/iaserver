@@ -25,6 +25,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    //对明文的密码进行两次md5，md5(md5(明文+固定salt)+固定salt)
+    // 分布式session
     @RequestMapping("/log_in")
     public boolean logIn(@RequestParam(name="username")String username,
                         @RequestParam(name="password")String password,
@@ -59,7 +61,7 @@ public class UserController {
     @RequestMapping("/info")
     public User getUserInfo(HttpSession session) {
         long user_id = (long) session.getAttribute("user_id");
-        User user = new User(userService.getOne(user_id));
+        User user = userService.getOne(user_id);
         return user;
     }
 }

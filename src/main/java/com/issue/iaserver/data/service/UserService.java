@@ -1,6 +1,9 @@
 package com.issue.iaserver.data.service;
 
 import com.issue.iaserver.data.mysql.entity.UserDO;
+import com.issue.iaserver.webserver.model.User;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * TODO ..
@@ -15,5 +18,7 @@ public interface UserService {
     //注册
     long addUser(UserDO userDO);
 
-    UserDO getOne(long id);
+    User getOne(long id);
+
+    String login(String name, String formpassword, String exit);
 }

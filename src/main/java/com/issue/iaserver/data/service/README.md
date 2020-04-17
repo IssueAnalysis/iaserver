@@ -11,3 +11,8 @@
     - ArrayList<Document> getFileContent(String url);
     - ArrayList<Document> getFileByUser(String url, long userid);
     - ArrayList<Document> getFileByText(String url, String content);
+    
+登录的加密
+两次MD
+1. 用户端：PASS=MD5（明文输入+固定salt） 
+2. 服务器端：PASS=MD5(用户输入+随机salt)
