@@ -1,5 +1,8 @@
 package com.issue.iaserver.format.service.impl;
 
+import com.issue.iaserver.format.model.RichDescription;
+import com.issue.iaserver.format.service.Formatter;
+import com.issue.iaserver.format.service.FormatterFactory;
 import com.opencsv.CSVReader;
 
 import java.io.BufferedReader;
@@ -19,7 +22,7 @@ public class test {
     public void readFile(){
         try {
 
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\m1885\\Desktop\\simple6.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/datamini.csv"));
 
             CSVReader csvReader = new CSVReader(br);
             List<String[]> csvFile = csvReader.readAll();
@@ -32,7 +35,6 @@ public class test {
             int summaryIndex = findIndexForTarget(headers, "Summary");
             int descriptionIndex = findIndexForTarget(headers, "Description");
 
-            int count = 0;
             for(int i = 1;i < csvFile.size();i++){
                 String[] data = csvFile.get(i);
                 String summary = "";
@@ -43,9 +45,23 @@ public class test {
                 if(descriptionIndex != -1){
                     description = data[descriptionIndex];
                 }
-                System.out.println(summary);
+//                System.out.println(summary);
+//                System.out.println(description);
+
+
+                Formatter formatter = FormatterFactory.getFormatterService();
+                RichDescription richDescription = formatter.getRichDescription(description);
+                description = formatter.format(description);
+                String[] descriptionLines = description.split("\r");
+                System.out.println(descriptionLines.length);
                 System.out.println(description);
-                System.out.println(++count);
+//                String target = descriptionLines[8];
+//                char targetChar = target.charAt(target.length()-1);
+//                System.out.println((int)targetChar);
+
+
+
+                break;
             }
 
 

@@ -176,6 +176,21 @@
             <version>4.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.mozilla/juniversalchardet -->
+        <!--<dependency>-->
+            <!--<groupId>org.mozilla</groupId>-->
+            <!--<artifactId>juniversalchardet</artifactId>-->
+            <!--<version>1.0.3</version>-->
+        <!--</dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/com.googlecode.juniversalchardet/juniversalchardet -->
+        <dependency>
+            <groupId>com.googlecode.juniversalchardet</groupId>
+            <artifactId>juniversalchardet</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+
+
 
         <!-- https://mvnrepository.com/artifact/org.apache.opennlp/opennlp-tools -->
         <dependency>

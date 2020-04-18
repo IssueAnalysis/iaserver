@@ -24,7 +24,7 @@ public class testLogin {
     @Test
     public void testAdd(){
         //long id, String name, String password, String job
-        UserDO user = new UserDO(0, "E", "123456", "管理员");
-        userService.addUser(user);
+//        UserDO user = new UserDO(0, "E", "123456", "管理员");
+//        userService.addUser(user);
     }
 }
