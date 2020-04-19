@@ -5,19 +5,29 @@ import com.issue.iaserver.format.service.Formatter;
 import com.issue.iaserver.format.service.FormatterFactory;
 import com.opencsv.CSVReader;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class test {
 
     public static void main(String[] args) {
 
-        new test().readFile();
+//        new test().readFile();
+        new test().tryMethods();
     }
 
+    public void tryMethods(){
+//        String s = "abbbcbbbab";
+//        System.out.println(s.replaceAll("^ab", "d"));
+        try {
+            String prefix = String.valueOf(System.currentTimeMillis());
+
+            File f = File.createTempFile(prefix, ".csv");
+            System.out.println(f.getPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void readFile(){
         try {
@@ -53,8 +63,9 @@ public class test {
                 RichDescription richDescription = formatter.getRichDescription(description);
                 description = formatter.format(description);
                 String[] descriptionLines = description.split("\r");
-                System.out.println(descriptionLines.length);
-                System.out.println(description);
+                String briefDescription = formatter.getBriefDescription(description);
+                System.out.println(briefDescription);
+//                System.out.println(description);
 //                String target = descriptionLines[8];
 //                char targetChar = target.charAt(target.length()-1);
 //                System.out.println((int)targetChar);
