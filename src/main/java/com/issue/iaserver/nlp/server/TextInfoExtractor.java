@@ -3,6 +3,9 @@ package com.issue.iaserver.nlp.server;
 import com.issue.iaserver.nlp.demo.Detector;
 import com.issue.iaserver.nlp.demo.Lemmatizer;
 import com.issue.iaserver.nlp.demo.NameFinder;
+import com.issue.iaserver.nlp.focus.FocusController;
+import com.issue.iaserver.nlp.focus.Focus;
+import com.issue.iaserver.nlp.focus.Keyword;
 import com.issue.iaserver.nlp.pojos.PosTagDic;
 import opennlp.tools.util.Span;
 import org.slf4j.Logger;
@@ -20,11 +23,17 @@ public class TextInfoExtractor implements InfoExtractor{
     private Detector detector;
     private Lemmatizer lemmatizer;
     private PosTagDic posTagDic;
+    private FocusController focusController;
 
     private final Logger logger = LoggerFactory.getLogger(TextInfoExtractor.class);
 
     @Autowired
-    public TextInfoExtractor(PosTagDic posTagDic, Lemmatizer lemmatizer, Detector detector, NameFinder nameFinder) {
+    public TextInfoExtractor(FocusController focusController,
+                             PosTagDic posTagDic,
+                             Lemmatizer lemmatizer,
+                             Detector detector,
+                             NameFinder nameFinder) {
+        this.focusController = focusController;
         this.detector = detector;
         this.nameFinder = nameFinder;
         this.lemmatizer = lemmatizer;
@@ -65,6 +74,16 @@ public class TextInfoExtractor implements InfoExtractor{
             }
         }
         return keywordList.toArray(new String[keywordList.size()]);
+    }
+
+
+    @Override
+    public List<Focus> findIssueFocus(List<Keyword> keywords) {
+        List<Focus> focusList = focusController.getAllFocus();
+        
+
+        return null;
+
     }
 
     private void markSpansToEmpty(String[] token, Span[] spans){
