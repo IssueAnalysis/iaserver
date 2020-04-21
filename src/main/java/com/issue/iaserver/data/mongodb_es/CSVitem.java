@@ -1,12 +1,17 @@
-package com.issue.iaserver.data.mongdb;
+package com.issue.iaserver.data.mongodb_es;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 /**
- * csv实体类
+ * csv item实体类 ，也就是issue实体类，同时用作es的搜索类
  * User: 钟镇鸿
  * Date: 2020/4/6
  * Time: 14:45
  * Description:
  */
+//@Document(indexName="elasticsearch",type="csv_item",indexStoreType="fs",shards=5,replicas=1,refreshInterval="3")
 public class CSVitem {
 
     public long getId() {
@@ -43,10 +48,12 @@ public class CSVitem {
         - intension(更新)
         - consideration（更新）
         - comment（更新）*/
+   // @Id
     private long id;
     private long CSVid;
     private boolean isCollect;
 
+   // @Field(analyzer="ik",searchAnalyzer="ik")
     private String summary;
     private String issue_key;
     private String issue_id;
@@ -61,7 +68,9 @@ public class CSVitem {
     private String project_url;
     private String priority;
     private String resolution;
+   // @Field(analyzer="ik",searchAnalyzer="ik")
     private String description;
+   // @Field(analyzer="ik",searchAnalyzer="ik")
     private String comment;
 
     private String intension;

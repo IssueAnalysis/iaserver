@@ -1,14 +1,14 @@
 package com.issue.iaserver.webserver.controller;
 
-import com.issue.iaserver.data.mongdb.CSVitem;
+import com.issue.iaserver.data.mongodb_es.CSVitem;
 import com.issue.iaserver.data.mysql.entity.CSVDO;
 import com.issue.iaserver.data.service.OperateFileService;
 import com.issue.iaserver.webserver.model.Issue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +17,8 @@ import java.util.List;
 @RequestMapping("/api/issue")
 public class IssueController {
 
+    /*@Autowired
+    public SearchService searchService;*/
     @Autowired
     public OperateFileService operateFileService;
 
@@ -68,4 +70,9 @@ public class IssueController {
         operateFileService.uploadFile(Long.parseLong(user_id), filePath);
         return "";
     }
+
+    /*@PostMapping("list")
+    public @ResponseBody Page<CSVitem> list(Integer pageNumber, Integer pageSize, String searchContent) {
+        return searchService.searchIssuePage(pageNumber, pageSize, searchContent);
+    }*/
 }

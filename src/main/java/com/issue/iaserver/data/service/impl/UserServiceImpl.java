@@ -2,18 +2,15 @@ package com.issue.iaserver.data.service.impl;
 
 import com.issue.iaserver.data.mysql.dao.UserDao;
 import com.issue.iaserver.data.mysql.entity.UserDO;
-import com.issue.iaserver.data.redis.UserKey;
 import com.issue.iaserver.data.service.RedisService;
 import com.issue.iaserver.data.service.UserService;
 import com.issue.iaserver.data.util.MD5Util;
-import com.issue.iaserver.data.util.UUIDUtil;
 import com.issue.iaserver.webserver.model.User;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /**
@@ -34,12 +31,13 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public UserDO login(String name, String password) {
+    public UserDO login(String name, String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         //System.out.println(userDao == null);
         ArrayList<UserDO> userDOArrayList = userDao.getUserByName(name);
         if(userDOArrayList.size() == 1){
             UserDO userDO = userDOArrayList.get(0);
-            if(userDO.getPassword().equals(password)) {
+            String psdInDB = userDO.getPassword();
+            if(MD5Util.validPassword(password, psdInDB)){ // 该用户存在
                 return userDO;
             }
         }
@@ -48,13 +46,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public long addUser(UserDO userDO) {
-        String name = userDO.getName();
-        ArrayList<UserDO> userDOS = userDao.getUserByName(name);
-        if(userDOS.size() == 0){
-            String password = MD5Util.inputPassToDbPass(userDO.getPassword(), userDO.getSalt());
-            userDO.setPassword(password);
-            userDao.save(userDO);
-            return userDO.getId();
+        String encryptedPwd = null;
+        try {
+            encryptedPwd = MD5Util.getEncryptedPwd(userDO.getPassword());
+            String name = userDO.getName();
+            ArrayList<UserDO> userDOS = userDao.getUserByName(name);
+            if(userDOS.size() == 0){
+                userDO.setPassword(encryptedPwd);
+                userDao.save(userDO);
+                return userDO.getId();
+            }
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         return -1;
     }
@@ -66,7 +73,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public UserDO getById(long id) {
+    /*public UserDO getById(long id) {
         //取缓存
         UserDO user = redisService.get(UserKey.getById, ""+id, UserDO.class);
         if(user != null) {
@@ -136,5 +143,5 @@ public class UserServiceImpl implements UserService {
         cookie.setMaxAge(UserKey.token.expireSeconds());
         cookie.setPath("/");
         response.addCookie(cookie);
-    }
+    }*/
 }

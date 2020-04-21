@@ -1,7 +1,6 @@
 package com.issue.iaserver.webserver.model;
 
-import com.issue.iaserver.data.mongdb.CSVitem;
-import com.issue.iaserver.data.mysql.entity.CSVDO;
+import com.issue.iaserver.data.mongodb_es.CSVitem;
 
 public class Issue {
 
