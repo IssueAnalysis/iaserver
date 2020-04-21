@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class TextChunker implements Chunker {
 
-    private Logger logger = LoggerFactory.getLogger(TextChunker.class);
     private final Detector detector;
     private final ChunkTagDic chunkTagDic;
 
@@ -22,6 +21,9 @@ public class TextChunker implements Chunker {
         this.detector = detector;
         this.chunkTagDic = chunkTagDic;
     }
+
+
+    private Logger logger = LoggerFactory.getLogger(TextChunker.class);
 
 
     @Override
