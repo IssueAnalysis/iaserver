@@ -14,7 +14,7 @@ import java.util.Map;
  * Time: 21:13
  * Description:
  */
-@Configuration
+//@Configuration
 public class MQConfig {
     public static final String ISSUE_QUEUE = "issue.queue";
     public static final String QUEUE = "queue";

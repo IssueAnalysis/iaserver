@@ -26,11 +26,10 @@ public class UserController {
     UserService userService;
 
     //对明文的密码进行两次md5，md5(md5(明文+固定salt)+固定salt)
-    // 分布式session
     @RequestMapping("/log_in")
     public boolean logIn(@RequestParam(name="username")String username,
                         @RequestParam(name="password")String password,
-                        HttpSession session) throws BusinessException {
+                        HttpSession session) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             throw new BusinessException(ErrorType.PARAMETER_VALIDATION_ERROR, "用户名密码不能为空");
         }

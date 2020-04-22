@@ -1,11 +1,12 @@
 package com.issue.iaserver.webserver.controller;
 
-import com.issue.iaserver.data.mongdb.CSVitem;
+import com.issue.iaserver.data.mongodb_es.CSVitem;
 import com.issue.iaserver.data.mysql.entity.CSVDO;
 import com.issue.iaserver.data.service.OperateFileService;
 import com.issue.iaserver.webserver.model.Issue;
 import com.issue.iaserver.webserver.service.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +27,8 @@ public class IssueController {
 
     private final IssueService issueService;
 
+    /*@Autowired
+    public SearchService searchService;*/
     @Autowired
     public IssueController(OperateFileService operateFileService, IssueService issueService) {
         this.operateFileService = operateFileService;
@@ -77,4 +80,9 @@ public class IssueController {
         System.out.println("upload file succeeded!!!");
         return true;
     }
+
+    /*@PostMapping("list")
+    public @ResponseBody Page<CSVitem> list(Integer pageNumber, Integer pageSize, String searchContent) {
+        return searchService.searchIssuePage(pageNumber, pageSize, searchContent);
+    }*/
 }

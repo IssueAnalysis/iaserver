@@ -42,12 +42,6 @@
             <version>2.2.5.RELEASE</version>
         </dependency>
 
-        <!-- Spring Boot Mail 依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-
         <!-- spring boot com.issue.iaserver.data jpa -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -164,6 +158,11 @@
             <version>3.0.9</version>
         </dependency>
 
+        <!--es-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.assertj</groupId>

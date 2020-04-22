@@ -1,4 +1,4 @@
-package com.issue.iaserver.data.mongdb;
+package com.issue.iaserver.data.mongodb_es;
 
 import com.mongodb.*;
 import com.mongodb.client.*;

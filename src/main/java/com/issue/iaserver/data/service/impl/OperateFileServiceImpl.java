@@ -1,9 +1,9 @@
 package com.issue.iaserver.data.service.impl;
 
 import com.aliyun.oss.OSSClient;
-import com.issue.iaserver.data.mongdb.CSVitem;
-import com.issue.iaserver.data.mongdb.DBOperation;
-import com.issue.iaserver.data.mongdb.MongoDBConnection;
+import com.issue.iaserver.data.mongodb_es.CSVitem;
+import com.issue.iaserver.data.mongodb_es.DBOperation;
+import com.issue.iaserver.data.mongodb_es.MongoDBConnection;
 import com.issue.iaserver.data.mysql.dao.CSVDao;
 import com.issue.iaserver.data.mysql.dao.CollectDao;
 import com.issue.iaserver.data.mysql.dao.UserDao;
@@ -18,7 +18,6 @@ import com.mongodb.client.MongoDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**

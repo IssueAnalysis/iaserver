@@ -18,26 +18,21 @@ public class UserDO implements Serializable {
     private String name;
 
     @Basic
-    @Column(name = "password")
+    @Column(name = "password", length=255)
     private String password;
 
     @Basic
     @Column(name = "job")
     private String job;
 
-    @Basic
-    @Column(name = "salt")
-    private String salt;
-
     public UserDO() {
     }
 
-    public UserDO(long id, String name, String password, String job, String salt) {
+    public UserDO(long id, String name, String password, String job) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.job = job;
-        this.salt = salt;
     }
 
     public long getId() {
@@ -70,14 +65,6 @@ public class UserDO implements Serializable {
 
     public void setJob(String job) {
         this.job = job;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
 }
