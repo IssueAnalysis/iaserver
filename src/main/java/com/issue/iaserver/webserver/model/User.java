@@ -3,7 +3,7 @@ package com.issue.iaserver.webserver.model;
 import com.issue.iaserver.data.mysql.entity.UserDO;
 
 public class User {
-    long user_id;
+    private long user_id;
     private String user_name;
 
     public User(){}

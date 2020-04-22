@@ -1,7 +1,7 @@
 package com.issue.iaserver.webserver.model;
 
-import com.issue.iaserver.data.mongdb.CSVitem;
-import com.issue.iaserver.data.mysql.entity.CSVDO;
+import com.issue.iaserver.data.mongodb_es.CSVitem;
+import com.issue.iaserver.format.model.RichDescription;
 
 public class Issue {
 
@@ -22,6 +22,8 @@ public class Issue {
     private String description;
     private String intention;
     private String consideration;
+    private String briefDescription;
+    private RichDescription richDescription;
 
     public Issue(CSVitem csVitem){
         this.issue_key = csVitem.getIssue_key();
@@ -179,5 +181,22 @@ public class Issue {
 
     public void setResolution(String resolution) {
         this.resolution = resolution;
+    }
+
+
+    public String getBriefDescription() {
+        return briefDescription;
+    }
+
+    public void setBriefDescription(String briefDescription) {
+        this.briefDescription = briefDescription;
+    }
+
+    public RichDescription getRichDescription() {
+        return richDescription;
+    }
+
+    public void setRichDescription(RichDescription richDescription) {
+        this.richDescription = richDescription;
     }
 }

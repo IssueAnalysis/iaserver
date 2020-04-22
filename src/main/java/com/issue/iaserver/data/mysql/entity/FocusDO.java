@@ -24,15 +24,6 @@ public class FocusDO implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @Basic
-    @Column(name = "csv_id")
-    private long csv_id;
-
-    @Basic
-    @Column(name = "item_id")
-    private long item_id;
-
     @Basic
     @Column(name = "focus_description")
     private String focusDescription;    // 关注点描述
@@ -45,10 +36,9 @@ public class FocusDO implements Serializable {
     @Column(name = "focus_type")
     private String focusType;           // 关注点类型
 
-    public FocusDO(long id, long csv_id, long item_id, String focusDescription, List<Keyword> keywordList, String focusType) {
+    public FocusDO(){}
+    public FocusDO(long id, String focusDescription, List<Keyword> keywordList, String focusType) {
         this.id = id;
-        this.csv_id = csv_id;
-        this.item_id = item_id;
         this.focusDescription = focusDescription;
         this.keywordJson = JSON.toJSONString(keywordList); //用json存
         this.focusType = focusType;
@@ -109,21 +99,5 @@ public class FocusDO implements Serializable {
 
     public void setFocusType(String focusType) {
         this.focusType = focusType;
-    }
-
-    public long getCsv_id() {
-        return csv_id;
-    }
-
-    public void setCsv_id(long csv_id) {
-        this.csv_id = csv_id;
-    }
-
-    public long getItem_id() {
-        return item_id;
-    }
-
-    public void setItem_id(long item_id) {
-        this.item_id = item_id;
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * Time: 21:12
  * Description:
  */
-@Service
+//@Service
 public class MQSender {
 
     private static Logger log = LoggerFactory.getLogger(MQSender.class);

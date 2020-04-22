@@ -1,7 +1,7 @@
 package com.issue.iaserver.data;
 
 import com.issue.iaserver.Main;
-import com.issue.iaserver.data.mongdb.CSVitem;
+import com.issue.iaserver.data.mongodb_es.CSVitem;
 import com.issue.iaserver.data.mysql.dao.UserDao;
 import com.issue.iaserver.data.mysql.entity.UserDO;
 import com.issue.iaserver.data.service.OperateFileService;
@@ -48,19 +48,16 @@ public class testOperateFileService {
 
     @Test
     public void test4(){
-        assertEquals(2,o.getCSVByUser((long)1).size());
+        assertEquals(3,o.getCSVByUser((long)1).size());
     }
 
     @Test
     public void test5(){
 
-        CSVitem csVitem = o.getCSVitemByCSVid((long)4434).get(0);
-        csVitem.setConsideration("ok");
-        csVitem.setIntension("log");
-        o.updateCSV((long)4434, csVitem);
-
-        CSVitem csVitem2 = o.getCSVitemByCSVid((long)4434).get(0);
-        assertEquals("ok",csVitem2.getConsideration());
-        assertEquals("log",csVitem2.getIntension());
+        CSVitem csVitem2 = o.getCSVitemByCSVid((long)4450).get(0);
+        System.out.println(csVitem2.getDescription());
+        System.out.println(csVitem2.getDescription().indexOf('\n'));
+        assertEquals("",csVitem2.getConsideration());
+        assertEquals("",csVitem2.getIntension());
     }
 }

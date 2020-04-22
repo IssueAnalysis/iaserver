@@ -5,18 +5,25 @@ import com.issue.iaserver.format.service.Formatter;
 import com.issue.iaserver.format.service.FormatterFactory;
 import com.opencsv.CSVReader;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class test {
 
     public static void main(String[] args) {
 
         new test().readFile();
+//        new test().tryMethods();
     }
+
+    public void tryMethods(){
+        String s = "  \n \n\t\t\t\na\n\nsdi\t\t\nbc";
+//        System.out.println(s.trim());
+
+
+    }
+
 
 
     public void readFile(){
@@ -50,14 +57,10 @@ public class test {
 
 
                 Formatter formatter = FormatterFactory.getFormatterService();
-                RichDescription richDescription = formatter.getRichDescription(description);
                 description = formatter.format(description);
-                String[] descriptionLines = description.split("\r");
-                System.out.println(descriptionLines.length);
-                System.out.println(description);
-//                String target = descriptionLines[8];
-//                char targetChar = target.charAt(target.length()-1);
-//                System.out.println((int)targetChar);
+
+                RichDescription richDescription = formatter.getRichDescription(description);
+                System.out.println(richDescription.getRichText());
 
 
 

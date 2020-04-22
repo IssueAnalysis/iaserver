@@ -1,7 +1,6 @@
 package com.issue.iaserver.data.queue.rabbitmq;
 
-import com.issue.iaserver.data.mongdb.CSVitem;
-import com.issue.iaserver.data.mysql.entity.CSVDO;
+import com.issue.iaserver.data.mongodb_es.CSVitem;
 import com.issue.iaserver.data.mysql.entity.UserDO;
 import com.issue.iaserver.data.service.OperateFileService;
 import com.issue.iaserver.data.service.RedisService;
@@ -10,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -21,7 +19,7 @@ import java.util.List;
  * Time: 21:13
  * Description:
  */
-@Service
+//@Service
 public class MQReceiver {
     private static Logger log = LoggerFactory.getLogger(MQReceiver.class);
 
