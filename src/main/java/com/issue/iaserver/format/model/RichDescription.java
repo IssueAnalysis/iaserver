@@ -6,8 +6,10 @@ import java.util.List;
 
 public class RichDescription {
     private  List<DescArea> descAreas;
+    private String richText;
 
     public RichDescription() {
+        richText = "";
         descAreas = new ArrayList<>();
     }
 
@@ -25,5 +27,17 @@ public class RichDescription {
 
     public void addDescArea(DescArea descArea){
         this.descAreas.add(descArea);
+    }
+
+    public String getRichText() {
+        return richText;
+    }
+
+    public void setRichText(String richText) {
+        this.richText = richText;
+    }
+
+    public void appendRichText(String richText){
+        this.richText += richText;
     }
 }

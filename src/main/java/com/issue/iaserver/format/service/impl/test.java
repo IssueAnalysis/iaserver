@@ -7,27 +7,24 @@ import com.opencsv.CSVReader;
 
 import java.io.*;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class test {
 
     public static void main(String[] args) {
 
-//        new test().readFile();
-        new test().tryMethods();
+        new test().readFile();
+//        new test().tryMethods();
     }
 
     public void tryMethods(){
-//        String s = "abbbcbbbab";
-//        System.out.println(s.replaceAll("^ab", "d"));
-        try {
-            String prefix = String.valueOf(System.currentTimeMillis());
+        String s = "  \n \n\t\t\t\na\n\nsdi\t\t\nbc";
+//        System.out.println(s.trim());
 
-            File f = File.createTempFile(prefix, ".csv");
-            System.out.println(f.getPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
+
+
 
     public void readFile(){
         try {
@@ -60,15 +57,10 @@ public class test {
 
 
                 Formatter formatter = FormatterFactory.getFormatterService();
-                RichDescription richDescription = formatter.getRichDescription(description);
                 description = formatter.format(description);
-                String[] descriptionLines = description.split("\r");
-                String briefDescription = formatter.getBriefDescription(description);
-                System.out.println(briefDescription);
-//                System.out.println(description);
-//                String target = descriptionLines[8];
-//                char targetChar = target.charAt(target.length()-1);
-//                System.out.println((int)targetChar);
+
+                RichDescription richDescription = formatter.getRichDescription(description);
+                System.out.println(richDescription.getRichText());
 
 
 
