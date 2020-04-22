@@ -3,9 +3,9 @@ package com.issue.iaserver.nlp.focus;
 //  关键词
 public class Keyword implements Comparable<Keyword>{
 
-    String keyword;  // 关键词
-
-    int vote;  // 用户投票数
+    private String keyword;  // 关键词
+    private String posTag;  // 关键词词性
+    private int vote;  // 用户投票数
 
     public Keyword(String keyword, int vote){
         this.keyword = keyword;
@@ -25,6 +25,14 @@ public class Keyword implements Comparable<Keyword>{
 
     public void setVote(int vote) {
         this.vote = vote;
+    }
+
+    public String getPosTag() {
+        return posTag;
+    }
+
+    public void setPosTag(String posTag) {
+        this.posTag = posTag;
     }
 
     @Override

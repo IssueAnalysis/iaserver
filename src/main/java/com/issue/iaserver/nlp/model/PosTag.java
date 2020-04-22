@@ -58,4 +58,6 @@ public enum PosTag {
     public String getDescriptionInCn() {
         return descriptionInCn;
     }
+
+
 }
