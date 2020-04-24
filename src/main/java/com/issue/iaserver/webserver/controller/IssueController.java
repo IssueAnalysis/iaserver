@@ -1,21 +1,18 @@
 package com.issue.iaserver.webserver.controller;
 
-import com.issue.iaserver.data.mongodb_es.CSVitem;
-import com.issue.iaserver.data.mysql.entity.CSVDO;
 import com.issue.iaserver.data.service.OperateFileService;
 import com.issue.iaserver.webserver.model.Issue;
 import com.issue.iaserver.webserver.service.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 

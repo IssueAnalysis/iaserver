@@ -7,6 +7,7 @@ import com.opencsv.CSVReader;
 
 import java.io.*;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class test {
@@ -18,9 +19,18 @@ public class test {
     }
 
     public void tryMethods(){
-        String s = "  \n \n\t\t\t\na\n\nsdi\t\t\nbc";
+        String s = "When DFSRouter fails to fetch or parse JMX output from NameNode, it prints only the error message. Therefore we had to modify the source code to print the stacktrace of the exception to find the root cause.";//"{code:} pubacbd{}";
 //        System.out.println(s.trim());
-
+//        String regex = "(when|during|after).*? \\w+[.,;:]";
+//        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+//        Matcher m = pattern.matcher(s);
+//
+//        while (m.find()){
+//            System.out.println("Pattern found from " + m.start() +
+//                    " to " + (m.end()-1));
+//            System.out.println(s.substring(m.start(), m.end()-1));
+//        }
+        doDescription(s);
 
     }
 
@@ -56,12 +66,7 @@ public class test {
 //                System.out.println(description);
 
 
-                Formatter formatter = FormatterFactory.getFormatterService();
-                description = formatter.format(description);
-
-                RichDescription richDescription = formatter.getRichDescription(description);
-                System.out.println(richDescription.getRichText());
-
+                doDescription(description);
 
 
                 break;
@@ -85,5 +90,15 @@ public class test {
         return -1;
     }
 
+
+    private void doDescription(String description){
+        Formatter formatter = FormatterFactory.getFormatterService();
+        description = formatter.format(description);
+
+        RichDescription richDescription = formatter.getRichDescription(description);
+
+        System.out.println(richDescription.getRichText());
+
+    }
 
 }

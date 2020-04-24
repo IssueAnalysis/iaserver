@@ -66,6 +66,8 @@ public class IssueServiceImpl implements IssueService {
         issue.setDescription(description);
         issue.setBriefDescription(formatter.getBriefDescription(description));
         issue.setRichDescription(formatter.getRichDescription(description));
+        //TODO comment it!!
+        issue.setDescription(issue.getRichDescription().getRichText());
         return issue;
     }
 }
