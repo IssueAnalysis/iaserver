@@ -1,6 +1,6 @@
 package com.issue.iaserver.nlp.server;
 
-import com.issue.iaserver.nlp.demo.Detector;
+import com.issue.iaserver.nlp.nlpUtil.Detector;
 import com.issue.iaserver.nlp.model.ChunkTag;
 import com.issue.iaserver.nlp.pojos.ChunkTagDic;
 import com.issue.iaserver.nlp.pojos.SpanInCn;

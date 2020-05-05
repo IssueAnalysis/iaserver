@@ -1,11 +1,8 @@
 package com.issue.iaserver.data.mysql.entity;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.issue.iaserver.nlp.focus.Focus;
-import com.issue.iaserver.nlp.focus.Keyword;
+import com.issue.iaserver.nlp.keyword.Keyword;
 
 import javax.persistence.*;
 import java.io.Serializable;

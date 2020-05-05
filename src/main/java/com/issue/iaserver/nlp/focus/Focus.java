@@ -1,6 +1,7 @@
 package com.issue.iaserver.nlp.focus;
 
 import com.issue.iaserver.data.mysql.entity.FocusDO;
+import com.issue.iaserver.nlp.keyword.Keyword;
 
 import java.util.List;
 

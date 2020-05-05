@@ -1,7 +1,7 @@
 package com.issue.iaserver.nlp.server;
 
 import com.issue.iaserver.nlp.focus.Focus;
-import com.issue.iaserver.nlp.focus.Keyword;
+import com.issue.iaserver.nlp.keyword.Keyword;
 
 import java.util.List;
 
@@ -10,9 +10,10 @@ public interface InfoExtractor {
     /**
      * 获得一个Issue所有的关键词
      * @param text Issue文本
+     * @param textIdentify text标识
      * @return Issue的关键词
      */
-    String[] findKeyWords(String text);
+    String[] findKeyWords(String textIdentify,String text);
 
     /**
      * 根据一个issue的关键词，获得Issue的所有关注点

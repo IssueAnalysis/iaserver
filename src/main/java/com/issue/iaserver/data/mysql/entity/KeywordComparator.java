@@ -1,6 +1,6 @@
 package com.issue.iaserver.data.mysql.entity;
 
-import com.issue.iaserver.nlp.focus.Keyword;
+import com.issue.iaserver.nlp.keyword.Keyword;
 
 import java.util.Comparator;
 

@@ -211,6 +211,24 @@
             <version>1.9.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>edu.cmu.lti</groupId>
+            <artifactId>ws4j</artifactId>
+            <type>jar</type>
+            <version>1.0.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/ws4j-1.0.1.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.cmu.lti</groupId>
+            <artifactId>jawjaw</artifactId>
+            <type>jar</type>
+            <version>1.0.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/jawjaw-1.0.2.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
     <build>
