@@ -1,4 +1,4 @@
-package com.issue.iaserver.format.service.impl;
+package com.issue.iaserver.format.algorithm;
 
 import com.issue.iaserver.format.model.RichDescription;
 import com.issue.iaserver.format.service.Formatter;
@@ -21,15 +21,15 @@ public class test {
     public void tryMethods(){
         String s = "When DFSRouter fails to fetch or parse JMX output from NameNode, it prints only the error message. Therefore we had to modify the source code to print the stacktrace of the exception to find the root cause.";//"{code:} pubacbd{}";
 //        System.out.println(s.trim());
-//        String regex = "(when|during|after).*? \\w+[.,;:]";
-//        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-//        Matcher m = pattern.matcher(s);
-//
-//        while (m.find()){
-//            System.out.println("Pattern found from " + m.start() +
-//                    " to " + (m.end()-1));
-//            System.out.println(s.substring(m.start(), m.end()-1));
-//        }
+        String regex = "\\w+";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher m = pattern.matcher(s);
+
+        while (m.find()){
+            System.out.println("Pattern found from " + m.start() +
+                    " to " + (m.end()-1));
+            System.out.println(s.substring(m.start(), m.end()-1));
+        }
         doDescription(s);
 
     }

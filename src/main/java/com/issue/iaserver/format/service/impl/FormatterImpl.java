@@ -1,15 +1,9 @@
 package com.issue.iaserver.format.service.impl;
 
-import com.issue.iaserver.format.model.DescArea;
+import com.issue.iaserver.format.algorithm.RichDescriptionHelper;
 import com.issue.iaserver.format.model.RichDescription;
 import com.issue.iaserver.format.service.Formatter;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Service
 public class FormatterImpl implements Formatter {

@@ -1,8 +1,12 @@
-package com.issue.iaserver.format.service.impl;
+package com.issue.iaserver.format.algorithm;
 
 import com.issue.iaserver.format.model.DescArea;
 import com.issue.iaserver.format.model.RichDescription;
+import com.issue.iaserver.format.tools.PartOfSpeechDetector;
+import com.issue.iaserver.format.tools.SentenceDetector;
+import opennlp.tools.util.Span;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +32,8 @@ public class RichDescriptionHelper {
     private static final String SOLUTION_START_TAG = "<solution>";
     private static final String SOLUTION_END_TAG = "</solution>";
 
+    private SentenceDetector sentenceDetector;
+    private PartOfSpeechDetector partOfSpeechDetector;
 
     public RichDescriptionHelper(String description) {
         this.richDescription = new RichDescription();
@@ -65,62 +71,77 @@ public class RichDescriptionHelper {
     }
 
     private void findScenario() {
-        List<DescArea> textAreas = getAreasOfType("text");
 
-        for (DescArea descArea : textAreas) {
-            String content = descArea.getContent();
-            String regex = "(when|during|after).*? \\w+[.,;:]";
-            Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-            Matcher m = pattern.matcher(content);
-            if (m.find()) {
-                scenarioFound = true;
-                content = insertTagToText(content, m.start(), m.end() - 1, SCENARIO_START_TAG, SCENARIO_END_TAG);
-                descArea.setContent(content);
-            }
-        }
+        wrapText("(when|during|after).*? \\w+(?=[.,;:])", "scenario");
         if(!scenarioFound){
-            for (DescArea descArea : textAreas) {
-                String content = descArea.getContent();
-                String regex = "if.*? \\w+[.,;:]";
-                Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-                Matcher m = pattern.matcher(content);
-                if (m.find()) {
-                    scenarioFound = true;
-                    content = insertTagToText(content, m.start(), m.end() - 1, SCENARIO_START_TAG, SCENARIO_END_TAG);
-                    descArea.setContent(content);
-                }
-            }
+            wrapText("if.*? \\w+(?=[.,;:])", "scenario");
         }
 
     }
 
     private void findSolution(){
-        List<DescArea> textAreas = getAreasOfType("text");
 
-        wrapTextForSolution(textAreas, "(modify|suggest|maybe|should|we can|it's better to).*? \\w+[.,;:]");
+        wrapText("(modify|suggest|maybe|should|we can|it's better to).*? \\w+(?=[.,;:])", "solution");
 
         if(!solutionFound){
-            wrapTextForSolution(textAreas, "need to.*? \\w+[.,;:]");
+            wrapText("need to.*? \\w+(?=[.,;:])", "solution");
         }
 
         if(!scenarioFound && !solutionFound){
-            wrapTextForSolution(textAreas, "if.*? \\w+[.,;:]");
+            wrapText("if.*? \\w+(?=[.,;:])", "solution");
+        }
+
+        if(!solutionFound){
+            markImperativeSentenceAsSolution();
         }
 
     }
 
-    private void wrapTextForSolution(List<DescArea> textAreas, String regex){
+    private void markImperativeSentenceAsSolution(){
+        try {
+            sentenceDetector = new SentenceDetector();
+            partOfSpeechDetector = new PartOfSpeechDetector();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        List<DescArea> textAreas = getAreasOfType("text");
+        for(DescArea descArea : textAreas){
+            String content = descArea.getContent();
+            Span[] spans = sentenceDetector.detect(content);
+            for(Span span : spans){
+                String sentence = content.substring(span.getStart(), span.getEnd());
+                boolean isImperative = partOfSpeechDetector.isFirstWordVerb(sentence);
+                if(isImperative){
+                    //TODO
+                }
+            }
+
+        }
+
+    }
+
+    private void wrapText(String regex, String type){
+        List<DescArea> textAreas = getAreasOfType("text");
+
         for (DescArea descArea : textAreas) {
             String content = descArea.getContent();
             Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
             Matcher m = pattern.matcher(content);
             if (m.find()) {
-                solutionFound = true;
-                content = insertTagToText(content, m.start(), m.end() - 1, SOLUTION_START_TAG, SOLUTION_END_TAG);
+                if(type.equals("scenario")){
+                    scenarioFound = true;
+                    content = insertTagToText(content, m.start(), m.end(), SCENARIO_START_TAG, SCENARIO_END_TAG);
+                }
+                else if(type.equals("solution")){
+                    solutionFound = true;
+                    content = insertTagToText(content, m.start(), m.end(), SOLUTION_START_TAG, SOLUTION_END_TAG);
+                }
                 descArea.setContent(content);
             }
         }
     }
+
 
     private String trimText(String s) {      //去掉多余的行
         int i = 0, j = 0, len = s.length();
