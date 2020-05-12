@@ -2,12 +2,10 @@ package com.issue.iaserver.webserver.controller;
 
 import com.issue.iaserver.data.service.OperateFileService;
 import com.issue.iaserver.webserver.model.Issue;
+import com.issue.iaserver.webserver.model.IssueBrief;
 import com.issue.iaserver.webserver.service.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -34,22 +32,27 @@ public class IssueController {
 
 
     @RequestMapping("/find_all")
-    public List<Issue> findAll() {
+    public List<IssueBrief> findAll() {
         return issueService.getAllIssues();
     }
 
     @RequestMapping("/find_add")
-    public List<Issue> findAdd(HttpSession session) {
+    public List<IssueBrief> findAdd(HttpSession session) {
         long user_id = (long)session.getAttribute("user_id");
         return issueService.getAllAddedIssues(user_id);
 
     }
 
     @RequestMapping("/find_collect")
-    public List<Issue> findCollect(HttpSession session) {
+    public List<IssueBrief> findCollect(HttpSession session) {
         long user_id = (long)session.getAttribute("user_id");
         return issueService.getAllCollectedIssues(user_id);
 
+    }
+
+    @GetMapping("/detail")
+    public Issue getDetailedIssue(@RequestParam("issue_id") long issue_id, @RequestParam("csv_id") long csv_id){
+        return issueService.getIssueDetail(issue_id, csv_id);
     }
 
     @PostMapping("/post_file")
