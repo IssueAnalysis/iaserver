@@ -51,8 +51,8 @@ public class IssueController {
     }
 
     @GetMapping("/detail")
-    public Issue getDetailedIssue(@RequestParam("issue_id") long issue_id, @RequestParam("csv_id") long csv_id){
-        return issueService.getIssueDetail(issue_id, csv_id);
+    public Issue getDetailedIssue(@RequestParam("id") long id, @RequestParam("csv_id") long csv_id){
+        return issueService.getIssueDetail(id, csv_id);
     }
 
     @PostMapping("/post_file")

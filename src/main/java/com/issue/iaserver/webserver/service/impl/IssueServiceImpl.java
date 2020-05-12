@@ -58,11 +58,11 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Issue getIssueDetail(long issue_id, long csv_id) {
+    public Issue getIssueDetail(long id, long csv_id) {
         List<CSVitem> csvItems = operateFileService.getCSVitemByCSVid(csv_id);
         CSVitem csvItem = null;
         for(CSVitem i : csvItems){
-            if(i.getId() == issue_id) {
+            if(i.getId() == id) {
                 csvItem = i;
                 break;
             }
