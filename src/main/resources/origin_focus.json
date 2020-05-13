@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Assertion-check logging",
+    "type": "categories"
+  },
+  {
+    "name": "Return-value-check logging",
+    "type": "categories"
+  },
+  {
+    "name": "Exception logging",
+    "type": "categories"
+  },
+  {
+    "name": "Logic-branch logging",
+    "type": "categories"
+  },
+  {
+    "name": "Observing-point logging",
+    "type": "categories"
+  }
+
+]

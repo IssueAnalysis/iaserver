@@ -1,8 +1,7 @@
 package com.issue.iaserver.nlp.server;
 
 import com.issue.iaserver.Main;
-import com.issue.iaserver.nlp.demo.Detector;
-import com.issue.iaserver.nlp.model.ModelNotFoundException;
+import com.issue.iaserver.nlp.nlpUtil.Detector;
 import com.issue.iaserver.nlp.pojos.PosTagDic;
 import com.issue.iaserver.nlp.util.FileUtil;
 import org.junit.jupiter.api.Test;
@@ -12,8 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {Main.class})
@@ -30,7 +27,7 @@ class TextInfoExtractorTest {
     @Test
     void findKeyWords() throws IOException {
         String text =new FileUtil().getTestText();
-        String[] keywords = infoExtractor.findKeyWords(text);
+        String[] keywords = infoExtractor.findKeyWords("test",text);
         System.out.println("Token数量为："+ detector.detectTokens(text).length);
         System.out.println("关键词数量为： " + keywords.length);
         String[] pos = detector.detectPos(keywords);

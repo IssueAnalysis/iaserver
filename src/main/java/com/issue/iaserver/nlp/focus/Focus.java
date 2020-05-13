@@ -1,21 +1,21 @@
 package com.issue.iaserver.nlp.focus;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.issue.iaserver.data.mysql.entity.FocusDO;
+import com.issue.iaserver.nlp.keyword.Keyword;
 
 import java.util.List;
 
 // 关注点
 public class Focus implements Comparable<Focus> {
 
-    String focusDescription;    // 关注点描述
-    List<Keyword> keywordList;  // 关键词列表
-    String focusType;           // 关注点类型
-
+    private String focusDescription;    // 关注点描述
+    private List<Keyword> keywordList;  // 关键词列表
+    private String focusType;           // 关注点类型
 
     // 非持久层部分
     double p;                   // 权值
+    int count;
+
 
     Focus(FocusDO focusDO){
         this.focusDescription = focusDO.getFocusDescription();
@@ -23,8 +23,48 @@ public class Focus implements Comparable<Focus> {
         this.keywordList = focusDO.getKeywordList();
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public String getFocusDescription() {
+        return focusDescription;
+    }
+
+    public void setFocusDescription(String focusDescription) {
+        this.focusDescription = focusDescription;
+    }
+
+    public List<Keyword> getKeywordList() {
+        return keywordList;
+    }
+
+    public void setKeywordList(List<Keyword> keywordList) {
+        this.keywordList = keywordList;
+    }
+
+    public String getFocusType() {
+        return focusType;
+    }
+
+    public void setFocusType(String focusType) {
+        this.focusType = focusType;
+    }
+
+    public double getP() {
+        return p;
+    }
+
+    public void setP(double p) {
+        this.p = p;
+    }
+
     @Override
     public int compareTo(Focus o) {
-        return Double.compare(this.p, o.p);
+        return Integer.compare(this.count, o.count);
     }
 }

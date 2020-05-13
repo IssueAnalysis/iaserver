@@ -189,6 +189,19 @@
             <version>1.0.3</version>
         </dependency>
 
+        <!-- jwnl依赖 -->
+        <!-- main library dependency -->
+        <dependency>
+            <groupId>net.sf.extjwnl</groupId>
+            <artifactId>extjwnl</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+        <!-- Princeton WordNet 3.1 data dependency -->
+        <dependency>
+            <groupId>net.sf.extjwnl</groupId>
+            <artifactId>extjwnl-data-wn31</artifactId>
+            <version>1.2</version>
+        </dependency>
 
 
         <!-- https://mvnrepository.com/artifact/org.apache.opennlp/opennlp-tools -->
@@ -196,6 +209,24 @@
             <groupId>org.apache.opennlp</groupId>
             <artifactId>opennlp-tools</artifactId>
             <version>1.9.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.cmu.lti</groupId>
+            <artifactId>ws4j</artifactId>
+            <type>jar</type>
+            <version>1.0.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/ws4j-1.0.1.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.cmu.lti</groupId>
+            <artifactId>jawjaw</artifactId>
+            <type>jar</type>
+            <version>1.0.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/jawjaw-1.0.2.jar</systemPath>
         </dependency>
 
     </dependencies>
