@@ -1,6 +1,7 @@
 package com.issue.iaserver.webserver.service;
 
 import com.issue.iaserver.webserver.model.Issue;
+import com.issue.iaserver.webserver.model.IssueBrief;
 
 import java.util.List;
 
@@ -8,10 +9,14 @@ import java.util.List;
 public interface IssueService {
 
     //得到所有issue
-    public List<Issue> getAllIssues();
+    public List<IssueBrief> getAllIssues();
 
     //得到所有我上传的issue
-    public List<Issue> getAllAddedIssues(long user_id);
+    public List<IssueBrief> getAllAddedIssues(long user_id);
 
-    public List<Issue> getAllCollectedIssues(long user_id);
+    public List<IssueBrief> getAllCollectedIssues(long user_id);
+
+    //得到issue详细信息
+    public Issue getIssueDetail(long id, long csv_id);
+
 }

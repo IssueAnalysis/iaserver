@@ -1,21 +1,16 @@
 package com.issue.iaserver.webserver.controller;
 
-import com.issue.iaserver.data.mongodb_es.CSVitem;
-import com.issue.iaserver.data.mysql.entity.CSVDO;
 import com.issue.iaserver.data.service.OperateFileService;
 import com.issue.iaserver.webserver.model.Issue;
+import com.issue.iaserver.webserver.model.IssueBrief;
 import com.issue.iaserver.webserver.service.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -37,22 +32,27 @@ public class IssueController {
 
 
     @RequestMapping("/find_all")
-    public List<Issue> findAll() {
+    public List<IssueBrief> findAll() {
         return issueService.getAllIssues();
     }
 
     @RequestMapping("/find_add")
-    public List<Issue> findAdd(HttpSession session) {
+    public List<IssueBrief> findAdd(HttpSession session) {
         long user_id = (long)session.getAttribute("user_id");
         return issueService.getAllAddedIssues(user_id);
 
     }
 
     @RequestMapping("/find_collect")
-    public List<Issue> findCollect(HttpSession session) {
+    public List<IssueBrief> findCollect(HttpSession session) {
         long user_id = (long)session.getAttribute("user_id");
         return issueService.getAllCollectedIssues(user_id);
 
+    }
+
+    @GetMapping("/detail")
+    public Issue getDetailedIssue(@RequestParam("id") long id, @RequestParam("csv_id") long csv_id){
+        return issueService.getIssueDetail(id, csv_id);
     }
 
     @PostMapping("/post_file")

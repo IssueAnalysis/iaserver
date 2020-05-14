@@ -5,6 +5,9 @@ import com.issue.iaserver.format.model.RichDescription;
 
 public class Issue {
 
+    private long id;
+    private long csv_id;
+
     private String issue_key;
     private String issue_id;
     private String parent_id;
@@ -26,6 +29,9 @@ public class Issue {
     private RichDescription richDescription;
 
     public Issue(CSVitem csVitem){
+        this.id = csVitem.getId();
+        this.csv_id = csVitem.getCSVid();
+
         this.issue_key = csVitem.getIssue_key();
         this.issue_id = csVitem.getIssue_id();
         this.parent_id = csVitem.getParent_id();
@@ -44,6 +50,23 @@ public class Issue {
         this.description = csVitem.getDescription();
         this.intention = csVitem.getIntension();
         this.consideration = csVitem.getConsideration();
+    }
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getCsv_id() {
+        return csv_id;
+    }
+
+    public void setCsv_id(long csv_id) {
+        this.csv_id = csv_id;
     }
 
     public String getSummary() {

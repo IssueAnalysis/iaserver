@@ -1,8 +1,8 @@
-package com.issue.iaserver.format.service.impl;
+package com.issue.iaserver.format.tools;
 
 import org.mozilla.universalchardet.UniversalDetector;
 
-public class TestDetector {
+public class FileEncodingDetector {
     public static void main(String[] args) throws java.io.IOException {
         byte[] buf = new byte[4096];
         String fileName = "src/main/resources/datamini.csv";

@@ -40,4 +40,12 @@ public class RichDescription {
     public void appendRichText(String richText){
         this.richText += richText;
     }
+
+    public void generateRichText(){
+        StringBuilder sb = new StringBuilder();
+        for(DescArea descArea : descAreas){
+            sb.append(descArea.getContent());
+        }
+        richText = sb.toString();
+    }
 }
