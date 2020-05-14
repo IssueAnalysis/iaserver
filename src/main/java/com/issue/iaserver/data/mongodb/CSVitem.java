@@ -1,11 +1,7 @@
-package com.issue.iaserver.data.mongodb_es;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
+package com.issue.iaserver.data.mongodb;
 
 /**
- * csv item实体类 ，也就是issue实体类，同时用作es的搜索类
+ * csv item实体类 ，也就是issue实体类
  * User: 钟镇鸿
  * Date: 2020/4/6
  * Time: 14:45
