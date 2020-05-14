@@ -1,8 +1,13 @@
 package com.issue.iaserver.nlp.keyword;
 
+import com.issue.iaserver.utils.ClassPathUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,6 +17,7 @@ import java.util.List;
 @Scope("singleton")
 public class KeywordFrequency {
 
+    private Logger logger = LoggerFactory.getLogger(KeywordFrequency.class);
     private Node root;
     private int totalIssueCount;
 
@@ -21,13 +27,85 @@ public class KeywordFrequency {
         int freq;
         Node(char val){
             this.val = val;
-            nextList = new LinkedList<>();
+            this.nextList = new LinkedList<>();
             this.freq = 0;
+        }
+        Node(char val, int freq){
+            this.val = val;
+            this.freq = freq;
+            this.nextList = new LinkedList<>();
         }
     }
 
     KeywordFrequency(){
-        
+        this.root = new Node(' ');
+        init();
+    }
+
+    private void init(){
+        File file = new File(ClassPathUtil.getProjectRootPath() + "/temp/keywordFreq.dat");
+        try{
+            if(!file.exists()){
+                return;
+            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            initIterate(root, bufferedReader);
+            bufferedReader.close();
+        }catch (IOException e){
+            logger.error(e.getMessage());
+        }
+    }
+
+    private Node initIterate(Node cur, BufferedReader bufferedReader) throws IOException {
+        String line = bufferedReader.readLine();
+        if(line != null){
+            if(line.equals("")) return cur;
+            String[] temp = line.split(" ");
+            for(String str : temp){
+                if(!str.equals("")){
+                    cur.nextList.add(
+                            initIterate(
+                                new Node(str.split(":")[0].charAt(0), Integer.parseInt(str.split(":")[1])),
+                                    bufferedReader
+                            )
+                            );
+                }
+            }
+        }
+        return cur;
+    }
+
+    @Scheduled(initialDelay = 60000, fixedDelay = 60000)
+    public void updateData(){
+        File file = new File(ClassPathUtil.getProjectRootPath() + "/temp/keywordFreq.dat");
+        try {
+            if(!file.exists()){
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            // clean old file
+            bufferedWriter.write("");
+            updateIterate(root,bufferedWriter);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+        } catch (IOException e) {
+            logger.error(e.getMessage() + file.getPath());
+        }
+    }
+
+    private void updateIterate(Node cur, BufferedWriter bufferedWriter) throws IOException {
+        StringBuffer stringBuffer = new StringBuffer();
+        for(Node n : cur.nextList){
+            stringBuffer.append(n.val).append(":").append(n.freq).append(" ");
+        }
+        bufferedWriter.append(stringBuffer.toString());
+        bufferedWriter.newLine();
+        stringBuffer = null;
+        for(Node n : cur.nextList){
+            updateIterate(n, bufferedWriter);
+        }
+        bufferedWriter.newLine();
     }
 
     public int getTotalIssueCount() {

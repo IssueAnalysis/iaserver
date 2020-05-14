@@ -41,7 +41,7 @@ public class TFIDF {
         double tfIdf;
         for(String str : keywordNumHashMap.keySet()){
             tf = ((double)keywordNumHashMap.get(str)) / textTokenNum;
-            idf = Math.log(((double)keywordFrequency.getFreq(str)) / (keywordFrequency.getTotalIssueCount() + 1));
+            idf = Math.log(((double)keywordFrequency.getTotalIssueCount()) / (keywordFrequency.getFreq(str) + 1));
             tfIdf = tf * idf;
             keywordWithTFIDFS.add(new KeywordWithTFIDF(str,tfIdf));
             keywordFrequency.addWord(str);

@@ -51,7 +51,7 @@ public class TextInfoExtractor implements InfoExtractor{
 
     private String[] removeUselessTokens(String text){
         String[] tokens = detector.detectTokens(text);
-        String[] pos = detector.detectPos(text);
+        String[] pos = detector.detectPos(tokens);
         String[] lemmatizeTokens = lemmatizer.lemmatize(tokens, pos);
         List<String> filteredTokens = new ArrayList<>();
         for(int i = 0; i < tokens.length; i++){
