@@ -152,7 +152,7 @@ public class AliyunOSSClientUtil {
     /**
      * 上传单个csv文件至OSS
      * @param ossClient  oss连接
-     * @param filePath 上传文件（文件全路径如：D:\\image\\cake.jpg）
+     * @param filePath 上传文件
      * @param bucketName  存储空间
      * @param folder 此为图片所在的文件夹，将它设置为requestid，如requestid为1——设为"1/"
      * @return ArrayList<String> 返回的图片网络地址组成的list
