@@ -2,7 +2,7 @@ package com.issue.iaserver.data.mysql.entity;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.issue.iaserver.nlp.keyword.Keyword;
+import com.issue.iaserver.extractor.keyword.Keyword;
 
 import javax.persistence.*;
 import java.io.Serializable;
