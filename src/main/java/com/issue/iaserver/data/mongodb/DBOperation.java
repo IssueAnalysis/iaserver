@@ -1,4 +1,4 @@
-package com.issue.iaserver.data.mongodb_es;
+package com.issue.iaserver.data.mongodb;
 
 import com.mongodb.*;
 import com.mongodb.client.*;
@@ -129,7 +129,7 @@ public class DBOperation {
         return list;
     }
 
-    //插入数据
+    /**存储数据*/
     public String insertData(MongoDatabase database, long csvId, String url){
         long id = 0;
 

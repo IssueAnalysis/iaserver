@@ -1,4 +1,4 @@
-package com.issue.iaserver.data.mongodb_es;
+package com.issue.iaserver.data.mongodb;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;

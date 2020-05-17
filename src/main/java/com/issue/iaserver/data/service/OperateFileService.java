@@ -1,6 +1,6 @@
 package com.issue.iaserver.data.service;
 
-import com.issue.iaserver.data.mongodb_es.CSVitem;
+import com.issue.iaserver.data.mongodb.CSVitem;
 import com.issue.iaserver.data.mysql.entity.CSVDO;
 
 import java.util.List;
