@@ -1,6 +1,6 @@
 package com.issue.iaserver.data.queue.rabbitmq;
 
-import com.issue.iaserver.data.mongodb_es.CSVitem;
+import com.issue.iaserver.data.mongodb.CSVitem;
 import com.issue.iaserver.data.mysql.entity.UserDO;
 import com.issue.iaserver.data.service.OperateFileService;
 import com.issue.iaserver.data.service.RedisService;
