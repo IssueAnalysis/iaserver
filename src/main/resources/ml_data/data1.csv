@@ -1,0 +1,113 @@
+I am using Hadoop-2.10.0.,0
+The configuration parameter `dfs.namenode.audit.loggers`,0
+allows `default` (which is the default value) and `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger`.,0
+When I use `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger`,1
+namenode will not be started successfully because of an `InstantiationException` thrown from `org.apache.hadoop.hdfs.server.namenode.FSNamesystem.initAuditLoggers`.,0
+The root cause is that while initializing namenode,1
+`initAuditLoggers` will be called and it will try to call the default constructor of `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger` which doesn't have a default constructor.,0
+Thus the `InstantiationException` exception is thrown.,0
+*Symptom*,0
+*$ ./start-dfs.sh*,0
+*Detailed Root Cause*,0
+There is no default constructor in `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger`:,0
+As long as the configuration parameter `dfs.namenode.audit.loggers` is set to `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger`,1
+`initAuditLoggers` will try to call its default constructor to make a new instance:,0
+`initAuditLoggers` tries to call the default constructor to make a new instance in:,0
+This is very different from the default configuration,0
+`default`,0
+which implements a default constructor so the default is fine.,0
+*How To Reproduce*,0
+The version of Hadoop: 2.10.0,0
+"# Set the value of configuration parameter `dfs.namenode.audit.loggers` to `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger` in ""hdfs-site.xml""(the",0
+default value is `default`),0
+"# Start the namenode by running ""start-dfs.sh""",0
+# The namenode will not be started successfully.,0
+*How To Fix*,0
+Add a default constructor for `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger`.,2
+I wrote a patch to add a default constructor for		TopAuditLogger.,0
+When DFSRouter fails to fetch or parse JMX output from NameNode,1
+it prints only the error message.,0
+Therefore we had to modify the source code to print the stacktrace of the exception to find the root cause.,2
+Some time If this thread is throwing exception other than IOException,1
+will not be able to trash it.,0
+I am using Hadoop-2.10.0.,0
+The configuration parameter `dfs.namenode.audit.loggers`,0
+allows `default` (which is the default value) and `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger`.,0
+When I use `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger`,1
+namenode will not be started successfully because of an `InstantiationException` thrown from `org.apache.hadoop.hdfs.server.namenode.FSNamesystem.initAuditLoggers`.,0
+The root cause is that while initializing namenode,1
+`initAuditLoggers` will be called and it will try to call the default constructor of `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger` which doesn't have a default constructor.,0
+Thus the `InstantiationException` exception is thrown.,0
+*Symptom*,0
+*$ ./start-dfs.sh*,0
+*Detailed Root Cause*,0
+There is no default constructor in `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger`:,0
+As long as the configuration parameter `dfs.namenode.audit.loggers` is set to `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger`,1
+`initAuditLoggers` will try to call its default constructor to make a new instance:,0
+`initAuditLoggers` tries to call the default constructor to make a new instance in:,0
+This is very different from the default configuration,0
+`default`,0
+which implements a default constructor so the default is fine.,0
+*How To Reproduce*,0
+The version of Hadoop: 2.10.0,0
+"# Set the value of configuration parameter `dfs.namenode.audit.loggers` to `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger` in ""hdfs-site.xml""(the",0
+default value is `default`),0
+"# Start the namenode by running ""start-dfs.sh""",0
+# The namenode will not be started successfully.,0
+*How To Fix*,0
+Add a default constructor for `org.apache.hadoop.hdfs.server.namenode.top.TopAuditLogger`,2
+When call namenode.blockReceivedAndDelete,1
+failed,0
+will put reports to pendingIBRs.,0
+Maybe we should add log for failed case.,2
+It is helpful for trouble shooting,0
+We could not identify which file it belongs easily when DFSInputStream meet CannotObtainBlockLengthException,1
+as the following exception log.,0
+Just suggest to log file path string when we meet CannotObtainBlockLengthException.,2
+During HDFS balancing,1
+after the target DN copied a block from the proxy DN,1
+it prints a log following the pattern below:,0
+*Moved BLOCK from BALANCER*,0
+This is wrong and misleading,0
+maybe we can improve the pattern like:,2
+*Moved BLOCK complete,0
+copied from PROXY DN,0
+initiated by*		*BALANCER*,0
+An example log of target DN during balancing:,0
+1. Wrong log printing before jira:,0
+2. Correct log printing after jira:,0
+After applying HDFS-13101,1
+and deleting and creating large number of snapshots,1
+SNN exited with below error:,0
+We confirmed that fsimage and edit files were NOT corrupted,0
+as reverting HDFS-13101 fixed the issue.,0
+So the logic introduced in HDFS-13101 is broken and failed to parse edit log files.,0
+Refactor {{InvalidateBlocks#printBlockDeletionTime()}}.,0
+On a moderately loaded cluster,1
+name node logs are flooded with entries of {{INFO BlockStateChange...}},0
+to the tune of ~30 lines per millisecond.,0
+This provides operators with little to no usable information.,0
+I suggest reducing this log message to {{DEBUG}}.,2
+Perhaps this information (and other logging related to it) should be directed to a dedicated block-audit.log,2
+file that can be queried,0
+rotated on a separate schedule from the log of the main process.,0
+ConnectionPool#newConnection() has following code:,0
+*proto.getClass().getName()*,0
+should be		*proto.getName()*,0
+My IDE can figure out the issue.,0
+Router Safemode status should display properly without any unnecesary time-stamp and info log,2
+Step:-,0
+* Make the Router Safemode On/Off,0
+* 		Get the Safemode info and check the output format,0
+Actual output :-		Actual output :-,0
+./hdfs,0
+dfsrouteradmin -safemode get2019-11-06 17:00:20 209 INFO federation.RouterAdmin: Router org.apache.hadoop.hdfs.protocolPB.RouterAdminProtocolTranslatorPB@31304f14 safemode status : trueSafe Mode: true,0
+Expected Output :-		 		 		 		 		 Router safemode status : true,0
+Safe Mode: true,0
+For a datanode in a pipeline,0
+when its PacketResponder thread encounters an exception,1
+it prints logs like below:,0
+2019-10-24 09:22:58 212 WARN org.apache.hadoop.hdfs.server.datanode.DataNode: IOException in *BlockReceiver*.run():,0
+But this log is incorrect and misleading,0
+the right print shoud be:,2
+2019-10-24 09:22:58 212 WARN org.apache.hadoop.hdfs.server.datanode.DataNode: IOException in *PacketResponder*.run():,0

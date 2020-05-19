@@ -49,7 +49,7 @@ public class RichDescriptionHelper {
     }
 
 
-    private void blockingRichDescription(){
+    public void blockingRichDescription(){
         String delimiter = "\\{(code(:.*?)?|noformat|quote)}";
         Pattern pattern = Pattern.compile(delimiter);
         String[] areas = pattern.split(description);
@@ -105,7 +105,7 @@ public class RichDescriptionHelper {
             e.printStackTrace();
             return;
         }
-        List<DescArea> textAreas = getAreasOfType("text");
+        List<DescArea> textAreas = richDescription.getAreasOfType("text");
         for(DescArea descArea : textAreas){
             String content = descArea.getContent();
             Span[] spans = sentenceDetector.detect(content);
@@ -122,7 +122,7 @@ public class RichDescriptionHelper {
     }
 
     private void wrapText(String regex, String type){
-        List<DescArea> textAreas = getAreasOfType("text");
+        List<DescArea> textAreas = richDescription.getAreasOfType("text");
 
         for (DescArea descArea : textAreas) {
             String content = descArea.getContent();
@@ -178,14 +178,17 @@ public class RichDescriptionHelper {
 
         final int endPoint = i + 1;
 
-        return s.substring(startPoint, endPoint) + "\n";
+        String result = s.substring(startPoint, endPoint) + "\n";
+        int l;
+        do{                 //去掉中间多余的行
+            l = result.length();
+            result = result.replaceAll("\n\n", "\n");
+        }while(l != result.length());
+
+        return result;
     }
 
-    private List<DescArea> getAreasOfType(String type) {
-        return richDescription.getDescAreas().stream()
-                .filter(descArea -> descArea.getType().equals(type))
-                .collect(Collectors.toList());
-    }
+
 
     private String insertTagToText(String text, final int startPos, final int endPos, final String startTag, final String endTag) {
         StringBuilder sb = new StringBuilder();
