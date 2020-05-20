@@ -1,6 +1,6 @@
 package com.issue.iaserver.webserver.model;
 
-import com.issue.iaserver.data.mongodb_es.CSVitem;
+import com.issue.iaserver.data.mongodb.CSVitem;
 import com.issue.iaserver.format.model.RichDescription;
 
 public class Issue {

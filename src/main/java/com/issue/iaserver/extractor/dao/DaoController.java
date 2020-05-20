@@ -40,6 +40,37 @@ public class DaoController {
         return focusList;
     }
 
+
+    /**
+     * 统计信息中是否有关注点，按照关注点的描述查找
+     * @param focus 关注点
+     * @return 是否查找到关注点
+     */
+    public boolean isStatisticHasFocus(Focus focus){
+        // TODO 连接数据库
+        return false;
+    }
+
+    /**
+     * 在统计信息中添加关注点
+     * @param focus 关注点
+     * @return 是否添加成功
+     */
+    public boolean addStatisticFocus(Focus focus){
+        // TODO 连接数据库
+        return false;
+    }
+
+    /**
+     * 在统计信息中更新关注点
+     * @param focus 关注点
+     * @return 是否更新成功
+     */
+    public boolean updateStatisticFocus(Focus focus){
+        // TODO 连接数据库
+        return false;
+    }
+
     /**
      * 当前issue是否已经被信息提取过
      * @param issueId issue id
@@ -74,6 +105,17 @@ public class DaoController {
     }
 
     /**
+     * 获得已经被信息提取过的issue的关注点
+     * @param issueId
+     * @param csvId
+     * @return
+     */
+    public List<Focus> getMarkedIssueFocus(long issueId, long csvId){
+        // TODO 连接数据库
+        return null;
+    }
+
+    /**
      * 设置issue的关键词和关注点
      * @param issueId issue id
      * @param csvId csv id
@@ -86,25 +128,5 @@ public class DaoController {
         return false;
     }
 
-    /**
-     * 获得已经被信息提取过的issue的关注点
-      * @param issueId
-     * @param csvId
-     * @return
-     */
-    public List<Focus> getMarkedIssueFocus(long issueId, long csvId){
-        // TODO 连接数据库
-        return null;
-    }
 
-    /**
-     * 获得已经被信息提取过的issue的关键词
-     * @param issueId
-     * @param csvId
-     * @return
-     */
-    public List<Keyword> getMarkedIssueKeyword(long issueId, long csvId){
-        // TODO 连接数据库
-        return null;
-    }
 }
