@@ -2,18 +2,17 @@ package com.issue.iaserver.data.mysql.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
 
 /**
- * focusDO和issueDO的对应关系，每个issue的同一关注点票数不一样，另增票数字段
+ * 关键词实体类
  * User: 钟镇鸿
- * Date: 2020/4/21
- * Time: 20:25
+ * Date: 2020/5/20
+ * Time: 19:27
  * Description:
  */
 @Entity
-@Table(name="issue2focus")
-public class Issue2FocusDO implements Serializable {
+@Table(name="keyword")
+public class KeywordDO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,18 +27,14 @@ public class Issue2FocusDO implements Serializable {
     private String issue_id;
 
     @Basic
-    @Column(name = "focus_id")
-    private Long focus_id;
+    @Column(name = "keyword_description")
+    private String keyword_description;
 
-
-    public Issue2FocusDO(long id, String csv_id, String issue_id, Long focus_id) {
+    public KeywordDO(long id, String csv_id, String issue_id, String keyword_description) {
         this.id = id;
         this.csv_id = csv_id;
         this.issue_id = issue_id;
-        this.focus_id = focus_id;
-    }
-
-    public Issue2FocusDO() {
+        this.keyword_description = keyword_description;
     }
 
     public long getId() {
@@ -66,11 +61,11 @@ public class Issue2FocusDO implements Serializable {
         this.issue_id = issue_id;
     }
 
-    public Long getFocus_id() {
-        return focus_id;
+    public String getKeyword_description() {
+        return keyword_description;
     }
 
-    public void setFocus_id(Long focus_id) {
-        this.focus_id = focus_id;
+    public void setKeyword_description(String keyword_description) {
+        this.keyword_description = keyword_description;
     }
 }

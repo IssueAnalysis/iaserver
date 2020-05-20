@@ -41,27 +41,6 @@ public class FocusDO implements Serializable {
         this.focusType = focusType;
     }
 
-    /*public static void main(String [] args){
-        List<Keyword> keywordDOS = new ArrayList<>();
-        Keyword q1 = new Keyword("ok", 1);
-        Keyword q2 = new Keyword("12", 3);
-        Keyword q3 = new Keyword("lp", 2);
-        keywordDOS.add(q1);keywordDOS.add(q2);keywordDOS.add(q3);
-        String jsonOutput= JSON.toJSONString(keywordDOS);
-        System.out.println(jsonOutput);
-
-        List<Keyword> keywordDOS1 = JSON.parseObject(jsonOutput, new TypeReference<List<Keyword>>(){});
-        keywordDOS1.sort(new KeywordComparator());
-        System.out.println(keywordDOS1.get(0).getVote());
-    }*/
-
-    //能获得vote正序的关键词列表
-    public List<Keyword> getKeywordList(){
-        List<Keyword> keywordDOS1 = JSON.parseObject(this.keywordJson, new TypeReference<List<Keyword>>(){});
-        keywordDOS1.sort(new KeywordComparator());
-        return keywordDOS1;
-    }
-
     public void setKeywordList(List<Keyword> keywordList){
         this.keywordJson = JSON.toJSONString(keywordList);
     }

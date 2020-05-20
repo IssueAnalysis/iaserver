@@ -129,6 +129,44 @@ public class DBOperation {
         return list;
     }
 
+    /**
+     * 通过csvid和itemid查询单个CSVitem的数据
+     * */
+    public CSVitem getItem(MongoDatabase database, long csv_id, long item_id){
+        ArrayList<CSVitem> list = new ArrayList<>();
+        try{
+            //获取数据库中的user集合
+            MongoCollection<Document> collection = database.getCollection("0");
+            //获取user集合中的文档
+            FindIterable<Document> iterable = collection.find();
+            //通过迭代器遍历找到的文档中的信息
+            MongoCursor<Document> iterator = iterable.iterator();
+            while(iterator.hasNext()) {
+                Document str = iterator.next();
+                if(str.getLong("CSV id") == csv_id && str.getLong("id") == item_id){
+                    CSVitem item = new CSVitem(
+                            item_id, csv_id,
+                            str.getString(FILE_HEADER_MAPPING[0]), str.getString(FILE_HEADER_MAPPING[1]),
+                            str.getString(FILE_HEADER_MAPPING[2]),str.getString(FILE_HEADER_MAPPING[3]),
+                            str.getString(FILE_HEADER_MAPPING[4]),str.getString(FILE_HEADER_MAPPING[5]),
+                            str.getString(FILE_HEADER_MAPPING[6]),str.getString(FILE_HEADER_MAPPING[7]),
+                            str.getString(FILE_HEADER_MAPPING[8]),str.getString(FILE_HEADER_MAPPING[9]),
+                            str.getString(FILE_HEADER_MAPPING[10]),str.getString(FILE_HEADER_MAPPING[11]),
+                            str.getString(FILE_HEADER_MAPPING[12]),str.getString(FILE_HEADER_MAPPING[13]),
+                            str.getString(FILE_HEADER_MAPPING[14]),str.getString(FILE_HEADER_MAPPING[15]),
+                            str.getString("Intension"),str.getString("Consideration"));
+                    return item;
+                }
+            }
+            System.out.println("[INFO] : Get CSV item success！");
+        }catch(MongoException e){
+            e.printStackTrace();
+            System.out.println("[ERROR] : Get CSV item field！");
+        }
+        return null;
+    }
+
+
     /**存储数据*/
     public String insertData(MongoDatabase database, long csvId, String url){
         long id = 0;
@@ -144,6 +182,7 @@ public class DBOperation {
             createCollection(database, collectionName);
             // ---------- Creating Collection -------------------------//
             MongoCollection<Document> table = database.getCollection(collectionName);
+            MongoCollection<Document> table0  = database.getCollection("0");
 
             // Create the CSVFormat object with the header mapping
             CSVFormat csvFileFormat = CSVFormat.DEFAULT.withHeader(FILE_HEADER_MAPPING);
@@ -224,6 +263,7 @@ public class DBOperation {
 
                 // ----------- Inserting Data ------------------------------//
                 table.insertOne(doc);
+                table0.insertOne(doc);
 
                 System.out.println(item.toString());
             }
