@@ -1,6 +1,7 @@
 package com.issue.iaserver.data.mysql.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 记录被扫描过的issue
@@ -11,7 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="mark")
-public class MarkDO {
+public class MarkDO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

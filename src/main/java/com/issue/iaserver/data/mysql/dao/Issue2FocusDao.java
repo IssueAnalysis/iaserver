@@ -3,6 +3,7 @@ package com.issue.iaserver.data.mysql.dao;
 import com.issue.iaserver.data.mysql.entity.FocusDO;
 import com.issue.iaserver.data.mysql.entity.Issue2FocusDO;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * focusDO和issueDO的对应关系
@@ -11,5 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Time: 19:23
  * Description:
  */
+@Repository
 public interface Issue2FocusDao extends JpaRepository<Issue2FocusDO, Long> {
 }
