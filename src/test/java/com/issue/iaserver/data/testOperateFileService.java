@@ -1,7 +1,7 @@
 package com.issue.iaserver.data;
 
 import com.issue.iaserver.Main;
-import com.issue.iaserver.data.mongodb_es.CSVitem;
+import com.issue.iaserver.data.mongodb.CSVitem;
 import com.issue.iaserver.data.mysql.dao.UserDao;
 import com.issue.iaserver.data.mysql.entity.UserDO;
 import com.issue.iaserver.data.service.OperateFileService;
@@ -38,7 +38,13 @@ public class testOperateFileService {
 
     @Test
     public void test2(){
-        assertEquals(689,o.getCSVitemByCSVid((long)4434).size());
+        assertEquals(699,o.getCSVitemByCSVid((long)0).size());
+    }
+
+    @Test
+    public void test2_1(){
+        CSVitem csVitem = o.getCSVitemByCSVidAndItemid((long)4464, (long)0);
+        assertEquals("Crashing bugs in NameNode when using a valid configuration for `dfs.namenode.audit.loggers`", csVitem.getSummary());
     }
 
     @Test
