@@ -12,5 +12,5 @@ import java.util.ArrayList;
 public interface MarkDao extends JpaRepository<MarkDO, Long> {
 
     @Query("select m from MarkDO m where m.csv_id=:csv_id and m.item_id=:item_id")
-    ArrayList<MarkDO> getMarkById(@Param("csv_id") String csv_id, @Param("item_id") String item_id);
+    ArrayList<MarkDO> getMarkById(@Param("csv_id") long csv_id, @Param("item_id") long item_id);
 }

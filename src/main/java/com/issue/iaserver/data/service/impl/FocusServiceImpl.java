@@ -3,11 +3,11 @@ package com.issue.iaserver.data.service.impl;
 import com.issue.iaserver.data.mongodb.CSVitem;
 import com.issue.iaserver.data.mongodb.DBOperation;
 import com.issue.iaserver.data.mongodb.MongoDBConnection;
-import com.issue.iaserver.data.mysql.dao.FocusDao;
-import com.issue.iaserver.data.mysql.dao.MarkDao;
-import com.issue.iaserver.data.mysql.dao.UserDao;
+import com.issue.iaserver.data.mysql.dao.*;
 import com.issue.iaserver.data.mysql.entity.FocusDO;
+import com.issue.iaserver.data.mysql.entity.KeywordDO;
 import com.issue.iaserver.data.mysql.entity.MarkDO;
+import com.issue.iaserver.data.mysql.entity.VoteDO;
 import com.issue.iaserver.data.service.FocusService;
 import com.issue.iaserver.extractor.focus.Focus;
 import com.issue.iaserver.extractor.keyword.Keyword;
@@ -33,7 +33,11 @@ public class FocusServiceImpl implements FocusService {
     @Autowired
     public FocusDao focusDao;
     @Autowired
+    public KeywordDao keywordDao;
+    @Autowired
     public MarkDao markDao;
+    @Autowired
+    public VoteDao voteDao;
 
     /**获取全部的Focus*/
     @Override
@@ -49,9 +53,8 @@ public class FocusServiceImpl implements FocusService {
      */
     @Override
     public boolean isIssueExtracted(long issueId, long csvId) {
-        ArrayList<MarkDO> markDOS = markDao.getMarkById(csvId+"", issueId+"");
+        ArrayList<MarkDO> markDOS = markDao.getMarkById(csvId, issueId);
         if(markDOS.size() == 1) return true;
-
         return false;
     }
 
@@ -84,39 +87,67 @@ public class FocusServiceImpl implements FocusService {
         if(!isIssueExtracted(issueId, csvId)){
             return keywords;
         }
-        DBOperation dbOperation = new DBOperation();
-        MongoDBConnection mongoDBConnection = new MongoDBConnection();
-        MongoClient mongoClient = mongoDBConnection.getConn();
-        MongoDatabase mongoDatabase = mongoClient.getDatabase("iadb");
-
-        CSVitem csVitem = dbOperation.getItem(mongoDatabase, csvId, issueId);
-
-
-        return null;
+        List<Long> keywordIds = voteDao.getKeyWordIdByIssueID(issueId, csvId);
+        for(Long id : keywordIds){
+            KeywordDO keywordDO = keywordDao.getOne(id);
+            Keyword keyword = new Keyword(keywordDO.getKeyword_description(), keywordDO.getVote());
+            keywords.add(keyword);
+        }
+        return keywords;
     }
 
     /**
      * 设置issue的关键词和关注点
      * @param issueId issue id
      * @param csvId csv id
-     * @param focusList 关注点列表
-     * @param keywords 关键词列表
+     * @param focusList 关注点列表 还没有保存到数据库的focus
+     * @param keywords 关键词列表 还没有保存到数据库的keyword
+     * @param userId 用户id
      * @return 是否设置成功
      */
     @Override
-    public boolean setIssueKeywordsAndFocus(long issueId, long csvId, List<Focus> focusList, List<Keyword> keywords) {
-        return false;
+    public boolean setIssueKeywordsAndFocus(long issueId, long csvId,
+                                            List<Focus> focusList, List<Keyword> keywords,
+                                            long userId) {
+        for (Keyword keyword : keywords) {
+            KeywordDO keywordDO = new KeywordDO(keyword, csvId, issueId);
+            keywordDao.saveAndFlush(keywordDO);
+            System.out.println("[INFO] :关键词id是"+keywordDO.getId());
+
+            VoteDO voteDO = new VoteDO(keywordDO, userId);
+            voteDao.saveAndFlush(voteDO);
+        }
+
+        for (Focus focus : focusList) {
+            List<Keyword> keywords1 = focus.getKeywordList();
+            for(Keyword keyword : keywords1){
+                KeywordDO keywordDO = new KeywordDO(keyword, csvId, issueId);
+                keywordDao.saveAndFlush(keywordDO);
+                System.out.println("[INFO] :关注点对应的关键词id是"+keywordDO.getId());
+            }
+
+            FocusDO focusDO = new FocusDO(focus, csvId, issueId);
+            focusDao.saveAndFlush(focusDO);
+            System.out.println("[INFO] :关注点id是"+focusDO.getId());
+
+            VoteDO voteDO = new VoteDO(focusDO, userId);
+            voteDao.saveAndFlush(voteDO);
+        }
+        return true;
     }
 
     /**
      * 获得已经被信息提取过的issue的关注点
-     * @param issueId
-     * @param csvId
-     * @return
      */
     @Override
-    public List<Focus> getMarkedIssueFocus(long issueId, long csvId) {
-        return null;
+    public List<Focus> getMarkedIssueFocus(long issue_id, long csv_id) {
+
+        List<Focus> res = new ArrayList<Focus>();
+        List<FocusDO> focusDOS = focusDao.getFocusByIssueId(csv_id, issue_id);
+        for(FocusDO focusDO : focusDOS){
+            res.add(new Focus(focusDO));
+        }
+        return res;
     }
 
     /**
@@ -127,6 +158,12 @@ public class FocusServiceImpl implements FocusService {
      */
     @Override
     public List<Keyword> getMarkedIssueKeyword(long issueId, long csvId) {
-        return null;
+
+        List<Keyword> res = new ArrayList<Keyword>();
+        List<KeywordDO> keywordDOS = keywordDao.getKeywordByIssueId(csvId, issueId);
+        for(KeywordDO keywordDO : keywordDOS){
+            res.add(new Keyword(keywordDO.getKeyword_description(), keywordDO.getVote()));
+        }
+        return res;
     }
 }

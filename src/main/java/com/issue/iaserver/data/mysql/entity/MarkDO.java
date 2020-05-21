@@ -31,6 +31,8 @@ public class MarkDO implements Serializable {
     //isMarked为true，则为标记过了，false为未被标记
     private boolean isMarked;
 
+    public MarkDO() {}
+
     public MarkDO(long id, long csv_id, long item_id, boolean isMarked) {
         this.id = id;
         this.csv_id = csv_id;

@@ -1,5 +1,7 @@
 package com.issue.iaserver.data.mysql.entity;
 
+import com.issue.iaserver.extractor.keyword.Keyword;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -20,21 +22,41 @@ public class KeywordDO implements Serializable {
 
     @Basic
     @Column(name = "csv_id")
-    private String csv_id;
+    private long csv_id;
 
     @Basic
     @Column(name = "issue_id")
-    private String issue_id;
+    private long issue_id;
 
     @Basic
     @Column(name = "keyword_description")
     private String keyword_description;
 
-    public KeywordDO(long id, String csv_id, String issue_id, String keyword_description) {
+    @Basic
+    @Column(name = "posTag")
+    private String posTag;  // 关键词词性
+
+    @Basic
+    @Column(name = "vote")
+    private int vote;  // 用户投票数
+
+    public KeywordDO() {}
+
+    public KeywordDO(long id, long csv_id, long issue_id, String keyword_description, String posTag, int vote) {
         this.id = id;
         this.csv_id = csv_id;
         this.issue_id = issue_id;
         this.keyword_description = keyword_description;
+        this.posTag = posTag;
+        this.vote = vote;
+    }
+
+    public KeywordDO(Keyword keyword, long csv_id, long issue_id) {
+        this.csv_id = csv_id;
+        this.issue_id = csv_id;
+        this.keyword_description = keyword.getKeyword();
+        this.posTag = keyword.getPosTag();
+        this.vote = keyword.getVote();
     }
 
     public long getId() {
@@ -45,19 +67,19 @@ public class KeywordDO implements Serializable {
         this.id = id;
     }
 
-    public String getCsv_id() {
+    public Long getCsv_id() {
         return csv_id;
     }
 
-    public void setCsv_id(String csv_id) {
+    public void setCsv_id(Long csv_id) {
         this.csv_id = csv_id;
     }
 
-    public String getIssue_id() {
+    public Long getIssue_id() {
         return issue_id;
     }
 
-    public void setIssue_id(String issue_id) {
+    public void setIssue_id(Long issue_id) {
         this.issue_id = issue_id;
     }
 
@@ -67,5 +89,21 @@ public class KeywordDO implements Serializable {
 
     public void setKeyword_description(String keyword_description) {
         this.keyword_description = keyword_description;
+    }
+
+    public String getPosTag() {
+        return posTag;
+    }
+
+    public void setPosTag(String posTag) {
+        this.posTag = posTag;
+    }
+
+    public int getVote() {
+        return vote;
+    }
+
+    public void setVote(int vote) {
+        this.vote = vote;
     }
 }

@@ -1,6 +1,7 @@
 package com.issue.iaserver.data.service;
 
 import com.issue.iaserver.data.mysql.entity.FocusDO;
+import com.issue.iaserver.data.mysql.entity.KeywordDO;
 import com.issue.iaserver.extractor.focus.Focus;
 import com.issue.iaserver.extractor.keyword.Keyword;
 
@@ -46,11 +47,11 @@ public interface FocusService {
      * 设置issue的关键词和关注点
      * @param issueId issue id
      * @param csvId csv id
-     * @param focusList 关注点列表
-     * @param keywords 关键词列表
+     * @param focusList 关注点列表 还没有保存到数据库的focus
+     * @param keywords 关键词列表 还没有保存到数据库的keyword
      * @return 是否设置成功
      */
-    boolean setIssueKeywordsAndFocus(long issueId, long csvId, List<Focus> focusList, List<Keyword> keywords);
+    boolean setIssueKeywordsAndFocus(long issueId, long csvId, List<Focus> focusList, List<Keyword> keywords, long userId);
 
     /**
      * 获得已经被信息提取过的issue的关注点
@@ -66,5 +67,5 @@ public interface FocusService {
      * @param csvId
      * @return
      */
-    public List<Keyword> getMarkedIssueKeyword(long issueId, long csvId);
+    List<Keyword> getMarkedIssueKeyword(long issueId, long csvId);
 }

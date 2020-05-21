@@ -1,14 +1,15 @@
 package com.issue.iaserver.data.mysql.entity;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.JSONObject;
+import com.issue.iaserver.extractor.focus.Focus;
 import com.issue.iaserver.extractor.keyword.Keyword;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
 /**
+ * TODO: 测试keywordJson
  * 关注点实体类
  * User: 钟镇鸿
  * Date: 2020/4/20
@@ -21,6 +22,15 @@ public class FocusDO implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Basic
+    @Column(name = "csv_id")
+    private long csv_id;
+
+    @Basic
+    @Column(name = "issue_id")
+    private long issue_id;
+
     @Basic
     @Column(name = "focus_description")
     private String focusDescription;    // 关注点描述
@@ -34,11 +44,23 @@ public class FocusDO implements Serializable {
     private String focusType;           // 关注点类型
 
     public FocusDO(){}
-    public FocusDO(long id, String focusDescription, List<Keyword> keywordList, String focusType) {
+
+    public FocusDO(long id, long csv_id, long issue_id, String focusDescription, List<Keyword> keywordList, String focusType) {
         this.id = id;
+        this.csv_id = csv_id;
+        this.issue_id = issue_id;
         this.focusDescription = focusDescription;
-        this.keywordJson = JSON.toJSONString(keywordList); //用json存
+        this.keywordJson =  //用json存
         this.focusType = focusType;
+    }
+
+    public FocusDO(Focus focus, long csvId, long issueId) {
+        this.id = focus.getId();
+        this.csv_id = csv_id;
+        this.issue_id = issue_id;
+        this.focusDescription = focus.getFocusDescription();
+        this.keywordJson = JSON.toJSONString(focus.getKeywordList());
+        this.focusType = focus.getFocusType();
     }
 
     public void setKeywordList(List<Keyword> keywordList){
@@ -57,23 +79,60 @@ public class FocusDO implements Serializable {
         return focusDescription;
     }
 
+
+
     public void setFocusDescription(String focusDescription) {
         this.focusDescription = focusDescription;
     }
 
-    public String getKeywordJson() {
-        return keywordJson;
+    public List<Keyword> getKeywordList(){
+        return JSONObject.parseArray(this.keywordJson,Keyword.class);
     }
+
+    public String getKeywordJson() {
+
+        return keywordJson;
+
+    }
+
+
 
     public void setKeywordJson(String keywordJson) {
+
         this.keywordJson = keywordJson;
+
     }
+
+
 
     public String getFocusType() {
+
         return focusType;
+
     }
 
+
+
     public void setFocusType(String focusType) {
+
         this.focusType = focusType;
+
     }
+
+    public long getCsv_id() {
+        return csv_id;
+    }
+
+    public void setCsv_id(long csv_id) {
+        this.csv_id = csv_id;
+    }
+
+    public long getIssue_id() {
+        return issue_id;
+    }
+
+    public void setIssue_id(long issue_id) {
+        this.issue_id = issue_id;
+    }
+
 }

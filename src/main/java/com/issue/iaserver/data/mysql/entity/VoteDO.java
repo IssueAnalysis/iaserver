@@ -1,14 +1,16 @@
 package com.issue.iaserver.data.mysql.entity;
 
+import org.redisson.liveobject.resolver.LongGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * 这个类把四种对应关系放在一起
  * IssueID 关键词id 投票用户id（这个用来标识那些用户给哪个issue的哪个关键词投过票）
- * IssueID 关注点id 投票用户 id（这个用来标识那些用户给哪个issue的哪个关注点投过票）
+ * IssueID 关注点id 投票用户id（这个用来标识那些用户给哪个issue的哪个关注点投过票）
  * IssueID 关键词id 票数（issue的某个关键词的票数）
- * IssueID 关注点id  票数（issue的某个关注点的票数）
+ * IssueID 关注点id 票数（issue的某个关注点的票数）
  *
  * 有空值，根据对应关系设置
  *
@@ -36,11 +38,11 @@ public class VoteDO implements Serializable {
 
     @Basic
     @Column(name = "focus_id")
-    private long focus_id;
+    private Long focus_id;
 
     @Basic
     @Column(name = "keyword_id")
-    private long keyword_id;
+    private Long keyword_id;
 
     @Basic
     @Column(name = "user_id")
@@ -58,6 +60,24 @@ public class VoteDO implements Serializable {
         this.keyword_id = keyword_id;
         this.user_id = user_id;
         this.vote = vote;
+    }
+
+    public VoteDO(KeywordDO keywordDO, long user_id) {
+        this.csv_id = keywordDO.getCsv_id();
+        this.item_id = keywordDO.getIssue_id();
+        this.focus_id = null;
+        this.keyword_id = keywordDO.getId();
+        this.user_id = user_id;
+        this.vote = 0;
+    }
+
+    public VoteDO(FocusDO focusDO, long userId) {
+        this.csv_id = focusDO.getCsv_id();
+        this.item_id = focusDO.getIssue_id();
+        this.focus_id = focusDO.getId();
+        this.keyword_id = null;
+        this.user_id = userId;
+        this.vote = 0;
     }
 
     public long getId() {
