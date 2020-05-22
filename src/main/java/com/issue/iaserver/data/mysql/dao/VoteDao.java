@@ -23,17 +23,7 @@ import java.util.ArrayList;
 @Repository
 public interface VoteDao extends JpaRepository<VoteDO, Long> {
 
-    @Query("select v from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id and v.keyword_id=:keyword_id")
-    ArrayList<VoteDO> getKeyWordVote(@Param("csv_id") long csv_id, @Param("item_id") long item_id,
-                                     @Param("keyword_id") long keyword_id);
-
-    @Query("select v from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id and v.focus_id=:focus_id")
-    ArrayList<VoteDO> getFocusVote(@Param("csv_id") long csv_id, @Param("item_id") long item_id,
-                                   @Param("focus_id") long focus_id);
-
-    @Query("select v.keyword_id from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id")
-    ArrayList<Long> getKeyWordIdByIssueID(@Param("csv_id") long csv_id, @Param("item_id") long item_id);
-
-    @Query("select v.focus_id from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id")
-    ArrayList<Long> getFocusIdByIssueID(@Param("csv_id") long csv_id, @Param("item_id") long item_id);
+    @Query("select v from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id and v.user_id=:user_id")
+    ArrayList<VoteDO> getKeywordAndFocusByUserId(@Param("csv_id") long csv_id, @Param("item_id") long item_id,
+                                     @Param("user_id") long user_id);
 }

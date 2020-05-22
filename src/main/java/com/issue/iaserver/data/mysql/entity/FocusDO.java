@@ -43,15 +43,21 @@ public class FocusDO implements Serializable {
     @Column(name = "focus_type")
     private String focusType;           // 关注点类型
 
+    @Basic
+    @Column(name = "vote")
+    private int vote;  // 用户投票数
+
     public FocusDO(){}
 
-    public FocusDO(long id, long csv_id, long issue_id, String focusDescription, List<Keyword> keywordList, String focusType) {
+    public FocusDO(long id, long csv_id, long issue_id, String focusDescription,
+                   List<Keyword> keywordList, String focusType, int vote) {
         this.id = id;
         this.csv_id = csv_id;
         this.issue_id = issue_id;
         this.focusDescription = focusDescription;
         this.keywordJson =  //用json存
         this.focusType = focusType;
+        this.vote = vote;
     }
 
     public FocusDO(Focus focus, long csvId, long issueId) {
@@ -61,6 +67,7 @@ public class FocusDO implements Serializable {
         this.focusDescription = focus.getFocusDescription();
         this.keywordJson = JSON.toJSONString(focus.getKeywordList());
         this.focusType = focus.getFocusType();
+        this.vote = (int) focus.getVote();
     }
 
     public void setKeywordList(List<Keyword> keywordList){
@@ -133,6 +140,14 @@ public class FocusDO implements Serializable {
 
     public void setIssue_id(long issue_id) {
         this.issue_id = issue_id;
+    }
+
+    public int getVote() {
+        return vote;
+    }
+
+    public void setVote(int vote) {
+        this.vote = vote;
     }
 
 }

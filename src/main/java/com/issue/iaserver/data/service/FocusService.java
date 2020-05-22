@@ -2,6 +2,7 @@ package com.issue.iaserver.data.service;
 
 import com.issue.iaserver.data.mysql.entity.FocusDO;
 import com.issue.iaserver.data.mysql.entity.KeywordDO;
+import com.issue.iaserver.data.mysql.entity.VoteDO;
 import com.issue.iaserver.extractor.focus.Focus;
 import com.issue.iaserver.extractor.keyword.Keyword;
 
@@ -18,6 +19,9 @@ public interface FocusService {
 
     /**获取全部的Focus*/
     List<FocusDO> getAllFocus();
+
+    /**新增focus*/
+    boolean addFocus(Focus focus, long issueId, long csvId);
 
     /**
      * 当前issue是否已经被信息提取过
@@ -49,9 +53,21 @@ public interface FocusService {
      * @param csvId csv id
      * @param focusList 关注点列表 还没有保存到数据库的focus
      * @param keywords 关键词列表 还没有保存到数据库的keyword
+     * @param userId 用户id
      * @return 是否设置成功
      */
     boolean setIssueKeywordsAndFocus(long issueId, long csvId, List<Focus> focusList, List<Keyword> keywords, long userId);
+
+    /**
+     * 新建issue的关键词和关注点
+     * @param issueId issue id
+     * @param csvId csv id
+     * @param focusList 关注点列表 还没有保存到数据库的focus
+     * @param keywords 关键词列表 还没有保存到数据库的keyword
+     * @return 是否设置成功
+     */
+    boolean initIssueKeywordsAndFocus(long issueId, long csvId, List<Focus> focusList, List<Keyword> keywords);
+
 
     /**
      * 获得已经被信息提取过的issue的关注点
@@ -68,4 +84,12 @@ public interface FocusService {
      * @return
      */
     List<Keyword> getMarkedIssueKeyword(long issueId, long csvId);
+
+    /**
+     * 当前用户对当前issue的哪些关注点和关键词投过票
+     * @param issueId
+     * @param csvId
+     * @param userId
+     * */
+    public List<VoteDO> getVoteRecordByUserIdAndIssueId(long issueId, long csvId, long userId);
 }

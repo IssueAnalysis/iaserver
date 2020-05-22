@@ -1,7 +1,9 @@
 package com.issue.iaserver.webserver.service.impl;
 
 import com.issue.iaserver.data.mongodb.CSVitem;
+import com.issue.iaserver.data.mysql.dao.CollectDao;
 import com.issue.iaserver.data.mysql.entity.CSVDO;
+import com.issue.iaserver.data.mysql.entity.CollectDO;
 import com.issue.iaserver.data.service.OperateFileService;
 import com.issue.iaserver.extractor.focus.Focus;
 import com.issue.iaserver.extractor.keyword.Keyword;
@@ -25,15 +27,19 @@ public class IssueServiceImpl implements IssueService {
     private final
     OperateFileService operateFileService;
 
+    private final
+    CollectDao collectDao;
+
     @Resource(name = "TextInfoExtractor")
     private InfoExtractor infoExtractor;
 
     private final Formatter formatter;
 
     @Autowired
-    public IssueServiceImpl(OperateFileService operateFileService, Formatter formatter) {
+    public IssueServiceImpl(OperateFileService operateFileService, Formatter formatter, CollectDao collectDao) {
         this.operateFileService = operateFileService;
         this.formatter = formatter;
+        this.collectDao = collectDao;
     }
 
     @Override
@@ -93,6 +99,13 @@ public class IssueServiceImpl implements IssueService {
         issue.setKeyword(keywordList);
         // TODO 添加用户是否投票的逻辑
         return issue;
+    }
+
+    @Override
+    public boolean collectIssue(long id, long csv_id, long user_id) {
+        CollectDO collectDO = new CollectDO(0, csv_id, id, user_id);
+        collectDao.saveAndFlush(collectDO);
+        return true;
     }
 
     private Issue getIssueFromCSVItem(CSVitem csvItem) {

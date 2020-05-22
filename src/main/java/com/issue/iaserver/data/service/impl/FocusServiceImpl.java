@@ -45,6 +45,14 @@ public class FocusServiceImpl implements FocusService {
         return focusDao.findAll();
     }
 
+    /**新增一个Focus*/
+    @Override
+    public boolean addFocus(Focus focus, long issueId, long csvId) {
+        FocusDO focusDO = new FocusDO(focus, csvId, issueId);
+        focusDao.saveAndFlush(focusDO);
+        return true;
+    }
+
     /**
      * 当前issue是否已经被信息提取过
      * @param issueId issue id
@@ -87,9 +95,8 @@ public class FocusServiceImpl implements FocusService {
         if(!isIssueExtracted(issueId, csvId)){
             return keywords;
         }
-        List<Long> keywordIds = voteDao.getKeyWordIdByIssueID(issueId, csvId);
-        for(Long id : keywordIds){
-            KeywordDO keywordDO = keywordDao.getOne(id);
+        List<KeywordDO> keywordIds = keywordDao.getKeywordByIssueId(csvId, issueId);
+        for(KeywordDO keywordDO : keywordIds){
             Keyword keyword = new Keyword(keywordDO.getKeyword_description(), keywordDO.getVote());
             keywords.add(keyword);
         }
@@ -97,11 +104,11 @@ public class FocusServiceImpl implements FocusService {
     }
 
     /**
-     * 设置issue的关键词和关注点
+     * 设置issue的关键词和关注点，这个focus和keyword作为参数，但是是修改票数或者是其中的内容
      * @param issueId issue id
      * @param csvId csv id
-     * @param focusList 关注点列表 还没有保存到数据库的focus
-     * @param keywords 关键词列表 还没有保存到数据库的keyword
+     * @param focusList 关注点列表
+     * @param keywords 关键词列表
      * @param userId 用户id
      * @return 是否设置成功
      */
@@ -109,14 +116,17 @@ public class FocusServiceImpl implements FocusService {
     public boolean setIssueKeywordsAndFocus(long issueId, long csvId,
                                             List<Focus> focusList, List<Keyword> keywords,
                                             long userId) {
+
+        /*List<KeywordDO> keywords_ = keywordDao.getKeywordByIssueId(csvId, issueId);
         for (Keyword keyword : keywords) {
             KeywordDO keywordDO = new KeywordDO(keyword, csvId, issueId);
+
             keywordDao.saveAndFlush(keywordDO);
             System.out.println("[INFO] :关键词id是"+keywordDO.getId());
 
             VoteDO voteDO = new VoteDO(keywordDO, userId);
             voteDao.saveAndFlush(voteDO);
-        }
+        }*/
 
         for (Focus focus : focusList) {
             List<Keyword> keywords1 = focus.getKeywordList();
@@ -132,6 +142,30 @@ public class FocusServiceImpl implements FocusService {
 
             VoteDO voteDO = new VoteDO(focusDO, userId);
             voteDao.saveAndFlush(voteDO);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean initIssueKeywordsAndFocus(long issueId, long csvId,
+                                             List<Focus> focusList, List<Keyword> keywords) {
+        for (Keyword keyword : keywords) {
+            KeywordDO keywordDO = new KeywordDO(keyword, csvId, issueId);
+            keywordDao.saveAndFlush(keywordDO);
+            System.out.println("[INFO] :新增的关键词id是"+keywordDO.getId());
+        }
+
+        for (Focus focus : focusList) {
+            List<Keyword> keywords1 = focus.getKeywordList();
+            for(Keyword keyword : keywords1){
+                KeywordDO keywordDO = new KeywordDO(keyword, csvId, issueId);
+                keywordDao.saveAndFlush(keywordDO);
+                System.out.println("[INFO] :关注点对应的关键词id是"+keywordDO.getId());
+            }
+
+            FocusDO focusDO = new FocusDO(focus, csvId, issueId);
+            focusDao.saveAndFlush(focusDO);
+            System.out.println("[INFO] :新增的关注点id是"+focusDO.getId());
         }
         return true;
     }
@@ -165,5 +199,17 @@ public class FocusServiceImpl implements FocusService {
             res.add(new Keyword(keywordDO.getKeyword_description(), keywordDO.getVote()));
         }
         return res;
+    }
+
+    /**
+     * 当前用户对当前issue的哪些关注点和关键词投过票
+     * voteDO中保存着对应的focus和keyword的id
+     * @param issueId
+     * @param csvId
+     * @param userId
+     * */
+    @Override
+    public List<VoteDO> getVoteRecordByUserIdAndIssueId(long issueId, long csvId, long userId){
+        return voteDao.getKeywordAndFocusByUserId(csvId, issueId, userId);
     }
 }

@@ -48,18 +48,13 @@ public class VoteDO implements Serializable {
     @Column(name = "user_id")
     private long user_id;
 
-    @Basic
-    @Column(name = "vote")
-    private int vote;
-
-    public VoteDO(long id, long csv_id, long item_id, long focus_id, long keyword_id, long user_id, int vote) {
+    public VoteDO(long id, long csv_id, long item_id, long focus_id, long keyword_id, long user_id) {
         this.id = id;
         this.csv_id = csv_id;
         this.item_id = item_id;
         this.focus_id = focus_id;
         this.keyword_id = keyword_id;
         this.user_id = user_id;
-        this.vote = vote;
     }
 
     public VoteDO(KeywordDO keywordDO, long user_id) {
@@ -68,7 +63,6 @@ public class VoteDO implements Serializable {
         this.focus_id = null;
         this.keyword_id = keywordDO.getId();
         this.user_id = user_id;
-        this.vote = 0;
     }
 
     public VoteDO(FocusDO focusDO, long userId) {
@@ -77,7 +71,6 @@ public class VoteDO implements Serializable {
         this.focus_id = focusDO.getId();
         this.keyword_id = null;
         this.user_id = userId;
-        this.vote = 0;
     }
 
     public long getId() {
@@ -126,13 +119,5 @@ public class VoteDO implements Serializable {
 
     public void setUser_id(long user_id) {
         this.user_id = user_id;
-    }
-
-    public int getVote() {
-        return vote;
-    }
-
-    public void setVote(int vote) {
-        this.vote = vote;
     }
 }
