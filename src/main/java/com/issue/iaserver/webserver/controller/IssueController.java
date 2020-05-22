@@ -51,8 +51,8 @@ public class IssueController {
     }
 
     @GetMapping("/detail")
-    public Issue getDetailedIssue(@RequestParam("id") long id, @RequestParam("csv_id") long csv_id){
-        return issueService.getIssueDetail(id, csv_id);
+    public Issue getDetailedIssue(HttpSession session,@RequestParam("id") long id, @RequestParam("csv_id") long csv_id){
+        return issueService.getIssueDetail(id, csv_id, (long)session.getAttribute("user_id"));
     }
 
     @PostMapping("/post_file")

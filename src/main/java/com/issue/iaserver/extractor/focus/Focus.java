@@ -12,6 +12,7 @@ public class Focus implements Comparable<Focus> {
     private String focusDescription;    // 关注点描述
     private List<Keyword> keywordList;  // 关键词列表
     private String focusType;           // 关注点类型
+    private long vote;                  // 票数
 
     // 非持久层部分
     private double p;                   // 权值
@@ -34,6 +35,14 @@ public class Focus implements Comparable<Focus> {
         this.focusDescription = focusDO.getFocusDescription();
         this.focusType = focusDO.getFocusType();
         this.keywordList = focusDO.getKeywordList();
+    }
+
+    public long getVote() {
+        return vote;
+    }
+
+    public void setVote(long vote) {
+        this.vote = vote;
     }
 
     public long getId() {

@@ -11,6 +11,13 @@ public class Focus {
     private String vote;
     private boolean isVoted;
 
+    public Focus(com.issue.iaserver.extractor.focus.Focus focus){
+        this.id = focus.getId();
+        this.description = focus.getFocusDescription();
+        this.type = focus.getFocusType();
+        this.vote = String.valueOf(focus.getVote());
+    }
+
     public long getId() {
         return id;
     }

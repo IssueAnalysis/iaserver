@@ -48,6 +48,7 @@ public class DaoController {
      */
     public boolean isStatisticHasFocus(Focus focus){
         // TODO 连接数据库
+
         return false;
     }
 
@@ -78,8 +79,7 @@ public class DaoController {
      * @return 是否被提取过
      */
     public boolean isIssueExtracted(long issueId, long csvId){
-        // TODO 连接数据层
-        return true;
+        return focusService.isIssueExtracted(issueId,csvId);
     }
 
     /**
@@ -89,8 +89,7 @@ public class DaoController {
      * @return 是否标记成功
      */
     public boolean markIssueExtracted(long issueId, long csvId){
-        // TODO 连接数据层
-        return true;
+        return focusService.markIssueExtracted(issueId,csvId);
     }
 
     /**
@@ -100,8 +99,7 @@ public class DaoController {
      * @return issue的关键词
      */
     public List<Keyword> getMarkedIssueKeywords(long issueId, long csvId){
-        // TODO 连接数据库
-        return null;
+        return focusService.getMarkedIssueKeywords(issueId,csvId);
     }
 
     /**
@@ -111,8 +109,7 @@ public class DaoController {
      * @return
      */
     public List<Focus> getMarkedIssueFocus(long issueId, long csvId){
-        // TODO 连接数据库
-        return null;
+        return focusService.getMarkedIssueFocus(issueId, csvId);
     }
 
     /**
@@ -124,8 +121,7 @@ public class DaoController {
      * @return 是否设置成功
      */
     public boolean setIssueKeywordsAndFocus(long issueId, long csvId,List<Focus> focusList,  List<Keyword> keywords){
-        // TODO 连接数据库
-        return false;
+        return focusService.setIssueKeywordsAndFocus(issueId,csvId,focusList,keywords,0l);
     }
 
 

@@ -3,6 +3,9 @@ package com.issue.iaserver.webserver.service.impl;
 import com.issue.iaserver.data.mongodb.CSVitem;
 import com.issue.iaserver.data.mysql.entity.CSVDO;
 import com.issue.iaserver.data.service.OperateFileService;
+import com.issue.iaserver.extractor.focus.Focus;
+import com.issue.iaserver.extractor.keyword.Keyword;
+import com.issue.iaserver.extractor.server.InfoExtractor;
 import com.issue.iaserver.format.service.Formatter;
 import com.issue.iaserver.webserver.model.Issue;
 import com.issue.iaserver.webserver.model.IssueBrief;
@@ -10,6 +13,8 @@ import com.issue.iaserver.webserver.service.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +24,9 @@ public class IssueServiceImpl implements IssueService {
 
     private final
     OperateFileService operateFileService;
+
+    @Resource(name = "TextInfoExtractor")
+    private InfoExtractor infoExtractor;
 
     private final Formatter formatter;
 
@@ -58,7 +66,7 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Issue getIssueDetail(long id, long csv_id) {
+    public Issue getIssueDetail(long id, long csv_id, long user_id) {
         List<CSVitem> csvItems = operateFileService.getCSVitemByCSVid(csv_id);
         CSVitem csvItem = null;
         for(CSVitem i : csvItems){
@@ -69,8 +77,22 @@ public class IssueServiceImpl implements IssueService {
         }
         if(csvItem == null)
             return null;
-        // TODO待做
-        return getIssueFromCSVItem(csvItem);
+        Issue issue = getIssueFromCSVItem(csvItem);
+        String text = issue.getDescription();
+        List<Focus> focusList = infoExtractor.findIssueFocus(id,csv_id,text);
+        List<Keyword> keywords = infoExtractor.findKeyWords(id,csv_id,text);
+        List<com.issue.iaserver.webserver.model.Focus> foci = new ArrayList<>(focusList.size());
+        List<com.issue.iaserver.webserver.model.Keyword> keywordList = new ArrayList<>(keywords.size());
+        for(Focus focus: focusList){
+            foci.add(new com.issue.iaserver.webserver.model.Focus(focus));
+        }
+        for(Keyword keyword : keywords){
+            keywordList.add(new com.issue.iaserver.webserver.model.Keyword(keyword));
+        }
+        issue.setFocus(foci);
+        issue.setKeyword(keywordList);
+        // TODO 添加用户是否投票的逻辑
+        return issue;
     }
 
     private Issue getIssueFromCSVItem(CSVitem csvItem) {
