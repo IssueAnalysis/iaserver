@@ -38,7 +38,13 @@ public class testOperateFileService {
 
     @Test
     public void test2(){
-        assertEquals(689,o.getCSVitemByCSVid((long)4434).size());
+        assertEquals(699,o.getCSVitemByCSVid((long)0).size());
+    }
+
+    @Test
+    public void test2_1(){
+        CSVitem csVitem = o.getCSVitemByCSVidAndItemid((long)4464, (long)0);
+        assertEquals("Crashing bugs in NameNode when using a valid configuration for `dfs.namenode.audit.loggers`", csVitem.getSummary());
     }
 
     @Test

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-@Service
+@Service("TextInfoExtractor")
 public class TextInfoExtractor implements InfoExtractor{
 
     private NameFinder nameFinder;
@@ -96,13 +96,18 @@ public class TextInfoExtractor implements InfoExtractor{
         for(String str : sortedKeyWords){
             res.add(new Keyword(str, 0));
         }
-
         return res;
     }
 
     @Override
-    public List<Focus> findIssueFocus(long issueId, long csvId) {
-        return null;
+    public List<Focus> findIssueFocus(long issueId, long csvId,String text) {
+        if(daoController.isIssueExtracted(issueId, csvId)){
+            return daoController.getMarkedIssueFocus(issueId, csvId);
+        }
+        List<Keyword> keywords = findKeyWords(issueId,csvId,text);
+        List<Focus> focusList = findIssueFocus(keywords);
+        daoController.setIssueKeywordsAndFocus(issueId,csvId,focusList,keywords);
+        return focusList;
     }
 
 

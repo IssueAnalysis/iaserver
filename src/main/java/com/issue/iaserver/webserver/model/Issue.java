@@ -2,6 +2,8 @@ package com.issue.iaserver.webserver.model;
 
 import com.issue.iaserver.data.mongodb.CSVitem;
 
+import java.util.List;
+
 public class Issue {
 
     private long id;
@@ -25,6 +27,9 @@ public class Issue {
     private String intention;
     private String consideration;
     private String briefDescription;
+
+    private List<Focus> focus;
+    private List<Keyword> keyword;
 
     public Issue(CSVitem csVitem) {
         this.id = csVitem.getId();
@@ -50,6 +55,21 @@ public class Issue {
         this.consideration = csVitem.getConsideration();
     }
 
+    public List<Focus> getFocus() {
+        return focus;
+    }
+
+    public void setFocus(List<Focus> focus) {
+        this.focus = focus;
+    }
+
+    public List<Keyword> getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(List<Keyword> keyword) {
+        this.keyword = keyword;
+    }
 
     public long getId() {
         return id;

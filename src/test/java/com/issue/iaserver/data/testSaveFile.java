@@ -24,10 +24,10 @@ public class testSaveFile {
          * @param bucketName  存储空间
          * @param folder 此为图片所在的文件夹，将它设置为requestid，如requestid为1——设为"1/"*/
         String res = AliyunOSSClientUtil.uploadObject2OSS(ossClient,
-                "C:\\Users\\m1885\\Desktop\\my_csv.csv",
+                "C:\\Users\\m1885\\Desktop\\simple.csv",
                 OSSClientConstants.BACKET_NAME,
                 "");
-        Assertions.assertEquals("https://iaserver.oss-cn-hangzhou.aliyuncs.com/my_csv.csv", res);
+        Assertions.assertEquals("https://iaserver.oss-cn-hangzhou.aliyuncs.com/simple.csv", res);
     }
 
 }

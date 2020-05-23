@@ -3,6 +3,7 @@ package com.issue.iaserver.data.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.issue.iaserver.data.redis.KeyPrefix;
 import com.issue.iaserver.data.service.RedisService;
+import com.issue.iaserver.data.util.HashUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
@@ -219,4 +220,65 @@ public class RedisServiceImpl implements RedisService{
         }
     }
 
+
+    private final int MAX_SIZE = 15;
+    private final int HASH_TIMES = 7;
+    private final String BLOOM_NAME = "BLOOM_BITS";
+
+    public boolean add(String str){
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+
+            if (!jedis.exists(BLOOM_NAME)) {
+                jedis.setbit(BLOOM_NAME, MAX_SIZE, false);
+            }
+            List<Integer> hashs = toHashs(str);
+            if (isExist(hashs, jedis)) {
+                //判断在集合中是否存在
+                return false;
+            } else {
+                //如果不存在，将对应的hash位置为1
+                for (int hash :
+                        hashs) {
+                    jedis.setbit(BLOOM_NAME, hash, true);
+                }
+                return true;
+            }
+        }finally {
+            returnToPool(jedis);
+        }
+    }
+
+    public boolean isExist(List<Integer> hashs, Jedis jedis){
+        boolean flag = true;
+        for (int i = 0;(i < HASH_TIMES) && (flag)  ; i++) {
+            flag = flag && jedis.getbit(BLOOM_NAME,hashs.get(i));
+        }
+        return flag;
+    }
+
+
+    public List<Integer> toHashs(String url){
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(HashUtils.additiveHash(url, 47) % MAX_SIZE);
+        list.add(HashUtils.rotatingHash(url, 47) % MAX_SIZE);
+        list.add(HashUtils.oneByOneHash(url) % MAX_SIZE);
+        list.add(HashUtils.bernstein(url) % MAX_SIZE);
+        list.add(HashUtils.FNVHash(url.getBytes()) % MAX_SIZE);
+        list.add(HashUtils.RSHash(url) % MAX_SIZE);
+        list.add(HashUtils.JSHash(url) % MAX_SIZE);
+        list.add(HashUtils.PJWHash(url) % MAX_SIZE);
+        list.add(HashUtils.ELFHash(url) % MAX_SIZE);
+        list.add(HashUtils.BKDRHash(url) % MAX_SIZE);
+        list.add(HashUtils.SDBMHash(url) % MAX_SIZE);
+        list.add(HashUtils.DJBHash(url) % MAX_SIZE);
+        list.add(HashUtils.DEKHash(url) % MAX_SIZE);
+        list.add(HashUtils.APHash(url) % MAX_SIZE);
+        list.add(HashUtils.java(url) % MAX_SIZE);
+        for (int i = 0; i < list.size(); i++) {
+            list.set(i,Math.abs(list.get(i)));
+        }
+        return list;
+    }
 }

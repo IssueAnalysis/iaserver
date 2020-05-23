@@ -23,6 +23,4 @@ public class UserKey extends BasePrefix {
 
     public static UserKey getById = new UserKey("id");
     public static UserKey token = new UserKey(TOKEN_EXPIRE, "tk");
-
-
 }

@@ -75,6 +75,18 @@ public class OperateFileServiceImpl implements OperateFileService {
         return csVitems;
     }
 
+    /**通过csvid来获取list item*/
+    @Override
+    public CSVitem getCSVitemByCSVidAndItemid(long csvId, long itemId){
+        DBOperation dbOperation = new DBOperation();
+        MongoDBConnection mongoDBConnection = new MongoDBConnection();
+        MongoClient mongoClient = mongoDBConnection.getConn();
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("iadb");
+
+        CSVitem csVitem = dbOperation.getItem(mongoDatabase, csvId, itemId);
+        return csVitem;
+    }
+
     /**获取全部csv文件*/
     @Override
     public List<CSVDO> getAllCSV(){
@@ -121,21 +133,4 @@ public class OperateFileServiceImpl implements OperateFileService {
         }
         return csVitems;
     }
-
-
-    /**通过内容获取csv文件*/
-   /* @Override
-    public List<CSVDO> getCSVByText(String content) {
-        List<CSVDO> csvdos = getAllCSV();
-        List<CSVDO> res = new ArrayList<CSVDO>();
-        for(CSVDO csvdo : csvdos) {
-            List<Document> documents = getDocumentByCSVid( csvdo.getId());
-            //System.out.println(documents.toString());
-            String d = documents.toString();
-            if(d.contains(content)){
-                res.add(csvdo);
-            }
-        }
-        return res;
-    }*/
 }

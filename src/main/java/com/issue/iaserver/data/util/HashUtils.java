@@ -1,9 +1,8 @@
-package com.issue.iaserver.data.bfbor.utils;
+package com.issue.iaserver.data.util;
 import java.security.MessageDigest;
 
 /**
  * Hash算法大全
- * 推荐使用FNV1算法
  */
 public class HashUtils {
         /**

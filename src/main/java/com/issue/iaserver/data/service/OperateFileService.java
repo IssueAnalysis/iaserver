@@ -23,6 +23,9 @@ public interface OperateFileService {
     /**通过csvid来获取list item*/
     List<CSVitem> getCSVitemByCSVid(long csvId);
 
+    /**通过csvid\itemid来获取CSV Item*/
+    CSVitem getCSVitemByCSVidAndItemid(long csvId, long itemId);
+
     /**获取全部csv文件*/
     List<CSVDO> getAllCSV();
 

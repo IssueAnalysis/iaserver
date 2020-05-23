@@ -22,7 +22,7 @@ public interface InfoExtractor {
      * @param csvId csvId 和 issueId一起作为一个issue 的唯一标识
      * @return 关注点列表
      */
-    List<Focus> findIssueFocus(long issueId, long csvId);
+    List<Focus> findIssueFocus(long issueId, long csvId,String text);
 
     /**
      * 根据一个issue的关键词，获得Issue的所有关注点
