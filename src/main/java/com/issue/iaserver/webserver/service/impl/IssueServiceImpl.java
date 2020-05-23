@@ -1,8 +1,9 @@
 package com.issue.iaserver.webserver.service.impl;
 
-import com.issue.iaserver.data.mongodb_es.CSVitem;
+import com.issue.iaserver.data.mongodb.CSVitem;
 import com.issue.iaserver.data.mysql.entity.CSVDO;
 import com.issue.iaserver.data.service.OperateFileService;
+import com.issue.iaserver.format.model.RichDescription;
 import com.issue.iaserver.format.service.Formatter;
 import com.issue.iaserver.webserver.model.Issue;
 import com.issue.iaserver.webserver.model.IssueBrief;
@@ -77,9 +78,9 @@ public class IssueServiceImpl implements IssueService {
 //        System.out.println(csvItem.getDescription());
         Issue issue = new Issue(csvItem);
         String description = formatter.format(issue.getDescription());
-        issue.setDescription(description);
         issue.setBriefDescription(formatter.getBriefDescription(description));
-        issue.setRichDescription(formatter.getRichDescription(description));
+        RichDescription richDescription = formatter.getRichDescription(description);
+        issue.setDescription(richDescription.getRichText());
         return issue;
     }
 

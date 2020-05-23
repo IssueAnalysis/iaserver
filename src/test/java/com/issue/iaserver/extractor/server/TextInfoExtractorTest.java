@@ -24,19 +24,19 @@ class TextInfoExtractorTest {
     @Autowired
     private PosTagDic posTagDic;
 
-    @Test
-    void findKeyWords() throws IOException {
-        String text =new FileUtil().getTestText();
-        String[] keywords = infoExtractor.findKeyWords("test",text);
-        System.out.println("Token数量为："+ detector.detectTokens(text).length);
-        System.out.println("关键词数量为： " + keywords.length);
-        String[] pos = detector.detectPos(keywords);
-        int index = 0;
-        for(String str: keywords){
-            System.out.println(str + " " + pos[index]);
-            index++;
-        }
-    }
+//    @Test
+//    void findKeyWords() throws IOException {
+//        String text =new FileUtil().getTestText();
+//        String[] keywords = infoExtractor.findKeyWords("test",text);
+//        System.out.println("Token数量为："+ detector.detectTokens(text).length);
+//        System.out.println("关键词数量为： " + keywords.length);
+//        String[] pos = detector.detectPos(keywords);
+//        int index = 0;
+//        for(String str: keywords){
+//            System.out.println(str + " " + pos[index]);
+//            index++;
+//        }
+//    }
 
     @Test
     void testPosDic(){

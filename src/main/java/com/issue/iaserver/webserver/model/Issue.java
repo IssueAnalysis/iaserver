@@ -1,7 +1,6 @@
 package com.issue.iaserver.webserver.model;
 
-import com.issue.iaserver.data.mongodb_es.CSVitem;
-import com.issue.iaserver.format.model.RichDescription;
+import com.issue.iaserver.data.mongodb.CSVitem;
 
 public class Issue {
 
@@ -26,9 +25,8 @@ public class Issue {
     private String intention;
     private String consideration;
     private String briefDescription;
-    private RichDescription richDescription;
 
-    public Issue(CSVitem csVitem){
+    public Issue(CSVitem csVitem) {
         this.id = csVitem.getId();
         this.csv_id = csVitem.getCSVid();
 
@@ -215,11 +213,4 @@ public class Issue {
         this.briefDescription = briefDescription;
     }
 
-    public RichDescription getRichDescription() {
-        return richDescription;
-    }
-
-    public void setRichDescription(RichDescription richDescription) {
-        this.richDescription = richDescription;
-    }
 }

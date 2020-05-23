@@ -77,6 +77,10 @@ public class RichDescriptionHelper {
             wrapText("if.*? \\w+(?=[.,;:])", "scenario");
         }
 
+        if(!scenarioFound){
+            wrapByMachineLearning("scenario");
+        }
+
     }
 
     private void findSolution(){
@@ -93,6 +97,10 @@ public class RichDescriptionHelper {
 
         if(!solutionFound){
             markImperativeSentenceAsSolution();
+        }
+
+        if(!solutionFound){
+            wrapByMachineLearning("solution");
         }
 
     }
@@ -119,6 +127,10 @@ public class RichDescriptionHelper {
 
         }
 
+    }
+
+    private void wrapByMachineLearning(String type){
+        //TODO
     }
 
     private void wrapText(String regex, String type){

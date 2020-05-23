@@ -48,6 +48,7 @@ public class RichDescription {
             sb.append(descArea.getContent());
         }
         richText = sb.toString();
+        richText = richText.replaceAll("\n", "<br>");
     }
 
     public List<DescArea> getAreasOfType(String type) {

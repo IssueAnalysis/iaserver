@@ -9,14 +9,14 @@ public interface Formatter {
      * @param description
      * @return  带有分块信息的description
      */
-    public RichDescription getRichDescription(String description);
+    RichDescription getRichDescription(String description);
 
 
     /**
      * @param description
      * @return  一个简短的description
      */
-    public String getBriefDescription(String description);
+    String getBriefDescription(String description);
 
 
     /**
@@ -24,7 +24,7 @@ public interface Formatter {
      * @param description
      * @return
      */
-    public String format(String description);
+    String format(String description);
 
 
 
