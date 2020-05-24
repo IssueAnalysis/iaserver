@@ -1,6 +1,7 @@
 package com.issue.iaserver.webserver.controller;
 
 import com.issue.iaserver.data.service.OperateFileService;
+import com.issue.iaserver.extractor.server.VoteService;
 import com.issue.iaserver.webserver.model.Issue;
 import com.issue.iaserver.webserver.model.IssueBrief;
 import com.issue.iaserver.webserver.service.IssueService;
@@ -22,12 +23,15 @@ public class IssueController {
 
     private final IssueService issueService;
 
+    private final VoteService voteService;
+
     /*@Autowired
     public SearchService searchService;*/
     @Autowired
-    public IssueController(OperateFileService operateFileService, IssueService issueService) {
+    public IssueController(VoteService voteService,OperateFileService operateFileService, IssueService issueService) {
         this.operateFileService = operateFileService;
         this.issueService = issueService;
+        this.voteService = voteService;
     }
 
 
@@ -85,4 +89,22 @@ public class IssueController {
     public @ResponseBody Page<CSVitem> list(Integer pageNumber, Integer pageSize, String searchContent) {
         return searchService.searchIssuePage(pageNumber, pageSize, searchContent);
     }*/
+
+    @PostMapping("/vote_keyword")
+    public boolean voteKeyword(HttpSession httpSession,
+                               @RequestParam("issue_id")long issueId,
+                               @RequestParam("csv_id")long csvId,
+                               @RequestParam("keyword_id")long keywordId){
+        long userId = (long)httpSession.getAttribute("user_id");
+        return voteService.voteKeyword(issueId,csvId,userId,keywordId);
+    }
+
+    @PostMapping("/vote_focus")
+    public boolean voteFocus(HttpSession httpSession,
+                             @RequestParam("issue_id") long issueId,
+                             @RequestParam("csv_id") long csvId,
+                             @RequestParam("focus_id")long focusId){
+        long userId = (long) httpSession.getAttribute("user_id");
+        return voteService.voteFocus(issueId,csvId,userId,focusId);
+    }
 }

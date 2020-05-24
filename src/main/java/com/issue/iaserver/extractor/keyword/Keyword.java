@@ -3,6 +3,7 @@ package com.issue.iaserver.extractor.keyword;
 //  关键词
 public class Keyword implements Comparable<Keyword>{
 
+    private long id;
     private String keyword;  // 关键词
     private String posTag;  // 关键词词性
     private int vote;  // 用户投票数
@@ -11,6 +12,15 @@ public class Keyword implements Comparable<Keyword>{
         this.keyword = keyword;
         this.vote = vote;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getKeyword() {
         return keyword;
     }
