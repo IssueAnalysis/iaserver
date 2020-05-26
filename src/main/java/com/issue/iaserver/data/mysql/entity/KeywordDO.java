@@ -51,12 +51,18 @@ public class KeywordDO implements Serializable {
         this.vote = vote;
     }
 
-    public KeywordDO(Keyword keyword, long csv_id, long issue_id) {
-        this.csv_id = csv_id;
-        this.issue_id = issue_id;
+    public KeywordDO(Keyword keyword) {
         this.keyword_description = keyword.getKeyword();
         this.posTag = keyword.getPosTag();
         this.vote = keyword.getVote();
+    }
+
+    public KeywordDO(Keyword keyword, long csvId, long issueId) {
+        this.keyword_description = keyword.getKeyword();
+        this.posTag = keyword.getPosTag();
+        this.vote = keyword.getVote();
+        this.csv_id = csvId;
+        this.issue_id = issueId;
     }
 
     public long getId() {

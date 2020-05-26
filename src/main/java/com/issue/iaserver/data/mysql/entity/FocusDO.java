@@ -4,6 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.issue.iaserver.extractor.focus.Focus;
 import com.issue.iaserver.extractor.keyword.Keyword;
+import org.hibernate.annotations.Proxy;
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -17,6 +20,7 @@ import java.util.*;
  */
 @Entity
 @Table(name="focus")
+@Proxy(lazy = false)
 public class FocusDO implements Serializable {
 
     @Id
@@ -55,15 +59,23 @@ public class FocusDO implements Serializable {
         this.csv_id = csv_id;
         this.issue_id = issue_id;
         this.focusDescription = focusDescription;
-        this.keywordJson =  //用json存
+        this.keywordJson =  JSON.toJSONString(keywordList);//用json存
         this.focusType = focusType;
         this.vote = vote;
     }
 
     public FocusDO(Focus focus, long csvId, long issueId) {
         this.id = focus.getId();
-        this.csv_id = csv_id;
-        this.issue_id = issue_id;
+        this.csv_id = csvId;
+        this.issue_id = issueId;
+        this.focusDescription = focus.getFocusDescription();
+        this.keywordJson = JSON.toJSONString(focus.getKeywordList());
+        this.focusType = focus.getFocusType();
+        this.vote = (int) focus.getVote();
+    }
+
+    public FocusDO(Focus focus) {
+        this.id = focus.getId();
         this.focusDescription = focus.getFocusDescription();
         this.keywordJson = JSON.toJSONString(focus.getKeywordList());
         this.focusType = focus.getFocusType();
