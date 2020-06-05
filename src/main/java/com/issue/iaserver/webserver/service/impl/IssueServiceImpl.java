@@ -6,6 +6,7 @@ import com.issue.iaserver.data.mysql.dao.CollectDao;
 import com.issue.iaserver.data.mysql.entity.CSVDO;
 import com.issue.iaserver.data.mysql.entity.CollectDO;
 import com.issue.iaserver.data.service.OperateFileService;
+import com.issue.iaserver.extractor.server.VoteService;
 import com.issue.iaserver.format.model.RichDescription;
 import com.issue.iaserver.extractor.focus.Focus;
 import com.issue.iaserver.extractor.keyword.Keyword;
@@ -35,13 +36,16 @@ public class IssueServiceImpl implements IssueService {
     @Resource(name = "TextInfoExtractor")
     private InfoExtractor infoExtractor;
 
+    private final VoteService voteService;
+
     private final Formatter formatter;
 
     @Autowired
-    public IssueServiceImpl(OperateFileService operateFileService, Formatter formatter, CollectDao collectDao) {
+    public IssueServiceImpl(VoteService voteService,OperateFileService operateFileService, Formatter formatter, CollectDao collectDao) {
         this.operateFileService = operateFileService;
         this.formatter = formatter;
         this.collectDao = collectDao;
+        this.voteService = voteService;
     }
 
     @Override
@@ -97,9 +101,21 @@ public class IssueServiceImpl implements IssueService {
         for(Keyword keyword : keywords){
             keywordList.add(new com.issue.iaserver.webserver.model.Keyword(keyword));
         }
+
+        List<Focus> votedFocus = voteService.getVotedFocus(id,csv_id,user_id);
+        List<Keyword> votedKeywords = voteService.getVotedKeyword(id, csv_id,user_id);
+        for(Focus focus : votedFocus){
+            for(com.issue.iaserver.webserver.model.Focus focus1 : foci){
+                if(focus1.getId() == focus.getId()) focus1.setVoted();
+            }
+        }
+        for(Keyword keyword : votedKeywords){
+            for(com.issue.iaserver.webserver.model.Keyword keyword1 : keywordList){
+                if(keyword.getId() == keyword1.getId()) keyword1.setVoted(true);
+            }
+        }
         issue.setFocus(foci);
         issue.setKeyword(keywordList);
-        // TODO 添加用户是否投票的逻辑
         return issue;
     }
 

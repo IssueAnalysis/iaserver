@@ -47,7 +47,8 @@ public class DaoController {
      * @return 是否查找到关注点
      */
     public boolean isStatisticHasFocus(Focus focus){
-        // TODO 连接数据库
+        // TODO
+
 
         return false;
     }
@@ -123,6 +124,59 @@ public class DaoController {
     public boolean setIssueKeywordsAndFocus(long issueId, long csvId,List<Focus> focusList,  List<Keyword> keywords){
         return focusService.setIssueKeywordsAndFocus(issueId,csvId,focusList,keywords,0l);
     }
+
+
+    /**
+     * 对于某个issue，获得某用户投过票的关注点
+     * @param issueId issue id
+     * @param csvId csv id
+     * @param userId 用户id
+     * @return 用户在这个issue投过票的关注点
+     */
+    public List<Focus> getVotedIssueFocus(long issueId, long csvId, long userId){
+        // TODO 连接数据层
+        return null;
+    }
+
+    /**
+     * 对于某个issue，获得某个用户投过票的关键词
+     * @param issueId issue id
+     * @param csvId csv id
+     * @param userId 用户id
+     * @return 用户在这个issue投过票的关键词
+     */
+    public List<Keyword> getVotedIssueKeywords(long issueId, long csvId, long userId){
+        // TODO 连接数据库
+        return null;
+    }
+
+    /**
+     * 对某个issue的某个关注点投票
+     * @param issueId
+     * @param csvId
+     * @param userId
+     * @param focusId
+     * @return
+     */
+    public boolean voteIssueFocus(long issueId, long csvId, long userId, long focusId){
+        // TODO 连接数据库
+        return false;
+    }
+
+    /**
+     * 对某个issue的某个关键词投票
+     * @param issueId
+     * @param csvId
+     * @param userId
+     * @param keywordId
+     * @return
+     */
+    public boolean voteIssueKeyword(long issueId, long csvId, long userId, long keywordId){
+        // TODO 连接数据库
+        return false;
+    }
+
+
 
 
 }

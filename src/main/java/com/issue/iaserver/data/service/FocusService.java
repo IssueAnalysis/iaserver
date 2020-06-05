@@ -21,7 +21,7 @@ public interface FocusService {
     List<FocusDO> getAllFocus();
 
     /**新增focus*/
-    boolean addFocus(Focus focus, long issueId, long csvId);
+    boolean addFocus(Focus focus);
 
     /**
      * 当前issue是否已经被信息提取过
@@ -48,6 +48,14 @@ public interface FocusService {
     List<Keyword> getMarkedIssueKeywords(long issueId, long csvId);
 
     /**
+     * 获得已经被信息提取过的issue的关注点
+     * @param issueId
+     * @param csvId
+     * @return
+     */
+    List<Focus> getMarkedIssueFocus(long issueId, long csvId);
+
+    /**
      * 设置issue的关键词和关注点
      * @param issueId issue id
      * @param csvId csv id
@@ -68,15 +76,6 @@ public interface FocusService {
      */
     boolean initIssueKeywordsAndFocus(long issueId, long csvId, List<Focus> focusList, List<Keyword> keywords);
 
-
-    /**
-     * 获得已经被信息提取过的issue的关注点
-     * @param issueId
-     * @param csvId
-     * @return
-     */
-    List<Focus> getMarkedIssueFocus(long issueId, long csvId);
-
     /**
      * 获得已经被信息提取过的issue的关键词
      * @param issueId
@@ -86,10 +85,20 @@ public interface FocusService {
     List<Keyword> getMarkedIssueKeyword(long issueId, long csvId);
 
     /**
-     * 当前用户对当前issue的哪些关注点和关键词投过票
+     * 当前用户对当前issue的哪些关键词投过票
      * @param issueId
      * @param csvId
      * @param userId
+     * @Return
      * */
-    public List<VoteDO> getVoteRecordByUserIdAndIssueId(long issueId, long csvId, long userId);
+    public List<Keyword> getKeywordByUserIdAndIssueId(long issueId, long csvId, long userId);
+
+    /**
+     * 当前用户对当前issue的哪些关注点投过票
+     * @param issueId
+     * @param csvId
+     * @param userId
+     * @Return
+     * */
+    public List<Focus> getFocusByUserIdAndIssueId(long issueId, long csvId, long userId);
 }

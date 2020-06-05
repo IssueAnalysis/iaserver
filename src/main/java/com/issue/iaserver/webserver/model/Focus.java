@@ -16,6 +16,10 @@ public class Focus {
         this.description = focus.getFocusDescription();
         this.type = focus.getFocusType();
         this.vote = String.valueOf(focus.getVote());
+        this.isVoted = false;
+    }
+    public void setVoted(){
+        this.isVoted = true;
     }
 
     public long getId() {
