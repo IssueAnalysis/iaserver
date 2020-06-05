@@ -1,0 +1,333 @@
+Summary,Issue key,Issue id,Parent id,Issue Type,Status,Project key,Project name,Project type,Project lead,Project description,Project url,Priority,Resolution,Assignee,Reporter,Creator,Created,Updated,Last Viewed,Resolved,Affects Version/s,Affects Version/s,Affects Version/s,Affects Version/s,Affects Version/s,Fix Version/s,Fix Version/s,Fix Version/s,Fix Version/s,Fix Version/s,Fix Version/s,Fix Version/s,Component/s,Component/s,Component/s,Component/s,Component/s,Due Date,Votes,Labels,Labels,Description,Environment,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Watchers,Original Estimate,Remaining Estimate,Time Spent,Work Ratio,ë£ Original Estimate,ë£ Remaining Estimate,ë£ Time Spent,Security Level,Outward issue link (Blocker),Outward issue link (Blocker),Outward issue link (Blocker),Outward issue link (Blocker),Outward issue link (Blocker),Outward issue link (Container),Outward issue link (Duplicate),Outward issue link (Incorporates),Outward issue link (Incorporates),Outward issue link (Incorporates),Outward issue link (Incorporates),Outward issue link (Problem/Incident),Outward issue link (Reference),Outward issue link (Reference),Outward issue link (Reference),Outward issue link (Reference),Outward issue link (Reference),Outward issue link (Reference),Outward issue link (Reference),Outward issue link (Reference),Outward issue link (Reference),Outward issue link (Regression),Outward issue link (Regression),Outward issue link (Required),Outward issue link (Supercedes),Outward issue link (Supercedes),Outward issue link (Supercedes),Outward issue link (Supercedes),Outward issue link (dependent),Outward issue link (dependent),Outward issue link (dependent),Outward issue link (dependent),Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Attachment,Custom field (Attachment count),Custom field (Blog - New Blog Administrators),Custom field (Blog - New Blog PMC),Custom field (Blog - Write access),Custom field (Blog Administrator?),Custom field (Blogs - Admin for blog),Custom field (Blogs - Email Address),Custom field (Blogs - Existing Blog Access Level),Custom field (Blogs - Existing Blog Name),Custom field (Blogs - New Blog Write Access),Custom field (Blogs - Username),Custom field (Bug Category),Custom field (Bugzilla - Email Notification Address),Custom field (Bugzilla - List of usernames),Custom field (Bugzilla - PMC Name),Custom field (Bugzilla - Project Name),Custom field (Bugzilla Id),Custom field (Change Category),Custom field (Complexity),Custom field (Date of First Response),Custom field (Discovered By),Custom field (Docs Text),Custom field (Enable Automatic Patch Review),Custom field (Epic Colour),Custom field (Epic Link),Custom field (Epic Name),Custom field (Epic Status),Custom field (Existing GitBox Approval),Custom field (External issue ID),Custom field (External issue URL),Custom field (Flags),Custom field (Flags),Custom field (Git Notification Mailing List),Custom field (Git Repository Import Path),Custom field (Git Repository Name),Custom field (Git Repository Type),Custom field (GitHub Options),Custom field (Github Integration),Custom field (Github Integrations - Other),Custom field (Global Rank),Custom field (Hadoop Flags),Custom field (Hadoop Flags),Custom field (INFRA - Subversion Repository Path),Custom field (Initial Confluence Contributors),Custom field (Last public comment date),Custom field (Machine Readable Info),Custom field (New-TLP-TLPName),Custom field (Priority),Custom field (Project),Custom field (Protected Branch),Custom field (Rank),Custom field (Rank (Obsolete)),Custom field (Release Note),Custom field (Severity),Custom field (Severity),Custom field (Source Control Link),Custom field (Space Description),Custom field (Space Key),Custom field (Space Name)
+RBF: Print stacktrace when DFSRouter fails to fetch/parse JMX output from NameNode,HDFS-15100,13278086,13241304,Sub-task,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Fixed,aajisaka,aajisaka,aajisaka,08/Jan/20 08:11,10/Jan/20 04:31,18/Jan/20 01:03,10/Jan/20 04:18,,,,,,3.3.0,,,,,,,rbf,,,,,,0,supportability,,"When DFSRouter fails to fetch or parse JMX output from NameNode, it prints only the error message. Therefore we had to modify the source code to print the stacktrace of the exception to find the root cause.",,aajisaka,ayushsaxena,elgoiri,hudson,John Smith,tasanuma,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0,,,,,,,,,,,,,,,,,,,2020-01-08 14:01:15.608,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,Fri Jan 10 04:31:43 UTC 2020,,,,,,0|z0aacg:,9223372036854775807,,,,,,,
+Optimize log information when DFSInputStream meet CannotObtainBlockLengthException,HDFS-15050,13273879,,Improvement,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Fixed,hexiaoqiao,hexiaoqiao,hexiaoqiao,11/Dec/19 13:17,12/Dec/19 11:26,18/Jan/20 01:03,12/Dec/19 10:26,,,,,,2.10.1,2.9.3,3.1.4,3.2.2,3.3.0,,,dfsclient,,,,,,0,,,"We could not identify which file it belongs easily when DFSInputStream meet CannotObtainBlockLengthException, as the following exception log. Just suggest to log file path string when we meet CannotObtainBlockLengthException.
+{code:java}
+Caused by: java.io.IOException: Cannot obtain block length for LocatedBlock{BP-***:blk_***_***; getBlockSize()=690504; corrupt=false; offset=1811939328; locs=[DatanodeInfoWithStorage[*:50010,DS-2bcadcc4-458a-45c6-a91b-8461bf7cdd71,DISK], DatanodeInfoWithStorage[*:50010,DS-8f2bb259-ecb2-4839-8769-4a0523360d58,DISK], DatanodeInfoWithStorage[*:50010,DS-69f4de6f-2428-42ff-9486-98c2544b1ada,DISK]]}
+	at org.apache.hadoop.hdfs.DFSInputStream.readBlockLength(DFSInputStream.java:402)
+	at org.apache.hadoop.hdfs.DFSInputStream.fetchLocatedBlocksAndGetLastBlockLength(DFSInputStream.java:345)
+	at org.apache.hadoop.hdfs.DFSInputStream.openInfo(DFSInputStream.java:280)
+	at org.apache.hadoop.hdfs.DFSInputStream.<init>(DFSInputStream.java:272)
+	at org.apache.hadoop.hdfs.DFSClient.open(DFSClient.java:1664)
+	at org.apache.hadoop.hdfs.DistributedFileSystem$3.doCall(DistributedFileSystem.java:304)
+	at org.apache.hadoop.hdfs.DistributedFileSystem$3.doCall(DistributedFileSystem.java:300)
+	at org.apache.hadoop.fs.FileSystemLinkResolver.resolve(FileSystemLinkResolver.java:81)
+	at org.apache.hadoop.hdfs.DistributedFileSystem.open(DistributedFileSystem.java:300)
+	at org.apache.hadoop.fs.FilterFileSystem.open(FilterFileSystem.java:161)
+	at org.apache.hadoop.fs.viewfs.ChRootedFileSystem.open(ChRootedFileSystem.java:266)
+	at org.apache.hadoop.fs.viewfs.ViewFileSystem.open(ViewFileSystem.java:481)
+	at org.apache.hadoop.fs.FileSystem.open(FileSystem.java:828)
+	at org.apache.hadoop.mapred.LineRecordReader.<init>(LineRecordReader.java:109)
+	at org.apache.hadoop.mapred.TextInputFormat.getRecordReader(TextInputFormat.java:67)
+	at org.apache.hadoop.hive.ql.io.CombineHiveRecordReader.<init>(CombineHiveRecordReader.java:65)
+	... 16 more
+{code}",,hexiaoqiao,hudson,weichiu,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,11/Dec/19 13:18;hexiaoqiao;HDFS-15050.001.patch;https://issues.apache.org/jira/secure/attachment/12988539/HDFS-15050.001.patch,,,,,,,,,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,2019-12-11 14:16:07.777,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,Thu Dec 12 10:38:47 UTC 2019,,,,,,0|z09ke8:,9223372036854775807,,,,,,,
+NN fails to parse Edit logs after applying HDFS-13101,HDFS-15012,13270559,,Bug,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Blocker,Fixed,shashikant,ericlin,ericlin,25/Nov/19 23:23,18/Dec/19 18:12,18/Jan/20 01:03,18/Dec/19 18:11,,,,,,2.10.0,2.8.0,2.9.0,3.1.0,3.2.0,3.3.0,,nn,,,,,,0,release-blocker,,"After applying HDFS-13101, and deleting and creating large number of snapshots, SNN exited with below error:
+  
+
+{code:sh}
+2019-11-18 08:28:06,528 ERROR org.apache.hadoop.hdfs.server.namenode.FSEditLogLoader: Encountered exception on operation DeleteSnapshotOp [snapshotRoot=/path/to/hdfs/file, snapshotName=distcp-3479-31-old, RpcClientId=b16a6cb5-bdbb-45ae-9f9a-f7dc57931f37, Rpc
+CallId=1]
+java.lang.AssertionError: Element already exists: element=partition_isactive=true, DELETED=[partition_isactive=true]
+        at org.apache.hadoop.hdfs.util.Diff.insert(Diff.java:193)
+        at org.apache.hadoop.hdfs.util.Diff.delete(Diff.java:239)
+        at org.apache.hadoop.hdfs.util.Diff.combinePosterior(Diff.java:462)
+        at org.apache.hadoop.hdfs.server.namenode.snapshot.DirectoryWithSnapshotFeature$DirectoryDiff$2.initChildren(DirectoryWithSnapshotFeature.java:240)
+        at org.apache.hadoop.hdfs.server.namenode.snapshot.DirectoryWithSnapshotFeature$DirectoryDiff$2.iterator(DirectoryWithSnapshotFeature.java:250)
+        at org.apache.hadoop.hdfs.server.namenode.INodeDirectory.cleanSubtreeRecursively(INodeDirectory.java:755)
+        at org.apache.hadoop.hdfs.server.namenode.snapshot.DirectoryWithSnapshotFeature.cleanDirectory(DirectoryWithSnapshotFeature.java:753)
+        at org.apache.hadoop.hdfs.server.namenode.INodeDirectory.cleanSubtree(INodeDirectory.java:790)
+        at org.apache.hadoop.hdfs.server.namenode.INodeReference.cleanSubtree(INodeReference.java:332)
+        at org.apache.hadoop.hdfs.server.namenode.INodeReference$WithName.cleanSubtree(INodeReference.java:583)
+        at org.apache.hadoop.hdfs.server.namenode.INodeDirectory.cleanSubtreeRecursively(INodeDirectory.java:760)
+        at org.apache.hadoop.hdfs.server.namenode.snapshot.DirectoryWithSnapshotFeature.cleanDirectory(DirectoryWithSnapshotFeature.java:753)
+        at org.apache.hadoop.hdfs.server.namenode.INodeDirectory.cleanSubtree(INodeDirectory.java:790)
+        at org.apache.hadoop.hdfs.server.namenode.snapshot.DirectorySnapshottableFeature.removeSnapshot(DirectorySnapshottableFeature.java:235)
+        at org.apache.hadoop.hdfs.server.namenode.INodeDirectory.removeSnapshot(INodeDirectory.java:259)
+        at org.apache.hadoop.hdfs.server.namenode.snapshot.SnapshotManager.deleteSnapshot(SnapshotManager.java:301)
+        at org.apache.hadoop.hdfs.server.namenode.FSEditLogLoader.applyEditLogOp(FSEditLogLoader.java:688)
+        at org.apache.hadoop.hdfs.server.namenode.FSEditLogLoader.loadEditRecords(FSEditLogLoader.java:232)
+        at org.apache.hadoop.hdfs.server.namenode.FSEditLogLoader.loadFSEdits(FSEditLogLoader.java:141)
+        at org.apache.hadoop.hdfs.server.namenode.FSImage.loadEdits(FSImage.java:903)
+        at org.apache.hadoop.hdfs.server.namenode.FSImage.loadFSImage(FSImage.java:756)
+        at org.apache.hadoop.hdfs.server.namenode.FSImage.recoverTransitionRead(FSImage.java:324)
+        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFSImage(FSNamesystem.java:1144)
+        at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFromDisk(FSNamesystem.java:796)
+        at org.apache.hadoop.hdfs.server.namenode.NameNode.loadNamesystem(NameNode.java:614)
+        at org.apache.hadoop.hdfs.server.namenode.NameNode.initialize(NameNode.java:676)
+        at org.apache.hadoop.hdfs.server.namenode.NameNode.<init>(NameNode.java:844)
+        at org.apache.hadoop.hdfs.server.namenode.NameNode.<init>(NameNode.java:823)
+        at org.apache.hadoop.hdfs.server.namenode.NameNode.createNameNode(NameNode.java:1547)
+        at org.apache.hadoop.hdfs.server.namenode.NameNode.main(NameNode.java:1615)
+{code}
+
+We confirmed that fsimage and edit files were NOT corrupted, as reverting HDFS-13101 fixed the issue. So the logic introduced in HDFS-13101 is broken and failed to parse edit log files.",,arp,ayushtkn,bharat,ericlin,hudson,risyomei,shashikant,smeng,sodonnell,surendrasingh,szetszwo,weichiu,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,06/Dec/19 19:38;shashikant;HDFS-15012.000.patch;https://issues.apache.org/jira/secure/attachment/12987780/HDFS-15012.000.patch,12/Dec/19 05:51;shashikant;HDFS-15012.001.patch;https://issues.apache.org/jira/secure/attachment/12988642/HDFS-15012.001.patch,,,,,,,,,,,,,,,,,,,,,,,2,,,,,,,,,,,,,,,,,,,2019-11-26 03:02:47.284,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,Wed Dec 18 18:11:49 UTC 2019,,,,,,0|z08zwo:,9223372036854775807,,,,,,,
+Revise PacketResponder's log.,HDFS-14945,13265460,,Bug,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Minor,Fixed,xudongcao,xudongcao,xudongcao,31/Oct/19 07:14,04/Nov/19 17:56,18/Jan/20 01:03,04/Nov/19 17:41,3.1.3,,,,,3.1.4,3.2.2,3.3.0,,,,,datanode,,,,,,0,,,"For a datanode in a pipeline, when its PacketResponder thread encounters an exception, it prints logs like below:
+
+2019-10-24 09:22:58,212 WARN org.apache.hadoop.hdfs.server.datanode.DataNode: IOException in *BlockReceiver*.run():
+
+ 
+
+But this log is incorrect and misleading, the right print shoud be:
+
+2019-10-24 09:22:58,212 WARN org.apache.hadoop.hdfs.server.datanode.DataNode: IOException in *PacketResponder*.run():",,hudson,weichiu,xudongcao,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,31/Oct/19 07:18;xudongcao;HDFS-14945.000.patch;https://issues.apache.org/jira/secure/attachment/12984447/HDFS-14945.000.patch,,,,,,,,,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,2019-10-31 10:25:49.625,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,Mon Nov 04 17:56:20 UTC 2019,,,,,,0|z084g0:,9223372036854775807,,,,,,,
+Change Log Level to debug in JournalNodeSyncer#syncWithJournalAtIndex,HDFS-14942,13265218,,Improvement,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Minor,Fixed,leosun08,leosun08,leosun08,30/Oct/19 07:32,18/Nov/19 18:25,18/Jan/20 01:03,06/Nov/19 16:36,,,,,,3.1.4,3.2.2,3.3.0,,,,,,,,,,,0,,,"when hadoop 2.x upgrades to hadoop 3.x,  InterQJournalProtocol is newly added，so  throw Unknown protocol. 
+
+the newly InterQJournalProtocol is used to sychronize past log segments to JNs that missed them.  And that an error occurs does not affect normal service. I think it should not be a ERROR log，and that log a warn log is more reasonable.
+{code:java}
+ private void syncWithJournalAtIndex(int index) {
+  ...
+    GetEditLogManifestResponseProto editLogManifest;
+    try {
+      editLogManifest = jnProxy.getEditLogManifestFromJournal(jid,
+          nameServiceId, 0, false);
+    } catch (IOException e) {
+      LOG.error(""Could not sync with Journal at "" +
+          otherJNProxies.get(journalNodeIndexForSync), e);
+      return;
+    }
+{code}
+{code:java}
+2019-10-30,15:11:17,388 ERROR org.apache.hadoop.hdfs.qjournal.server.JournalNodeSyncer: Could not sync with Journal at mos1-hadoop-prc-ct17.ksru/10.85.3.59:111002019-10-30,15:11:17,388 ERROR org.apache.hadoop.hdfs.qjournal.server.JournalNodeSyncer: Could not sync with Journal at mos1-hadoop-prc-ct17.ksru/10.85.3.59:11100org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.security.authorize.AuthorizationException): Unknown protocol: org.apache.hadoop.hdfs.qjournal.protocol.InterQJournalProtocol
+at org.apache.hadoop.ipc.Client.getRpcResponse(Client.java:1565)
+at org.apache.hadoop.ipc.Client.call(Client.java:1511)
+at org.apache.hadoop.ipc.Client.call(Client.java:1421)
+at org.apache.hadoop.ipc.ProtobufRpcEngine$Invoker.invoke(ProtobufRpcEngine.java:228)
+at org.apache.hadoop.ipc.ProtobufRpcEngine$Invoker.invoke(ProtobufRpcEngine.java:116)
+at com.sun.proxy.$Proxy16.getEditLogManifestFromJournal(Unknown Source)
+at org.apache.hadoop.hdfs.qjournal.protocolPB.InterQJournalProtocolTranslatorPB.getEditLogManifestFromJournal(InterQJournalProtocolTranslatorPB.java:75)
+at org.apache.hadoop.hdfs.qjournal.server.JournalNodeSyncer.syncWithJournalAtIndex(JournalNodeSyncer.java:250)
+at org.apache.hadoop.hdfs.qjournal.server.JournalNodeSyncer.syncJournals(JournalNodeSyncer.java:226)
+at org.apache.hadoop.hdfs.qjournal.server.JournalNodeSyncer.lambda$startSyncJournalsDaemon$0(JournalNodeSyncer.java:186)
+at java.lang.Thread.run(Thread.java:748)
+{code}",,ayushtkn,elgoiri,hudson,leosun08,weichiu,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,HDFS-13023,HDFS-4025,,,,,,,,,,,,,,,,,,,30/Oct/19 07:36;leosun08;HDFS-14942.001.patch;https://issues.apache.org/jira/secure/attachment/12984343/HDFS-14942.001.patch,03/Nov/19 05:42;leosun08;HDFS-14942.002.patch;https://issues.apache.org/jira/secure/attachment/12984700/HDFS-14942.002.patch,04/Nov/19 01:56;leosun08;HDFS-14942.003.patch;https://issues.apache.org/jira/secure/attachment/12984745/HDFS-14942.003.patch,04/Nov/19 07:54;leosun08;HDFS-14942.004.patch;https://issues.apache.org/jira/secure/attachment/12984771/HDFS-14942.004.patch,,,,,,,,,,,,,,,,,,,,,4,,,,,,,,,,,,,,,,,,,2019-10-30 10:25:39.072,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Wed Nov 06 16:55:33 UTC 2019,,,,,,0|z082y8:,9223372036854775807,,,,,,,
+DataStreamer's ResponseProceesor#run() should log with Warn loglevel,HDFS-14878,13259224,,Improvement,Patch Available,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,,hemanthboyina,hemanthboyina,hemanthboyina,27/Sep/19 09:48,11/Nov/19 19:32,18/Jan/20 01:03,,,,,,,,,,,,,,,,,,,,0,,,"{code:java}
+  if (duration > dfsclientSlowLogThresholdMs) {
+    LOG.info(""Slow ReadProcessor read fields for block "" + block
+          + "" took "" + duration + ""ms (threshold=""
+          + dfsclientSlowLogThresholdMs + ""ms); ack: "" + ack
+          + "", targets: "" + Arrays.asList(targets));
+  } {code}
+log level should be warn here",,ayushtkn,brahmareddy,hemanthboyina,kihwal,surendrasingh,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,27/Sep/19 11:25;hemanthboyina;HDFS-14878.001.patch;https://issues.apache.org/jira/secure/attachment/12981545/HDFS-14878.001.patch,,,,,,,,,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,2019-09-27 10:06:56.458,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,Mon Nov 11 19:32:53 UTC 2019,,,,,,0|z072u0:,9223372036854775807,,,,,,,
+[Dynamometer] Cannot parse audit logs with ‘=‘ in unexpected places when starting a workload. ,HDFS-14819,13254643,13215847,Sub-task,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Fixed,soyamiyoshi,soyamiyoshi,soyamiyoshi,04/Sep/19 08:12,06/Sep/19 17:14,18/Jan/20 01:03,06/Sep/19 17:14,,,,,,3.3.0,,,,,,,,,,,,,0,,,"When trying to launch a workload job, if any of the given audit logs’ values contain `=` aside from at the ends of the log’s keys (such as `ugi`, `src`), the audit log will not be parsed and an exception is thrown.
+
+For example, this audit log will result in exception, as it contains `=` in the `src` value (“/projects/date=0822”).
+ {code:|borderStyle=solid}
+2019-08-22 01:00:00,186 INFO FSNamesystem.audit: allowed=true   ugi=feed (auth:aaaaa) ip=/119.472.323.333      cmd=getfileinfo	src=/projects/date=0822 dst=null
+        perm=null       proto=rpc
+{code}
+
+If the second `=` in `src=/projects/date=0822` is removed, it works fine.",,soyamiyoshi,tasanuma,xkrogen,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,04/Sep/19 08:24;soyamiyoshi;HDFS-14819.001.patch;https://issues.apache.org/jira/secure/attachment/12979371/HDFS-14819.001.patch,06/Sep/19 02:51;soyamiyoshi;HDFS-14819.002.patch;https://issues.apache.org/jira/secure/attachment/12979603/HDFS-14819.002.patch,06/Sep/19 05:22;soyamiyoshi;HDFS-14819.003.patch;https://issues.apache.org/jira/secure/attachment/12979609/HDFS-14819.003.patch,,,,,,,,,,,,,,,,,,,,,,3,,,,,,,,,,,,,,,,,,,2019-09-04 18:23:03.828,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,Fri Sep 06 17:14:05 UTC 2019,,,,,,0|z06b3k:,9223372036854775807,,,,,,,
+EC: Improper size values for corrupt ec block in LOG ,HDFS-14808,13254043,,Bug,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Fixed,ayushtkn,Harsha1206,Harsha1206,31/Aug/19 07:29,02/Oct/19 20:54,18/Jan/20 01:03,24/Sep/19 20:17,,,,,,3.1.4,3.2.2,3.3.0,,,,,ec,,,,,,0,,,If the block corruption reason is size mismatch the log. The values shown and compared are ambiguous.,,ayushtkn,Harsha1206,hudson,vinayakumarb,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,31/Aug/19 13:16;ayushtkn;HDFS-14808-01.patch;https://issues.apache.org/jira/secure/attachment/12979044/HDFS-14808-01.patch,,,,,,,,,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,2019-08-31 07:33:31.165,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Tue Sep 24 20:21:56 UTC 2019,,,,,,0|z067qo:,9223372036854775807,,,,,,,
+Log more detail for slow RPC,HDFS-14776,13252882,,Improvement,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Abandoned,,zhangchen,zhangchen,25/Aug/19 16:26,25/Aug/19 16:28,18/Jan/20 01:03,25/Aug/19 16:28,,,,,,,,,,,,,,,,,,,0,,,"Current implementation only log process time
+{code:java}
+if ((rpcMetrics.getProcessingSampleCount() > minSampleSize) &&
+    (processingTime > threeSigma)) {
+  LOG.warn(""Slow RPC : {} took {} {} to process from client {}"",
+      methodName, processingTime, RpcMetrics.TIMEUNIT, call);
+  rpcMetrics.incrSlowRpc();
+}
+{code}
+We need to log more details to help us locate the problem (eg. how long it take to request lock, holding lock, or do other things)",,zhangchen,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0,,,,,,,,,,,,,,,,,,,,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,2019-08-25 16:26:56.0,,,,,,0|z060kw:,9223372036854775807,,,,,,,
+Log INFO mode if snapshot usage and actual usage differ,HDFS-14760,13251952,,Improvement,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Fixed,crh,crh,crh,20/Aug/19 23:26,28/Aug/19 05:39,18/Jan/20 01:03,27/Aug/19 23:20,,,,,,3.3.0,,,,,,,,,,,,,0,,,"In DirectoryWithQuotaFeature#checkStoragespace code logs in error mode without throwing any exceptions or action and pollutes logs. This should be in INFO mode.
+
+{code}
+  private void checkStoragespace(final INodeDirectory dir, final long computed) {
+    if (-1 != quota.getStorageSpace() && usage.getStorageSpace() != computed) {
+      NameNode.LOG.error(""BUG: Inconsistent storagespace for directory ""
+          + dir.getFullPathName() + "". Cached = "" + usage.getStorageSpace()
+          + "" != Computed = "" + computed);
+    }
+  }
+{code}",,ayushtkn,crh,hudson,weichiu,xkrogen,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,HDFS-11705,,,,,,,,,,,,,,,,,,,,20/Aug/19 23:34;crh;HDFS-14760.001.patch;https://issues.apache.org/jira/secure/attachment/12978122/HDFS-14760.001.patch,22/Aug/19 17:21;crh;HDFS-14760.002.patch;https://issues.apache.org/jira/secure/attachment/12978318/HDFS-14760.002.patch,,,,,,,,,,,,,,,,,,,,,,,2,,,,,,,,,,,,,,,,,,,2019-08-21 00:18:45.109,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,Wed Aug 28 05:39:24 UTC 2019,,,,,,0|z05uuo:,9223372036854775807,,,,,,,
+The console log is noisy when using DNSDomainNameResolver to resolve NameNode.,HDFS-14673,13247222,,Improvement,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Minor,Fixed,pingsutw,aajisaka,aajisaka,26/Jul/19 06:32,26/Jul/19 20:18,18/Jan/20 01:03,26/Jul/19 18:09,,,,,,3.3.0,,,,,,,,,,,,,0,newbie,,"The following log is displayed in every hdfs command when using DNSDomainNameResolver.
+{noformat}
+-bash-4.2$ hadoop fs -ls /
+19/07/25 14:32:28 INFO ha.AbstractNNFailoverProxyProvider: Namenode domain name will be resolved with org.apache.hadoop.net.DNSDomainNameResolver
+(snip)
+{noformat}
+Can we change the log level from info to debug?
+
+This issue is originally reported by [~tasanuma].",,aajisaka,ayushtkn,elgoiri,hexiaoqiao,hudson,tasanuma,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0,,,,,,,,,,,,,,,,,,,2019-07-26 18:11:09.514,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Fri Jul 26 20:18:15 UTC 2019,,,,,,0|z051tc:,9223372036854775807,,,,,,,
+"When decommissioning a node, log remaining blocks to replicate periodically",HDFS-14624,13242781,,Improvement,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Fixed,sodonnell,sodonnell,sodonnell,02/Jul/19 15:30,04/Oct/19 00:38,18/Jan/20 01:03,11/Jul/19 15:55,3.3.0,,,,,3.1.4,3.2.2,3.3.0,,,,,namenode,,,,,,0,,,"When a node is marked for decommission, there is a monitor thread which runs every 30 seconds by default, and checks if the node still has pending blocks to be replicated before the node can complete replication.
+
+There are two existing debug level messages logged in the monitor thread, DatanodeAdminManager$Monitor.check(), which log the correct information already, first as the pending blocks are replicated:
+{code:java}
+LOG.debug(""Node {} still has {} blocks to replicate ""
+    + ""before it is a candidate to finish {}."",
+    dn, blocks.size(), dn.getAdminState());{code}
+And then after the initial set of blocks has completed and a rescan happens:
+{code:java}
+LOG.debug(""Node {} {} healthy.""
+    + "" It needs to replicate {} more blocks.""
+    + "" {} is still in progress."", dn,
+    isHealthy ? ""is"": ""isn't"", blocks.size(), dn.getAdminState());{code}
+I would like to propose moving these messages to INFO level so it is easier to monitor decommission progress over time from the Namenode log.
+
+Based on the default settings, this would result in at most 1 log message per node being decommissioned every 30 seconds. The reason this is at the most, is because the monitor thread stops after checking after 500K blocks and therefore in practice it could be as little as 1 log message per 30 seconds, even if many DNs are being decommissioned at the same time.
+
+Note that the namenode webUI does display the above information, but having this in the NN logs would allow progress to be tracked more easily.",,elgoiri,hudson,sodonnell,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,02/Jul/19 15:48;sodonnell;HDFS-14624.001.patch;https://issues.apache.org/jira/secure/attachment/12973450/HDFS-14624.001.patch,04/Jul/19 16:04;sodonnell;HDFS-14624.002.patch;https://issues.apache.org/jira/secure/attachment/12973705/HDFS-14624.002.patch,11/Jul/19 14:07;sodonnell;HDFS-14624.003.patch;https://issues.apache.org/jira/secure/attachment/12974405/HDFS-14624.003.patch,,,,,,,,,,,,,,,,,,,,,,3,,,,,,,,,,,,,,,,,,,2019-07-02 16:43:09.44,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Thu Jul 11 17:18:57 UTC 2019,,,,,,0|z04b0g:,9223372036854775807,,,,,,,
+Incorrect header or version mismatch log message,HDFS-14451,13229637,,Improvement,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Minor,Fixed,shwetayakkali,belugabehr,belugabehr,23/Apr/19 14:48,24/May/19 18:00,18/Jan/20 01:03,24/May/19 16:44,3.2.0,,,,,3.1.3,3.2.1,3.3.0,,,,,ipc,,,,,,0,noob,,"{code:java|title=Server.java}
+          if (!RpcConstants.HEADER.equals(dataLengthBuffer)
+              || version != CURRENT_VERSION) {
+            //Warning is ok since this is not supposed to happen.
+            LOG.warn(""Incorrect header or version mismatch from "" + 
+                     hostAddress + "":"" + remotePort +
+                     "" got version "" + version + 
+                     "" expected version "" + CURRENT_VERSION);
+            setupBadVersionResponse(version);
+            return -1;
+{code}
+
+This message should include the value of {{RpcConstants.HEADER}} and {{dataLengthBuffer}} in addition to just the version information or else that data is lost.",,belugabehr,elgoiri,hexiaoqiao,hudson,shwetayakkali,weichiu,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,24/Apr/19 18:14;shwetayakkali;HDFS-14451.001.patch;https://issues.apache.org/jira/secure/attachment/12966929/HDFS-14451.001.patch,02/May/19 21:29;shwetayakkali;HDFS-14451.002.patch;https://issues.apache.org/jira/secure/attachment/12967709/HDFS-14451.002.patch,,,,,,,,,,,,,,,,,,,,,,,2,,,,,,,,,,,,,,,,,,,2019-05-02 00:26:00.595,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,Fri May 24 18:00:18 UTC 2019,,,,,,0|z02234:,9223372036854775807,,,,,,,
+Fix misuse of SLF4j logging API in DatasetVolumeChecker#checkAllVolumes,HDFS-14407,13225840,,Bug,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Minor,Fixed,jiwq,jiwq,jiwq,03/Apr/19 15:44,05/Apr/19 05:07,18/Jan/20 01:03,05/Apr/19 03:41,,,,,,2.10.0,2.9.3,3.0.4,3.1.3,3.2.1,3.3.0,,,,,,,,0,,," Wrong:
+{code:java}
+LOG.warn(""checkAllVolumes timed out after {} ms"" +
+    maxAllowedTimeForCheckMs);
+{code}
+Correct:
+{code:java}
+LOG.warn(""checkAllVolumes timed out after {} ms"",
+    maxAllowedTimeForCheckMs);
+{code}",,aajisaka,elgoiri,giovanni.fumarola,hudson,jiwq,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,03/Apr/19 15:46;jiwq;HDFS-14407.001.patch;https://issues.apache.org/jira/secure/attachment/12964722/HDFS-14407.001.patch,,,,,,,,,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,2019-04-03 17:29:21.076,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Fri Apr 05 05:07:19 UTC 2019,,,,,,0|z01f28:,9223372036854775807,,,,,,,
+Improve Logging in FSNamesystem by adding parameterized logging,HDFS-14371,13221557,,Improvement,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Minor,Fixed,shwetayakkali,shwetayakkali,shwetayakkali,14/Mar/19 00:31,06/Apr/19 03:48,18/Jan/20 01:03,05/Apr/19 23:09,3.3.0,,,,,3.3.0,,,,,,,hdfs,,,,,,0,,,"Remove several instances of check for debug log enabled in FSNamesystem one such example is as:
+{code}
+if (LOG.isDebugEnabled()) {
+        LOG.debug(""list corrupt file blocks returned: "" + count);
+}
+{code}
+
+This can be replaced by using parameterized logging.",,hudson,knanasi,shwetayakkali,smeng,weichiu,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,14/Mar/19 00:33;shwetayakkali;HDFS-14371.001.patch;https://issues.apache.org/jira/secure/attachment/12962415/HDFS-14371.001.patch,27/Mar/19 23:20;shwetayakkali;HDFS-14371.002.patch;https://issues.apache.org/jira/secure/attachment/12963965/HDFS-14371.002.patch,,,,,,,,,,,,,,,,,,,,,,,2,,,,,,,,,,,,,,,,,,,2019-03-14 02:50:29.739,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,Sat Apr 06 03:48:52 UTC 2019,,,,,,0|z00orc:,9223372036854775807,,,,,,,
+Add metrics for edit log tailing ,HDFS-13641,13162933,,Improvement,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Fixed,csun,csun,csun,30/May/18 15:59,13/Jun/18 12:30,18/Jan/20 01:03,13/Jun/18 12:15,3.0.3,,,,,3.0.4,3.1.1,3.2.0,,,,,metrics,,,,,,0,,,"We should add metrics for each iteration of edit log tailing, including 1) # of edits loaded, 2) time spent in select input edit stream, 3) time spent in loading the edits, 4) interval between the iterations.",,csun,hudson,linyiqun,xkrogen,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,31/May/18 05:26;csun;HDFS-13641-HDFS-12943.000.patch;https://issues.apache.org/jira/secure/attachment/12925855/HDFS-13641-HDFS-12943.000.patch,04/Jun/18 07:01;csun;HDFS-13641.000.patch;https://issues.apache.org/jira/secure/attachment/12926321/HDFS-13641.000.patch,04/Jun/18 18:52;csun;HDFS-13641.001.patch;https://issues.apache.org/jira/secure/attachment/12926435/HDFS-13641.001.patch,04/Jun/18 21:11;csun;HDFS-13641.002.patch;https://issues.apache.org/jira/secure/attachment/12926451/HDFS-13641.002.patch,13/Jun/18 06:08;csun;HDFS-13641.003.patch;https://issues.apache.org/jira/secure/attachment/12927585/HDFS-13641.003.patch,,,,,,,,,,,,,,,,,,,,5,,,,,,,,,,,,,,,,,,,2018-05-31 08:26:44.467,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Wed Jun 13 12:30:10 UTC 2018,,,,,,0|i3ubi7:,9223372036854775807,,,,,,,
+mkdir should print the parent directory in the error message when parent directories do not exist,HDFS-13622,13162028,,Bug,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Fixed,shwetayakkali,kgyrtkirk,kgyrtkirk,25/May/18 09:53,26/Jul/18 17:54,18/Jan/20 01:03,26/Jul/18 17:24,,,,,,3.2.0,,,,,,,,,,,,,0,,,"this is a bit misleading:
+{code}
+$ hdfs  dfs -mkdir /nonexistent/newdir
+mkdir: `/nonexistent/newdir': No such file or directory
+{code}
+
+I think this command should fail because ""nonexistent"" doesn't exists...
+the correct would be:
+{code}
+$ hdfs  dfs -mkdir /nonexistent/newdir
+mkdir: `/nonexistent': No such file or directory
+{code}
+
+
+",,gabor.bota,hanishakoneru,hudson,kgyrtkirk,shwetayakkali,smeng,xiaochen,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,17/Jul/18 19:23;shwetayakkali;HDFS-13622.02.patch;https://issues.apache.org/jira/secure/attachment/12931993/HDFS-13622.02.patch,18/Jul/18 20:55;shwetayakkali;HDFS-13622.03.patch;https://issues.apache.org/jira/secure/attachment/12932147/HDFS-13622.03.patch,19/Jul/18 23:23;shwetayakkali;HDFS-13622.04.patch;https://issues.apache.org/jira/secure/attachment/12932340/HDFS-13622.04.patch,20/Jul/18 17:10;shwetayakkali;HDFS-13622.05.patch;https://issues.apache.org/jira/secure/attachment/12932443/HDFS-13622.05.patch,25/Jul/18 00:18;shwetayakkali;HDFS-13622.06.patch;https://issues.apache.org/jira/secure/attachment/12932975/HDFS-13622.06.patch,,,,,,,,,,,,,,,,,,,,5,,,,,,,,,,,,,,,,,,,2018-07-17 19:24:33.796,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Thu Jul 26 17:54:01 UTC 2018,,,,,,0|i3u5xj:,9223372036854775807,,,,,,,
+Log HDFS file name when client fails to connect,HDFS-13440,13152042,,Improvement,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Trivial,Fixed,gabor.bota,weichiu,weichiu,12/Apr/18 17:45,31/May/18 23:10,18/Jan/20 01:03,31/May/18 22:22,,,,,,3.2.0,,,,,,,,,,,,,0,,,"HDFS-11993 added block name in log message when a dfsclient fails to connect, which is good.
+
+As a follow-on, it can also log HDFS file name too, just in DFSInputStream#actualGetFromOneDataNode",,elgoiri,gabor.bota,hudson,weichiu,zvenczel,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,20/May/18 08:34;gabor.bota;HDFS-13440.001.patch;https://issues.apache.org/jira/secure/attachment/12924275/HDFS-13440.001.patch,,,,,,,,,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,2018-05-20 09:45:00.997,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,Thu May 31 23:10:05 UTC 2018,,,,,,0|i3shfb:,9223372036854775807,,,,,,,
+RBF: Improve the error loggings for printing the stack trace,HDFS-13435,13151859,13107681,Sub-task,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Fixed,linyiqun,linyiqun,linyiqun,12/Apr/18 06:11,08/May/18 18:36,18/Jan/20 01:03,17/Apr/18 03:35,3.0.1,,,,,2.10.0,2.9.2,3.0.3,3.1.1,3.2.0,,,,,,,,,0,,,"There are many places that using {{Logger.error(String format, Object... arguments)}} incorrectly.
+ A example:
+{code:java}
+LOG.error(""Cannot remove {}"", path, e);
+{code}
+The exception passed here is no meaning and won't be printed. Actually it should be update to
+{code:java}
+LOG.error(""Cannot remove {}: {}."", path, e.getMessage());
+{code}
+or 
+{code:java}
+LOG.error(""Cannot remove "" +  path, e));
+{code}",,ajayydv,elgoiri,linyiqun,ywskycn,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,12/Apr/18 06:14;linyiqun;HDFS-13435.001.patch;https://issues.apache.org/jira/secure/attachment/12918681/HDFS-13435.001.patch,13/Apr/18 07:19;linyiqun;HDFS-13435.002.patch;https://issues.apache.org/jira/secure/attachment/12918894/HDFS-13435.002.patch,16/Apr/18 09:18;linyiqun;HDFS-13435.003.patch;https://issues.apache.org/jira/secure/attachment/12919188/HDFS-13435.003.patch,,,,,,,,,,,,,,,,,,,,,,3,,,,,,,,,,,,,,,,,,,2018-04-12 07:28:57.047,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Tue Apr 17 03:35:42 UTC 2018,,,,,,0|i3sgan:,9223372036854775807,,,,,,,
+Should log more information when FSNameSystem is locked for a long time,HDFS-13411,13150817,,Improvement,Patch Available,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,,Tao Jie,Tao Jie,Tao Jie,08/Apr/18 02:52,13/Apr/18 09:20,18/Jan/20 01:03,,2.8.2,3.0.0,,,,,,,,,,,,,,,,,0,,,"Today when one RPC to namenode locks FSNameSystem for a long time, it would print the stacktrace to the namenode log. However all we know from this log is the operation name to the Namenode(such as create, delete). 
+
+It should print more information about the rpc call(like caller name, caller ip, operation src), which blocks the namenode. So we can have a better tuning to the HDFS. ",,cheersyang,Tao Jie,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,08/Apr/18 07:39;Tao Jie;HDFS-13411.001.patch;https://issues.apache.org/jira/secure/attachment/12917971/HDFS-13411.001.patch,09/Apr/18 07:26;Tao Jie;HDFS-13411.002.patch;https://issues.apache.org/jira/secure/attachment/12918040/HDFS-13411.002.patch,,,,,,,,,,,,,,,,,,,,,,,2,,,,,,,,,,,,,,,,,,,2018-04-08 10:20:25.653,,,false,,,,,,,,,,,,,,,,,9223372036854775807,,,,,Fri Apr 13 09:20:37 UTC 2018,,,,,,0|i3s9vr:,9223372036854775807,,,,,,,
+Ozone: OzoneFileSystem: Calling delete with non-existing path shouldn't be logged on ERROR level,HDFS-13133,13137719,13134186,Sub-task,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Fixed,elek,elek,elek,11/Feb/18 16:36,26/Apr/18 21:56,18/Jan/20 01:03,12/Feb/18 08:33,HDFS-7240,,,,,HDFS-7240,,,,,,,ozone,,,,,,0,,,"During the test of OzoneFileSystem with spark I noticed ERROR messages multiple times:
+
+Something like this:
+
+{code}
+2018-02-11 15:54:54 ERROR OzoneFileSystem:409 - Couldn't delete o3://bucket1.test/user/hadoop/.sparkStaging/application_1518349702045_0008 - does not exist
+{code}
+
+I checked the other implemetations, and they use DEBUG level. I think it's expected that the path sometimes points to a non-existing dir/file.
+
+To be consistent with the other implemetation I propose to lower the log level to debug.
+
+
+Examples from other file systems:
+
+S3AFileSystem:
+
+{code}
+} catch (FileNotFoundException e) {
+      LOG.debug(""Couldn't delete {} - does not exist"", f);
+      instrumentation.errorIgnored();
+      return false;
+    } catch (AmazonClientException e) {
+      throw translateException(""delete"", f, e);
+    }
+{code}
+
+
+Alyun:
+
+{code}
+   try {
+      return innerDelete(getFileStatus(path), recursive);
+    } catch (FileNotFoundException e) {
+      LOG.debug(""Couldn't delete {} - does not exist"", path);
+      return false;
+    }
+{code}
+
+
+SFTP:
+
+{code}
+   } catch (FileNotFoundException e) {
+      // file not found, no need to delete, return true
+      return false;
+    }
+{code}
+
+SwiftNativeFileSystem:
+
+{code}
+    try {
+      return store.delete(path, recursive);
+    } catch (FileNotFoundException e) {
+      //base path was not found.
+      return false;
+    }
+{code}",,elek,hudson,msingh,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,11/Feb/18 16:37;elek;HDFS-13133-HDFS-7240.001.patch;https://issues.apache.org/jira/secure/attachment/12910120/HDFS-13133-HDFS-7240.001.patch,,,,,,,,,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,2018-02-11 17:26:00.712,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Thu Apr 26 21:56:58 UTC 2018,,,,,,0|i3q1p3:,9223372036854775807,,,,,,,
+Log object instance get incorrectly in SlowDiskTracker,HDFS-13130,13137626,,Bug,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Minor,Fixed,jiangjianfei,jiangjianfei,jiangjianfei,10/Feb/18 14:02,19/Mar/18 18:31,18/Jan/20 01:03,11/Feb/18 04:07,3.0.0,,,,,3.1.0,,,,,,,,,,,,,0,,,"In class org.apache.hadoop.hdfs.server.blockmanagement.*SlowDiskTracker*, the LOG is targeted to *SlowPeerTracker*.class incorrectly.
+{code:java}
+public class SlowDiskTracker {
+ public static final Logger LOG =
+ LoggerFactory.getLogger(SlowPeerTracker.class);{code}
+ 
+
+ 
+
+ ",,hudson,jiangjianfei,linyiqun,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,10/Feb/18 14:03;jiangjianfei;HDFS-13130.patch;https://issues.apache.org/jira/secure/attachment/12910048/HDFS-13130.patch,,,,,,,,,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,2018-02-10 18:30:09.16,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Thu Feb 15 07:31:22 UTC 2018,,,,,,0|i3q14f:,9223372036854775807,,,,,,,
+Move logging to slf4j in BlockPoolSliceStorage and Storage,HDFS-12997,13129383,13119069,Sub-task,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Major,Fixed,ajayydv,ajayydv,ajayydv,08/Jan/18 22:41,06/Feb/18 01:44,18/Jan/20 01:03,01/Feb/18 20:23,3.0.0,,,,,3.0.1,3.1.0,,,,,,,,,,,,0,,,Move logging to slf4j in BlockPoolSliceStorage and Storage classes.,,aajisaka,ajayydv,bharat,eddyxu,elgoiri,hanishakoneru,hudson,virajith,xyao,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,18/Jan/18 17:09;ajayydv;HDFS-12997.001.patch;https://issues.apache.org/jira/secure/attachment/12906670/HDFS-12997.001.patch,19/Jan/18 18:53;ajayydv;HDFS-12997.002.patch;https://issues.apache.org/jira/secure/attachment/12906869/HDFS-12997.002.patch,23/Jan/18 19:17;ajayydv;HDFS-12997.003.patch;https://issues.apache.org/jira/secure/attachment/12907335/HDFS-12997.003.patch,26/Jan/18 02:17;ajayydv;HDFS-12997.004.patch;https://issues.apache.org/jira/secure/attachment/12907806/HDFS-12997.004.patch,29/Jan/18 18:49;ajayydv;HDFS-12997.005.patch;https://issues.apache.org/jira/secure/attachment/12908188/HDFS-12997.005.patch,30/Jan/18 18:42;ajayydv;HDFS-12997.006.patch;https://issues.apache.org/jira/secure/attachment/12908395/HDFS-12997.006.patch,31/Jan/18 00:09;ajayydv;HDFS-12997.007.patch;https://issues.apache.org/jira/secure/attachment/12908456/HDFS-12997.007.patch,,,,,,,,,,,,,,,,,,7,,,,,,,,,,,,,,,,,,,2018-01-09 01:09:22.653,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Tue Feb 06 01:42:47 UTC 2018,,,,,,0|i3onrz:,9223372036854775807,,,,,,,
+Error log level in ShortCircuitRegistry#removeShm,HDFS-12963,13127084,,Bug,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Minor,Fixed,xiaodong.hu,xiaodong.hu,xiaodong.hu,25/Dec/17 08:07,24/Jan/18 03:05,18/Jan/20 01:03,24/Jan/18 02:45,,,,,,3.1.0,,,,,,,,,,,,,0,,,"{code:title=org.apache.hadoop.hdfs.server.datanode.ShortCircuitRegistry.java|borderStyle=solid}
+
+  public synchronized void removeShm(ShortCircuitShm shm) {
+    if (LOG.isTraceEnabled()) {
+        LOG.debug(""removing shm "" + shm);   ------------------ I think here should be trace
+    }
+    // Stop tracking the shmId.
+    RegisteredShm removedShm = segments.remove(shm.getShmId());
+    Preconditions.checkState(removedShm == shm,
+        ""failed to remove "" + shm.getShmId());
+    // Stop tracking the slots.
+    for (Iterator<Slot> iter = shm.slotIterator(); iter.hasNext(); ) {
+      Slot slot = iter.next();
+      boolean removed = slots.remove(slot.getBlockId(), slot);
+      Preconditions.checkState(removed);
+      slot.makeInvalid();
+    }
+    // De-allocate the memory map and close the shared file. 
+    shm.free();
+  }
+{code}",,aajisaka,hudson,linyiqun,shahrs87,xiaodong.hu,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,25/Dec/17 08:12;xiaodong.hu;HDFS-12963.001.patch;https://issues.apache.org/jira/secure/attachment/12903622/HDFS-12963.001.patch,,,,,,,,,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,2017-12-26 03:43:23.906,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Wed Jan 24 03:05:12 UTC 2018,,,,,,0|i3o9nr:,9223372036854775807,,,,,,,
+Improve logging when DFSStripedOutputStream failed to write some blocks,HDFS-12933,13125393,,Improvement,Resolved,HDFS,Hadoop HDFS,software,dhruba,Hadoop Distributed File System,https://hadoop.apache.org/,Minor,Fixed,candychencan,xiaochen,xiaochen,16/Dec/17 04:58,05/Apr/18 20:03,18/Jan/20 01:03,07/Feb/18 06:59,,,,,,3.0.3,3.1.0,,,,,,erasure-coding,,,,,,0,,,"Currently if there are less DataNodes than the erasure coding policy's (# of data blocks + # of parity blocks), the client sees this:
+
+{noformat}
+09:18:24 17/12/14 09:18:24 WARN hdfs.DFSOutputStream: Cannot allocate parity block(index=13, policy=RS-10-4-1024k). Not enough datanodes? Exclude nodes=[]
+09:18:24 17/12/14 09:18:24 WARN hdfs.DFSOutputStream: Block group <1> has 1 corrupt blocks.
+{noformat}
+
+The 1st line is good. The 2nd line may be confusing to end users. We should investigate the error and be more general / accurate. Maybe something like 'failed to read x blocks'.",,brahmareddy,candychencan,eddyxu,GeLiXin,hudson,xiaochen,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,01/Feb/18 08:30;candychencan;HDFS-12933.001.patch;https://issues.apache.org/jira/secure/attachment/12908750/HDFS-12933.001.patch,,,,,,,,,,,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,2018-02-01 08:31:45.12,,,false,,,,,,,,,,,,,,,,,9223372036854775807,Reviewed,,,,Wed Feb 07 19:28:21 UTC 2018,,,,,,0|i3nz9z:,9223372036854775807,,,,,,,

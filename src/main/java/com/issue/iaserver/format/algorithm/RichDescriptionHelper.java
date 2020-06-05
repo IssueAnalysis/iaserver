@@ -85,7 +85,7 @@ public class RichDescriptionHelper {
 
     private void findSolution(){
 
-        wrapText("(modify|suggest|maybe|should|we can|it's better to).*? \\w+(?=[.,;:])", "solution");
+        wrapText("(modify|suggest|maybe|should|we can|it's better to|would like to|propose to).*? \\w+(?=[.,;:])", "solution");
 
         if(!solutionFound){
             wrapText("need to.*? \\w+(?=[.,;:])", "solution");
@@ -190,6 +190,8 @@ public class RichDescriptionHelper {
 
         final int endPoint = i + 1;
 
+        if(endPoint < startPoint)
+            return "\n";
         String result = s.substring(startPoint, endPoint) + "\n";
         int l;
         do{                 //去掉中间多余的行

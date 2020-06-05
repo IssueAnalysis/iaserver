@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 public class MachineLearning {
 
-    private static final String INPUT_CSV_PATH = "src/main/resources/datamini.csv";
-    private static final String DATASET_PATH = "src/main/resources/ml_data/data1.csv";
+    private static final String INPUT_CSV_PATH = "src/main/resources/datamini2.csv";
+    private static final String DATASET_PATH = "src/main/resources/ml_data/data2.csv";
 
     private Formatter formatter = FormatterFactory.getFormatterService();
     private SentenceDetector sentenceDetector = new SentenceDetector();
