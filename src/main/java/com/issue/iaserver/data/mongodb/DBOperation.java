@@ -109,7 +109,7 @@ public class DBOperation {
             while(iterator.hasNext()) {
                 Document str = iterator.next();
                 CSVitem item = new CSVitem(
-                        0, Long.valueOf(collectionName),
+                        str.getLong("id"), Long.valueOf(collectionName),
                         str.getString(FILE_HEADER_MAPPING[0]), str.getString(FILE_HEADER_MAPPING[1]),
                         str.getString(FILE_HEADER_MAPPING[2]),str.getString(FILE_HEADER_MAPPING[3]),
                         str.getString(FILE_HEADER_MAPPING[4]),str.getString(FILE_HEADER_MAPPING[5]),
@@ -228,7 +228,8 @@ public class DBOperation {
                         record.get("Priority"),
                         record.get("Resolution"),
                         record.get(41)+record.get(42)+record.get(43)+record.get(44)+record.get(45),
-                        record.get(265)+record.get(266)+record.get(267)+record.get(268)+record.get(269),
+//                        record.get(265)+record.get(266)+record.get(267)+record.get(268)+record.get(269),
+                        "",
                         "",
                         ""
                 );

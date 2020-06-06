@@ -170,7 +170,7 @@ public class FocusServiceImpl implements FocusService {
         for(Long focusID : focusDOS){
             FocusDO focusDO = focusDao.getOne(focusID);
             int vote = sum(voteDao.getFocusVote(csv_id, issue_id, focusDO.getId()));
-            Focus focus = new Focus(focusDO, vote);
+            Focus focus = new Focus(focusDO);
             res.add(focus);
         }
         return res;
