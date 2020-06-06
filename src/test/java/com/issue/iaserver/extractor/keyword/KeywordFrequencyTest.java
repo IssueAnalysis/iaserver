@@ -24,9 +24,11 @@ class KeywordFrequencyTest {
         KeywordFrequency keywordFrequency = new KeywordFrequency();
         keywordFrequency.addWord("abc");
         keywordFrequency.addWord("abc");
+        keywordFrequency.addWord("db");
         keywordFrequency.addWord("ace");
         keywordFrequency.addWord("bce");
         keywordFrequency.addWord("abd");
+        keywordFrequency.addWord("ad");
         keywordFrequency.updateData();
         KeywordFrequency keywordFrequency1 = new KeywordFrequency();
         assertEquals(2, keywordFrequency1.getFreq("abc"));
