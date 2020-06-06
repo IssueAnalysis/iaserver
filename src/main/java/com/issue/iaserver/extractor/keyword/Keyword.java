@@ -13,6 +13,12 @@ public class Keyword implements Comparable<Keyword>{
         this.vote = vote;
     }
 
+    public Keyword(long id,String keyword, int vote){
+        this.id = id;
+        this.keyword = keyword;
+        this.vote = vote;
+    }
+
     public Keyword(long id){
         this.id = id;
     }

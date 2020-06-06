@@ -77,7 +77,7 @@ public class FocusServiceImpl implements FocusService {
     @Override
     public boolean isIssueExtracted(long issueId, long csvId) {
         ArrayList<MarkDO> markDOS = markDao.getMarkById(csvId, issueId);
-        if(markDOS.size() == 1) return true;
+        if(markDOS.size() != 0) return true;
         return false;
     }
 
@@ -91,7 +91,7 @@ public class FocusServiceImpl implements FocusService {
     public boolean markIssueExtracted(long issueId, long csvId) {
         /*long csv_id, long item_id, boolean isMarked*/
         MarkDO markDO = new MarkDO(0, csvId, issueId, true);
-        if(isIssueExtracted(issueId, csvId)){
+        if(!isIssueExtracted(issueId, csvId)){
             markDao.saveAndFlush(markDO);
             return true;
         }
@@ -112,7 +112,7 @@ public class FocusServiceImpl implements FocusService {
         }
         List<KeywordDO> keywordIds = keywordDao.getKeywordByIssueId(csvId, issueId);
         for(KeywordDO keywordDO : keywordIds){
-            Keyword keyword = new Keyword(keywordDO.getKeyword_description(), keywordDO.getVote());
+            Keyword keyword = new Keyword(keywordDO.getId(),keywordDO.getKeyword_description(), keywordDO.getVote());
             keywords.add(keyword);
         }
         return keywords;
@@ -146,6 +146,10 @@ public class FocusServiceImpl implements FocusService {
 
             VoteDO voteDO = new VoteDO(focusDO, userId);
             voteDao.saveAndFlush(voteDO);
+        }
+        for(Keyword keyword : keywords){
+            KeywordDO keywordDO = new KeywordDO(keyword, csvId, issueId);
+            keywordDao.saveAndFlush(keywordDO);
         }
         return true;
     }

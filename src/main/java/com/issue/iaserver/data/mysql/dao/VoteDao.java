@@ -43,10 +43,10 @@ public interface VoteDao extends JpaRepository<VoteDO, Long> {
     ArrayList<Integer> getKeywordVote(@Param("csv_id") long csv_id, @Param("item_id") long item_id,
                                     @Param("keyword_id") long keyword_id);
 
-    @Query("select v.keyword_id from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id")
+    @Query("select v.keyword_id from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id and v.focus_id < 0")
     ArrayList<Long> getKeyWordIdByIssueID(@Param("csv_id") long csv_id, @Param("item_id") long item_id);
 
-    @Query("select v.focus_id from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id")
+    @Query("select v.focus_id from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id and v.keyword_id < 0")
     ArrayList<Long> getFocusIdByIssueID(@Param("csv_id") long csv_id, @Param("item_id") long item_id);
 
 }

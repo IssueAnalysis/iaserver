@@ -34,10 +34,11 @@ public class StatisticController {
     }
 
     @PostMapping("add_focus")
-    public void addFocus(@RequestParam(name = "id") long id,
-                         @RequestParam(name = "description") String description,
-                         @RequestParam(name = "type") String type,
-                         @RequestParam(name = "keywordList") List<StatisticKeyword> statisticKeywords){
+    public void addFocus(@RequestBody StatisticFocus statisticFocus){
+        List<StatisticKeyword> statisticKeywords = statisticFocus.getKeywordList();
+        long id = statisticFocus.getId();
+        String description = statisticFocus.getDescription();
+        String type = statisticFocus.getType();
         List<Keyword> keywords = new ArrayList<>();
         for(StatisticKeyword keyword : statisticKeywords){
             keywords.add(new Keyword(keyword.getDescription(),0));
@@ -47,11 +48,11 @@ public class StatisticController {
     }
 
     @PostMapping("update_focus")
-    public void updateFocus(@RequestParam(name = "id") long id,
-                            @RequestParam(name = "description") String description,
-                            @RequestParam(name = "type") String type,
-                            @RequestParam(name = "keywordList") List<StatisticKeyword> statisticKeywords){
-
+    public void updateFocus(@RequestBody StatisticFocus statisticFocus){
+        List<StatisticKeyword> statisticKeywords = statisticFocus.getKeywordList();
+        long id = statisticFocus.getId();
+        String description = statisticFocus.getDescription();
+        String type = statisticFocus.getType();
         List<Keyword> keywords = new ArrayList<>();
         for(StatisticKeyword keyword : statisticKeywords){
             keywords.add(new Keyword(keyword.getDescription(),0));

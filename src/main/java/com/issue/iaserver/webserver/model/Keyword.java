@@ -19,6 +19,7 @@ public class Keyword {
     }
 
     public Keyword(com.issue.iaserver.extractor.keyword.Keyword keyword){
+        this.id = keyword.getId();
         this.description = keyword.getKeyword();
         this.vote = String.valueOf(keyword.getVote());
         this.isVoted = false;

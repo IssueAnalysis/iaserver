@@ -24,10 +24,28 @@ public class StatisticFocus {
         }
     }
 
+    public StatisticFocus(){}
+
     public StatisticFocus(long id, String description, String type, List<StatisticKeyword> keywordList) {
         this.id = id;
         this.description = description;
         this.type = type;
+        this.keywordList = keywordList;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setKeywordList(List<StatisticKeyword> keywordList) {
         this.keywordList = keywordList;
     }
 

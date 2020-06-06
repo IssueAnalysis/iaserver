@@ -11,6 +11,17 @@ public class StatisticKeyword {
         this.description = keyword.getKeyword();
     }
 
+    public StatisticKeyword(String description) {
+        this.description = description;
+    }
+
+    public StatisticKeyword(){}
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getDescription() {
         return description;
     }
