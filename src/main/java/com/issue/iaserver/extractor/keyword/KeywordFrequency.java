@@ -20,6 +20,7 @@ public class KeywordFrequency {
     private Logger logger = LoggerFactory.getLogger(KeywordFrequency.class);
     private Node root;
     private int totalIssueCount;
+    private static final String separator = "∫";
 
     static class Node{
         char val;
@@ -65,7 +66,7 @@ public class KeywordFrequency {
                 if(!str.equals("")){
                     cur.nextList.add(
                             initIterate(
-                                new Node(str.split(":")[0].charAt(0), Integer.parseInt(str.split(":")[1])),
+                                new Node(str.split(separator)[0].charAt(0), Integer.parseInt(str.split(separator)[1])),
                                     bufferedReader
                             )
                             );
@@ -97,7 +98,7 @@ public class KeywordFrequency {
     private void updateIterate(Node cur, BufferedWriter bufferedWriter) throws IOException {
         StringBuffer stringBuffer = new StringBuffer();
         for(Node n : cur.nextList){
-            stringBuffer.append(n.val).append(":").append(n.freq).append(" ");
+            stringBuffer.append(n.val).append(separator).append(n.freq).append(" ");
         }
         bufferedWriter.append(stringBuffer.toString());
         bufferedWriter.newLine();
