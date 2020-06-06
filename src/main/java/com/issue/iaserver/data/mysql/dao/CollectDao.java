@@ -20,4 +20,8 @@ import java.util.ArrayList;
 public interface CollectDao extends JpaRepository<CollectDO, Long> {
     @Query("select c from CollectDO c where c.user_id=:user_id")
     ArrayList<CollectDO> getCollectByUserId(@Param("user_id") long user_id);
+
+    @Query("select count(*) from CollectDO c where c.user_id=:user_id and c.csv_id=:csv_id and c.item_id=:item_id")
+    long isCollected(@Param("user_id") long user_id,
+                     @Param("csv_id") long csv_id, @Param("item_id") long item_id);
 }

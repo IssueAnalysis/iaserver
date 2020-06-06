@@ -36,8 +36,9 @@ public class IssueController {
 
 
     @RequestMapping("/find_all")
-    public List<IssueBrief> findAll() {
-        return issueService.getAllIssues();
+    public List<IssueBrief> findAll(HttpSession session) {
+        long user_id = (long)session.getAttribute("user_id");
+        return issueService.getAllIssues(user_id);
     }
 
     @RequestMapping("/find_add")

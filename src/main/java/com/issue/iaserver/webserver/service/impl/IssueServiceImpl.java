@@ -49,12 +49,12 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public List<IssueBrief> getAllIssues() {
+    public List<IssueBrief> getAllIssues(long user_id) {
         List<CSVDO> csvdos = operateFileService.getAllCSV();
         return csvdos.parallelStream()
                 .map(x -> operateFileService.getCSVitemByCSVid(x.getId()))
                 .flatMap(Collection::stream)
-                .map(this::getIssueBriefFromCSVItem)
+                .map(x -> getIssueBriefFromCSVItem(x, user_id))
                 .collect(Collectors.toList());
     }
 
@@ -64,7 +64,7 @@ public class IssueServiceImpl implements IssueService {
         return csvdos.parallelStream()
                 .map(x -> operateFileService.getCSVitemByCSVid(x.getId()))
                 .flatMap(Collection::stream)
-                .map(this::getIssueBriefFromCSVItem)
+                .map(x -> getIssueBriefFromCSVItem(x, user_id))
                 .collect(Collectors.toList());
 
     }
@@ -73,7 +73,7 @@ public class IssueServiceImpl implements IssueService {
     public List<IssueBrief> getAllCollectedIssues(long user_id) {
         List<CSVitem> csvItems = operateFileService.getCSVitemByUeserInCollect(user_id);
         return csvItems.parallelStream()
-                .map(this::getIssueBriefFromCSVItem)
+                .map(x -> getIssueBriefFromCSVItem(x, user_id))
                 .collect(Collectors.toList());
     }
 
@@ -142,14 +142,16 @@ public class IssueServiceImpl implements IssueService {
         return issue;
     }
 
-    private IssueBrief getIssueBriefFromCSVItem(CSVitem csvItem) {
+    private IssueBrief getIssueBriefFromCSVItem(CSVitem csvItem, long user_id) {
         String formattedDesc = formatter.format(csvItem.getDescription());
         String briefDesc = formatter.getBriefDescription(formattedDesc);
 
-        return new IssueBrief(csvItem.getId(),
-                csvItem.getCSVid(),
+        long csv_id = csvItem.getCSVid();
+        long csvItem_id = csvItem.getId();
+        return new IssueBrief(csvItem_id,
+                csv_id,
                 csvItem.getSummary(),
                 briefDesc,
-                csvItem.isCollect());
+                collectDao.isCollected(user_id, csv_id, csvItem_id) != 0);
     }
 }
