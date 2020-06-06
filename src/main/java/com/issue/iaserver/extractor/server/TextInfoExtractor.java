@@ -71,8 +71,14 @@ public class TextInfoExtractor implements InfoExtractor{
     public List<Keyword> findKeyWords(long issueId,long csvId,String text) {
         if(daoController.isIssueExtracted(issueId, csvId)){
             return daoController.getMarkedIssueKeywords(issueId,csvId);
+        }else{
+            List<Keyword> keywords = findKeyWords(text);
+            List<Focus> focusList = findIssueFocus(keywords);
+            daoController.setIssueKeywordsAndFocus(issueId,csvId,focusList,keywords);
+            daoController.markIssueExtracted(issueId, csvId);
+            keywords = daoController.getMarkedIssueKeywords(issueId,csvId);
+            return keywords;
         }
-        return findKeyWords(text);
     }
 
     //单独public拿出来用来测试

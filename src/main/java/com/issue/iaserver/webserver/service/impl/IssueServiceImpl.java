@@ -101,7 +101,6 @@ public class IssueServiceImpl implements IssueService {
         for(Keyword keyword : keywords){
             keywordList.add(new com.issue.iaserver.webserver.model.Keyword(keyword));
         }
-
         List<Focus> votedFocus = voteService.getVotedFocus(id,csv_id,user_id);
         List<Keyword> votedKeywords = voteService.getVotedKeyword(id, csv_id,user_id);
         for(Focus focus : votedFocus){
