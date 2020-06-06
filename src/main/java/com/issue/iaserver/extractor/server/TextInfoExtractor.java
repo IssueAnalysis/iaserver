@@ -72,6 +72,12 @@ public class TextInfoExtractor implements InfoExtractor{
         if(daoController.isIssueExtracted(issueId, csvId)){
             return daoController.getMarkedIssueKeywords(issueId,csvId);
         }
+        return findKeyWords(text);
+    }
+
+    //单独拿出来用来测试
+    @Override
+    public List<Keyword> findKeyWords(String text){
         // nlp进行处理
         String[] tokens = removeUselessTokens(text);
         markSpansToEmpty(tokens, nameFinder.findTimes(tokens));
@@ -84,17 +90,19 @@ public class TextInfoExtractor implements InfoExtractor{
         List<String> keywordList = new ArrayList<>();
         for(String str: tokens){
             if(str.length() != 0
-            && !str.equals("O")
-            && !str.startsWith("{")
-            && !str.startsWith("}")){
+                    && !str.equals("O")
+                    && !str.startsWith("{")
+                    && !str.startsWith("}")){
                 keywordList.add(str);
             }
         }
         // 使用TF-IDF进行排序
         List<String> sortedKeyWords = tfidf.getSortedTokens(tokens.length,keywordList);
         List<Keyword> res = new ArrayList<>(sortedKeyWords.size());
-        for(String str : sortedKeyWords){
-            res.add(new Keyword(str, 0));
+        int count = 10;
+        if(sortedKeyWords.size() < count) count = sortedKeyWords.size();
+        for(int i = 0; i < count; i++){
+            res.add(new Keyword(sortedKeyWords.get(i), 0));
         }
         return res;
     }

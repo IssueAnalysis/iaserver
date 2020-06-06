@@ -30,4 +30,12 @@ public interface InfoExtractor {
      * @return 根据关键词匹配出的可能的关注点列表
      */
     List<Focus> findIssueFocus(List<Keyword> keywords);
+
+    /**
+     *
+     * @param text
+     * @return
+     */
+    List<Keyword> findKeyWords(String text);
+
 }

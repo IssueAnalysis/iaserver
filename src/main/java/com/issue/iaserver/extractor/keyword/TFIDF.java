@@ -48,6 +48,7 @@ public class TFIDF {
         keywordWithTFIDFS.sort(KeywordWithTFIDF::compareTo);
         List<String> res = new ArrayList<>();
         for(KeywordWithTFIDF keywordWithTFIDF : keywordWithTFIDFS){
+            System.out.println(keywordWithTFIDF.getTfIdf());
             res.add(keywordWithTFIDF.getKeyword());
         }
         return res;
