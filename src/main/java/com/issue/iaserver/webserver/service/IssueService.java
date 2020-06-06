@@ -9,7 +9,7 @@ import java.util.List;
 public interface IssueService {
 
     //得到所有issue
-    public List<IssueBrief> getAllIssues();
+    public List<IssueBrief> getAllIssues(long user_id);
 
     //得到所有我上传的issue
     public List<IssueBrief> getAllAddedIssues(long user_id);
