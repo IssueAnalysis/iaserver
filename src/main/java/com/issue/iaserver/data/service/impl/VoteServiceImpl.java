@@ -52,8 +52,8 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public ArrayList<Integer> getKeywordVote(long csv_id, long item_id, long focus_id) {
-        return voteDao.getKeywordVote(csv_id, item_id, focus_id);
+    public ArrayList<Integer> getKeywordVote(long csv_id, long item_id, long keyword_id) {
+        return voteDao.getKeywordVote(csv_id, item_id, keyword_id);
     }
 
     @Override

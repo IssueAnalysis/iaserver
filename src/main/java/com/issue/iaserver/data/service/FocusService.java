@@ -23,6 +23,8 @@ public interface FocusService {
     /**新增focus*/
     boolean addFocus(Focus focus);
 
+    boolean updateFocus(Focus focus);
+
     /**
      * 当前issue是否已经被信息提取过
      * @param issueId issue id

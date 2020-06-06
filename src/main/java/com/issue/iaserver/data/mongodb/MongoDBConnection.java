@@ -57,7 +57,7 @@ public class MongoDBConnection {
         MongoClient mongoClient = mongoDBConnection.getConn();
         MongoDatabase mongoDatabase = mongoClient.getDatabase("iadb");
         //获取数据库中的user集合
-        MongoCollection<Document> collection = mongoDatabase.getCollection("4450");
+        MongoCollection<Document> collection = mongoDatabase.getCollection("0");
         //获取user集合中的文档
         FindIterable<Document> iterable = collection.find();
         //通过迭代器遍历找到的文档中的信息
@@ -65,7 +65,7 @@ public class MongoDBConnection {
         int count = 0;
         while(iterator.hasNext()) {
             count++;
-            System.out.println(count);
+            //System.out.println(count);
         }
     }
 }
