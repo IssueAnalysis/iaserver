@@ -71,12 +71,12 @@ public class IssueController {
             return false;
         long user_id = (long) session.getAttribute("user_id");
 //        long user_id = 1;
-//        String prefix = String.valueOf(System.currentTimeMillis());
-        String prefix = filename.substring(0, filename.lastIndexOf("."));
+        String prefix = String.valueOf(System.currentTimeMillis());
+//        String prefix = filename.substring(0, filename.lastIndexOf("."));
         String suffix = filename.substring(filename.lastIndexOf("."));
         try {
-//            File file = File.createTempFile(prefix, suffix);
-            File file = new File("/Users/user/Desktop/" + filename);
+            File file = File.createTempFile(prefix, suffix);
+//            File file = new File("/Users/user/Desktop/" + filename);
             multipartFile.transferTo(file);
             operateFileService.uploadFile(user_id, file.getPath());
             if (file.exists())
