@@ -74,8 +74,7 @@ public class DaoController {
      * @return 是否更新成功
      */
     public boolean updateStatisticFocus(Focus focus){
-        // TODO 连接数据库
-        return false;
+        return focusService.updateFocus(focus);
     }
 
     /**
@@ -147,7 +146,12 @@ public class DaoController {
      * @return 是否设置成功
      */
     public boolean setIssueKeywordsAndFocus(long issueId, long csvId,List<Focus> focusList,  List<Keyword> keywords){
-        return focusService.setIssueKeywordsAndFocus(issueId,csvId,focusList,keywords,0l);
+        boolean res = focusService.setIssueKeywordsAndFocus(issueId,csvId,focusList,keywords,0l);
+        boolean res1 = markIssueExtracted(issueId,csvId);
+        if(res && res1){
+            return true;
+        }
+        return false;
     }
 
 

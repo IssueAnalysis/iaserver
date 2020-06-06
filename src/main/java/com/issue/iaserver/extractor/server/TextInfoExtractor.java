@@ -75,7 +75,7 @@ public class TextInfoExtractor implements InfoExtractor{
         return findKeyWords(text);
     }
 
-    //单独拿出来用来测试
+    //单独public拿出来用来测试
     @Override
     public List<Keyword> findKeyWords(String text){
         // nlp进行处理

@@ -91,8 +91,8 @@ public class IssueServiceImpl implements IssueService {
             return null;
         Issue issue = getIssueFromCSVItem(csvItem);
         String text = issue.getDescription();
-        List<Focus> focusList = infoExtractor.findIssueFocus(id,csv_id,text);
         List<Keyword> keywords = infoExtractor.findKeyWords(id,csv_id,text);
+        List<Focus> focusList = infoExtractor.findIssueFocus(id,csv_id,text);
         List<com.issue.iaserver.webserver.model.Focus> foci = new ArrayList<>(focusList.size());
         List<com.issue.iaserver.webserver.model.Keyword> keywordList = new ArrayList<>(keywords.size());
         for(Focus focus: focusList){
