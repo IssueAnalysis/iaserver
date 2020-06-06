@@ -121,6 +121,13 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public boolean collectIssue(long id, long csv_id, long user_id) {
+        List<CollectDO> collectDOS = collectDao.findAll();
+        for(CollectDO collectDO : collectDOS){
+            if(collectDO.getItem_id() == id && collectDO.getCsv_id() == csv_id && collectDO.getUser_id() == user_id){
+                collectDao.delete(collectDO);
+                return false;
+            }
+        }
         CollectDO collectDO = new CollectDO(0, csv_id, id, user_id);
         collectDao.saveAndFlush(collectDO);
         return true;
@@ -143,6 +150,7 @@ public class IssueServiceImpl implements IssueService {
         return new IssueBrief(csvItem.getId(),
                 csvItem.getCSVid(),
                 csvItem.getSummary(),
-                briefDesc);
+                briefDesc,
+                csvItem.isCollect());
     }
 }

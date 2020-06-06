@@ -7,13 +7,15 @@ public class IssueBrief {
 
     private String summary;
     private String briefDescription;
+    private boolean collect;
 
 
-    public IssueBrief(long id, long csvId, String summary, String briefDescription) {
+    public IssueBrief(long id, long csvId, String summary, String briefDescription, boolean isCollected) {
         this.id = id;
         this.csvId = csvId;
         this.summary = summary;
         this.briefDescription = briefDescription;
+        collect = isCollected;
     }
 
 
@@ -47,6 +49,14 @@ public class IssueBrief {
 
     public void setBriefDescription(String briefDescription) {
         this.briefDescription = briefDescription;
+    }
+
+    public boolean isCollect() {
+        return collect;
+    }
+
+    public void setCollect(boolean collect) {
+        this.collect = collect;
     }
 }
 
