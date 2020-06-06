@@ -24,24 +24,24 @@ import java.util.ArrayList;
 public interface VoteDao extends JpaRepository<VoteDO, Long> {
 
     @Query("select v.focus_id from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id and v.user_id=:user_id " +
-            "and keyword_id IS NULL")
+            "and keyword_id < 0")
     ArrayList<Long> getFocusByUserId(@Param("csv_id") long csv_id, @Param("item_id") long item_id,
                                      @Param("user_id") long user_id);
 
     @Query("select v.keyword_id from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id and v.user_id=:user_id " +
-            "and focus_id IS NULL")
+            "and focus_id < 0")
     ArrayList<Long> getKeywordByUserId(@Param("csv_id") long csv_id, @Param("item_id") long item_id,
                                        @Param("user_id") long user_id);
 
     @Query("select v.vote from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id and v.focus_id=:focus_id" +
-            " and v.keyword_id IS NULL")
+            " and v.keyword_id < 0")
     ArrayList<Integer> getFocusVote(@Param("csv_id") long csv_id, @Param("item_id") long item_id,
                                    @Param("focus_id") long focus_id);
 
-    @Query("select v.vote from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id and v.focus_id=:focus_id" +
-            " and v.focus_id IS NULL")
+    @Query("select v.vote from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id and v.keyword_id=:keyword_id" +
+            " and v.focus_id < 0")
     ArrayList<Integer> getKeywordVote(@Param("csv_id") long csv_id, @Param("item_id") long item_id,
-                                    @Param("focus_id") long focus_id);
+                                    @Param("keyword_id") long keyword_id);
 
     @Query("select v.keyword_id from VoteDO v where v.csv_id=:csv_id and v.item_id=:item_id")
     ArrayList<Long> getKeyWordIdByIssueID(@Param("csv_id") long csv_id, @Param("item_id") long item_id);
