@@ -19,6 +19,6 @@ public class KeywordWithTFIDF implements Comparable<KeywordWithTFIDF>{
 
     @Override
     public int compareTo(KeywordWithTFIDF o) {
-        return Double.compare(this.tfIdf,o.tfIdf);
+        return Double.compare(o.tfIdf,this.tfIdf);
     }
 }

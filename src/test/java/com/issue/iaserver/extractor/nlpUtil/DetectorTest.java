@@ -29,16 +29,17 @@ class DetectorTest {
     @SuppressWarnings("all")
     void detectSentences() throws IOException, ModelNotFoundException {
         String s = new FileUtil().getTestText();
-        String[] sentences = detector.detectSentences(s);
-        String[] tokens = detector.detectTokens(s);
-        String[] pos = detector.detectPos(s);
-        String[] chunks = detector.detectChunker(s);
-        Span[] spans = detector.getChunkSpan(s);
-        System.out.println(tokens.length);
-
-        for(String str : pos){
-            System.out.println(str.toString());
+        String str = " This is wrong and misleading, maybe we can improve the pattern like: *Moved BLOCK complete, copied from PROXY DN.";
+        String[] sentences = detector.detectSentences(str);
+        String[] tokens = detector.detectTokens(str);
+        String[] pos = detector.detectPos(str);
+        String[] chunks = detector.detectChunker(str);
+        Span[] spans = detector.getChunkSpan(str);
+        System.out.print("{");
+        for(String ss : pos){
+            System.out.print("\"" + ss + "\", ");
         }
+        System.out.print("}");
     }
 
     @Test

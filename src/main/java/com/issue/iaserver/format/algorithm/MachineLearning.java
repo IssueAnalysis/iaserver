@@ -56,7 +56,7 @@ public class MachineLearning {
 
     }
 
-    private List<String> getDescriptionsFromCsv(String path) {
+    public List<String> getDescriptionsFromCsv(String path) {
         try {
 
             BufferedReader br = new BufferedReader(new FileReader(path));

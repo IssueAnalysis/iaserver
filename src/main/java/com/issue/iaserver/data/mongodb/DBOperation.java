@@ -195,7 +195,7 @@ public class DBOperation {
             urlconn.connect();
             HttpURLConnection httpconn =(HttpURLConnection)urlconn;
 
-            int filesize = urlconn.getContentLength(); // 取数据长度
+            //int filesize = urlconn.getContentLength(); // 取数据长度
             isReader = new InputStreamReader(urlconn.getInputStream(),"UTF-8");
 
             // initialize CSVParser object

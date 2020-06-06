@@ -37,6 +37,10 @@ public class Focus implements Comparable<Focus> {
         this.keywordList = focusDO.getKeywordList();
     }
 
+    public Focus(Long id){
+        this.id = id;
+    }
+
     public long getVote() {
         return vote;
     }

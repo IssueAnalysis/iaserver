@@ -1,5 +1,6 @@
 package com.issue.iaserver.data.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.issue.iaserver.data.mysql.dao.*;
 import com.issue.iaserver.data.mysql.entity.FocusDO;
 import com.issue.iaserver.data.mysql.entity.KeywordDO;
@@ -50,6 +51,21 @@ public class FocusServiceImpl implements FocusService {
         }
         focusDao.saveAndFlush(focusDO);
         return true;
+    }
+
+    @Override
+    public boolean updateFocus(Focus focus){
+        List<FocusDO> focusDOS = focusDao.findAll();
+        for(FocusDO focusDO : focusDOS){
+            if(focusDO.getId() == focus.getId()){
+                FocusDO focusDO1 = new FocusDO(focus);
+                long id = focus.getId();
+                focusDO1.setId(id);
+                focusDao.saveAndFlush(focusDO);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

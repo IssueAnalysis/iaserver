@@ -2,6 +2,7 @@ package com.issue.iaserver.extractor.dao;
 
 import com.issue.iaserver.data.mysql.entity.FocusDO;
 import com.issue.iaserver.data.service.FocusService;
+import com.issue.iaserver.data.service.VoteService;
 import com.issue.iaserver.extractor.focus.Focus;
 import com.issue.iaserver.extractor.keyword.Keyword;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,11 @@ public class DaoController {
     @Resource(name = "FocusService")
     private FocusService focusService;
 
-    public DaoController(FocusService focusService) {
+    private VoteService voteService;
+
+    public DaoController(VoteService voteService,FocusService focusService) {
         this.focusService = focusService;
+        this.voteService = voteService;
     }
 
     /**
@@ -47,9 +51,11 @@ public class DaoController {
      * @return 是否查找到关注点
      */
     public boolean isStatisticHasFocus(Focus focus){
-        // TODO
-
-
+        List<FocusDO> focus1 = focusService.getAllFocus();
+        for(FocusDO focusDO : focus1){
+            if(focusDO.getFocusDescription().equals(focus.getFocusDescription()))
+                return true;
+        }
         return false;
     }
 
@@ -59,8 +65,7 @@ public class DaoController {
      * @return 是否添加成功
      */
     public boolean addStatisticFocus(Focus focus){
-        // TODO 连接数据库
-        return false;
+        return focusService.addFocus(focus);
     }
 
     /**
@@ -69,8 +74,7 @@ public class DaoController {
      * @return 是否更新成功
      */
     public boolean updateStatisticFocus(Focus focus){
-        // TODO 连接数据库
-        return false;
+        return focusService.updateFocus(focus);
     }
 
     /**
@@ -100,7 +104,17 @@ public class DaoController {
      * @return issue的关键词
      */
     public List<Keyword> getMarkedIssueKeywords(long issueId, long csvId){
-        return focusService.getMarkedIssueKeywords(issueId,csvId);
+        List<Keyword> keywords = focusService.getMarkedIssueKeywords(issueId,csvId);
+        int voteCount;
+        for(Keyword keyword : keywords){
+            voteCount = 0;
+            List<Integer> votes = voteService.getKeywordVote(csvId,issueId,keyword.getId());
+            for(Integer i : votes){
+                voteCount += i;
+            }
+            keyword.setVote(voteCount);
+        }
+        return keywords;
     }
 
     /**
@@ -110,7 +124,17 @@ public class DaoController {
      * @return
      */
     public List<Focus> getMarkedIssueFocus(long issueId, long csvId){
-        return focusService.getMarkedIssueFocus(issueId, csvId);
+        List<Focus> focusList = focusService.getMarkedIssueFocus(issueId, csvId);
+        int voteCount;
+        for(Focus focus : focusList){
+            voteCount = 0 ;
+            List<Integer> votes = voteService.getFocusVote(csvId,issueId,focus.getId());
+            for(Integer i : votes){
+                voteCount += i;
+            }
+            focus.setVote(voteCount);
+        }
+        return focusList;
     }
 
     /**
@@ -122,7 +146,12 @@ public class DaoController {
      * @return 是否设置成功
      */
     public boolean setIssueKeywordsAndFocus(long issueId, long csvId,List<Focus> focusList,  List<Keyword> keywords){
-        return focusService.setIssueKeywordsAndFocus(issueId,csvId,focusList,keywords,0l);
+        boolean res = focusService.setIssueKeywordsAndFocus(issueId,csvId,focusList,keywords,0l);
+        boolean res1 = markIssueExtracted(issueId,csvId);
+        if(res && res1){
+            return true;
+        }
+        return false;
     }
 
 
@@ -134,8 +163,12 @@ public class DaoController {
      * @return 用户在这个issue投过票的关注点
      */
     public List<Focus> getVotedIssueFocus(long issueId, long csvId, long userId){
-        // TODO 连接数据层
-        return null;
+        List<Long> votedFocus = voteService.getFocusByUserId(csvId,issueId,userId);
+        List<Focus> focusList = new ArrayList<>();
+        for(Long l : votedFocus){
+            focusList.add(new Focus(l));
+        }
+        return focusList;
     }
 
     /**
@@ -146,8 +179,12 @@ public class DaoController {
      * @return 用户在这个issue投过票的关键词
      */
     public List<Keyword> getVotedIssueKeywords(long issueId, long csvId, long userId){
-        // TODO 连接数据库
-        return null;
+        List<Long> votedKeywords = voteService.getKeywordByUserId(csvId,issueId,userId);
+        List<Keyword> keywords = new ArrayList<>();
+        for(Long l : votedKeywords){
+            keywords.add(new Keyword(l));
+        }
+        return keywords;
     }
 
     /**
@@ -159,8 +196,7 @@ public class DaoController {
      * @return
      */
     public boolean voteIssueFocus(long issueId, long csvId, long userId, long focusId){
-        // TODO 连接数据库
-        return false;
+        return voteService.addFocusVote(csvId,issueId,focusId,userId,1);
     }
 
     /**
@@ -172,8 +208,7 @@ public class DaoController {
      * @return
      */
     public boolean voteIssueKeyword(long issueId, long csvId, long userId, long keywordId){
-        // TODO 连接数据库
-        return false;
+        return voteService.addKeywordVote(csvId,issueId,keywordId,userId,1);
     }
 
 
