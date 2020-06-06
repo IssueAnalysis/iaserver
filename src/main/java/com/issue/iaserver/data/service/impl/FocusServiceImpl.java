@@ -1,8 +1,5 @@
 package com.issue.iaserver.data.service.impl;
 
-import com.issue.iaserver.data.mongodb.CSVitem;
-import com.issue.iaserver.data.mongodb.DBOperation;
-import com.issue.iaserver.data.mongodb.MongoDBConnection;
 import com.issue.iaserver.data.mysql.dao.*;
 import com.issue.iaserver.data.mysql.entity.FocusDO;
 import com.issue.iaserver.data.mysql.entity.KeywordDO;
@@ -11,11 +8,8 @@ import com.issue.iaserver.data.mysql.entity.VoteDO;
 import com.issue.iaserver.data.service.FocusService;
 import com.issue.iaserver.extractor.focus.Focus;
 import com.issue.iaserver.extractor.keyword.Keyword;
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.plugin2.message.MarkTaintedMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +41,13 @@ public class FocusServiceImpl implements FocusService {
 
     /**新增一个Focus*/
     @Override
-    public boolean addFocus(Focus focus, long issueId, long csvId) {
-        FocusDO focusDO = new FocusDO(focus, csvId, issueId);
+    public boolean addFocus(Focus focus) {
+        FocusDO focusDO = new FocusDO(focus);
+        List<Keyword> keywords = focus.getKeywordList();
+        for(Keyword Keyword : keywords) {
+            KeywordDO keywordDO = new KeywordDO(Keyword);
+            keywordDao.saveAndFlush(keywordDO);
+        }
         focusDao.saveAndFlush(focusDO);
         return true;
     }
@@ -117,17 +116,6 @@ public class FocusServiceImpl implements FocusService {
                                             List<Focus> focusList, List<Keyword> keywords,
                                             long userId) {
 
-        /*List<KeywordDO> keywords_ = keywordDao.getKeywordByIssueId(csvId, issueId);
-        for (Keyword keyword : keywords) {
-            KeywordDO keywordDO = new KeywordDO(keyword, csvId, issueId);
-
-            keywordDao.saveAndFlush(keywordDO);
-            System.out.println("[INFO] :关键词id是"+keywordDO.getId());
-
-            VoteDO voteDO = new VoteDO(keywordDO, userId);
-            voteDao.saveAndFlush(voteDO);
-        }*/
-
         for (Focus focus : focusList) {
             List<Keyword> keywords1 = focus.getKeywordList();
             for(Keyword keyword : keywords1){
@@ -177,9 +165,13 @@ public class FocusServiceImpl implements FocusService {
     public List<Focus> getMarkedIssueFocus(long issue_id, long csv_id) {
 
         List<Focus> res = new ArrayList<Focus>();
-        List<FocusDO> focusDOS = focusDao.getFocusByIssueId(csv_id, issue_id);
-        for(FocusDO focusDO : focusDOS){
-            res.add(new Focus(focusDO));
+        List<Long> focusDOS = voteDao.getFocusIdByIssueID(csv_id, issue_id);
+        if(focusDOS.size() == 0) return res;
+        for(Long focusID : focusDOS){
+            FocusDO focusDO = focusDao.getOne(focusID);
+            int vote = sum(voteDao.getFocusVote(csv_id, issue_id, focusDO.getId()));
+            Focus focus = new Focus(focusDO, vote);
+            res.add(focus);
         }
         return res;
     }
@@ -196,7 +188,8 @@ public class FocusServiceImpl implements FocusService {
         List<Keyword> res = new ArrayList<Keyword>();
         List<KeywordDO> keywordDOS = keywordDao.getKeywordByIssueId(csvId, issueId);
         for(KeywordDO keywordDO : keywordDOS){
-            res.add(new Keyword(keywordDO.getKeyword_description(), keywordDO.getVote()));
+            int vote = sum(voteDao.getKeywordVote(csvId, issueId, keywordDO.getId()));
+            res.add(new Keyword(keywordDO.getKeyword_description(), vote));
         }
         return res;
     }
@@ -208,8 +201,40 @@ public class FocusServiceImpl implements FocusService {
      * @param csvId
      * @param userId
      * */
-    @Override
-    public List<VoteDO> getVoteRecordByUserIdAndIssueId(long issueId, long csvId, long userId){
-        return voteDao.getKeywordAndFocusByUserId(csvId, issueId, userId);
+    public List<Keyword> getKeywordByUserIdAndIssueId(long issueId, long csvId, long userId){
+        List<Keyword> keywordList = new ArrayList<Keyword>();
+        List<Long> keywordIds = voteDao.getKeywordByUserId(csvId, issueId, userId);
+        for(Long keywordId : keywordIds){
+            KeywordDO keywordDO = keywordDao.getOne(keywordId);
+            Keyword keyword = new Keyword(keywordDO.getKeyword_description(), keywordDO.getVote());
+            keywordList.add(keyword);
+        }
+        return keywordList;
+    }
+
+    /**
+     * 当前用户对当前issue的哪些关注点投过票
+     * @param issueId
+     * @param csvId
+     * @param userId
+     * @Return
+     * */
+    public List<Focus> getFocusByUserIdAndIssueId(long issueId, long csvId, long userId){
+        List<Focus> focusList = new ArrayList<Focus>();
+        List<Long> focusIds = voteDao.getFocusByUserId(csvId, issueId, userId);
+        for(Long focusId : focusIds){
+            FocusDO focusDO = focusDao.getOne(focusId);
+            Focus focus = new Focus(focusDO);
+            focusList.add(focus);
+        }
+        return focusList;
+    }
+
+    private int sum(ArrayList<Integer> focusVote) {
+        int sum = 0;
+        for(Integer integer : focusVote){
+            sum += integer;
+        }
+        return sum;
     }
 }
