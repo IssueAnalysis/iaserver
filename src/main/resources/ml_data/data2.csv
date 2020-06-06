@@ -1,0 +1,115 @@
+When DFSRouter fails to fetch or parse JMX output from NameNode,0
+it prints only the error message.,0
+Therefore we had to modify the source code to print the stacktrace of the exception to find the root cause.,0
+We could not identify which file it belongs easily when DFSInputStream meet CannotObtainBlockLengthException,0
+as the following exception log.,0
+Just suggest to log file path string when we meet CannotObtainBlockLengthException.,0
+After applying HDFS-13101,0
+and deleting and creating large number of snapshots,0
+SNN exited with below error:,0
+We confirmed that fsimage and edit files were NOT corrupted,0
+as reverting HDFS-13101 fixed the issue.,0
+So the logic introduced in HDFS-13101 is broken and failed to parse edit log files.,0
+For a datanode in a pipeline,0
+when its PacketResponder thread encounters an exception,0
+it prints logs like below:,0
+2019-10-24 09:22:58 212 WARN org.apache.hadoop.hdfs.server.datanode.DataNode: IOException in *BlockReceiver*.run():,0
+But this log is incorrect and misleading,0
+the right print shoud be:,0
+2019-10-24 09:22:58 212 WARN org.apache.hadoop.hdfs.server.datanode.DataNode: IOException in *PacketResponder*.run():,0
+when hadoop 2.x upgrades to hadoop 3.x   InterQJournalProtocol is newly added，so  throw Unknown protocol.,0
+the newly InterQJournalProtocol is used to sychronize past log segments to JNs that missed them.,0
+And that an error occurs does not affect normal service.,0
+I think it should not be a ERROR log，and that log a warn log is more reasonable.,0
+log level should be warn here,0
+When trying to launch a workload job,0
+if any of the given audit logs’ values contain `=` aside from at the ends of the log’s keys (such as `ugi`,0
+`src`),0
+the audit log will not be parsed and an exception is thrown.,0
+For example,0
+this audit log will result in exception,0
+as it contains `=` in the `src` value (“/projects/date=0822”).,0
+If the second `=` in `src=/projects/date=0822` is removed,0
+it works fine.,0
+If the block corruption reason is size mismatch the log.,0
+The values shown and compared are ambiguous.,0
+Current implementation only log process time,0
+We need to log more details to help us locate the problem (eg.,0
+how long it take to request lock,0
+holding lock,0
+or do other things),0
+In DirectoryWithQuotaFeature#checkStoragespace code logs in error mode without throwing any exceptions or action and pollutes logs.,0
+This should be in INFO mode.,0
+The following log is displayed in every hdfs command when using DNSDomainNameResolver.,0
+Can we change the log level from info to debug?,0
+This issue is originally reported by [~tasanuma].,0
+When a node is marked for decommission,0
+there is a monitor thread which runs every 30 seconds by default,0
+and checks if the node still has pending blocks to be replicated before the node can complete replication.,0
+There are two existing debug level messages logged in the monitor thread,0
+DatanodeAdminManager$Monitor.check(),0
+which log the correct information already,0
+first as the pending blocks are replicated:,0
+And then after the initial set of blocks has completed and a rescan happens:,0
+I would like to propose moving these messages to INFO level so it is easier to monitor decommission progress over time from the Namenode log.,0
+Based on the default settings,0
+this would result in at most 1 log message per node being decommissioned every 30 seconds.,0
+The reason this is at the most,0
+is because the monitor thread stops after checking after 500K blocks and therefore in practice it could be as little as 1 log message per 30 seconds,0
+even if many DNs are being decommissioned at the same time.,0
+Note that the namenode webUI does display the above information,0
+but having this in the NN logs would allow progress to be tracked more easily.,0
+This message should include the value of {{RpcConstants.HEADER}} and {{dataLengthBuffer}} in addition to just the version information or else that data is lost.,0
+Wrong:,0
+Correct:,0
+Remove several instances of check for debug log enabled in FSNamesystem one such example is as:,0
+This can be replaced by using parameterized logging.,0
+We should add metrics for each iteration of edit log tailing,0
+including 1) # of edits loaded,0
+2) time spent in select input edit stream,0
+3) time spent in loading the edits,0
+4) interval between the iterations.,0
+this is a bit misleading:,0
+I think this command should fail because "nonexistent" doesn't exists...,0
+the correct would be:,0
+HDFS-11993 added block name in log message when a dfsclient fails to connect,0
+which is good.,0
+As a follow-on,0
+it can also log HDFS file name too,0
+just in DFSInputStream#actualGetFromOneDataNode,0
+There are many places that using {{Logger.error(String,0
+format,0
+Object... arguments)}} incorrectly.,0
+A example:,0
+The exception passed here is no meaning and won't be printed.,0
+Actually it should be update to,0
+or,0
+Today when one RPC to namenode locks FSNameSystem for a long time,0
+it would print the stacktrace to the namenode log.,0
+However all we know from this log is the operation name to the Namenode(such as create,0
+delete).,0
+It should print more information about the rpc call(like caller name,0
+caller ip,0
+operation src),0
+which blocks the namenode.,0
+So we can have a better tuning to the HDFS.,0
+During the test of OzoneFileSystem with spark I noticed ERROR messages multiple times:,0
+Something like this:,0
+I checked the other implemetations,0
+and they use DEBUG level.,0
+I think it's expected that the path sometimes points to a non-existing dir/file.,0
+To be consistent with the other implemetation I propose to lower the log level to debug.,0
+Examples from other file systems:,0
+S3AFileSystem:,0
+Alyun:,0
+SFTP:,0
+SwiftNativeFileSystem:,0
+In class org.apache.hadoop.hdfs.server.blockmanagement.*SlowDiskTracker*,0
+the LOG is targeted to *SlowPeerTracker*.class incorrectly.,0
+Move logging to slf4j in BlockPoolSliceStorage and Storage classes.,0
+Currently if there are less DataNodes than the erasure coding policy's (# of data blocks + # of parity blocks),0
+the client sees this:,0
+The 1st line is good.,0
+The 2nd line may be confusing to end users.,0
+We should investigate the error and be more general / accurate.,0
+Maybe something like 'failed to read x blocks'.,0

@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/issue")
+@RequestMapping("/api/statistic/")
 public class StatisticController {
 
     @Resource(name = "focusInfoService")

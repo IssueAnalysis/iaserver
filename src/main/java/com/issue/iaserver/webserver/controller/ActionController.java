@@ -30,7 +30,7 @@ public class ActionController {
     }
 
     @PostMapping("/collect_issues")
-    public boolean collectIssues(@RequestParam("csv_id") long csv_id, @RequestParam("issue_id") long id,
+    public boolean collectIssues(@RequestParam("csv_id") long csv_id, @RequestParam("id") long id,
                                  HttpSession session) {
         long user_id = (long) session.getAttribute("user_id");
         issueService.collectIssue(id, csv_id, user_id);

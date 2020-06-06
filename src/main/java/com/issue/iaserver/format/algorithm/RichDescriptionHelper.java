@@ -25,12 +25,12 @@ public class RichDescriptionHelper {
     private static final String CODE_END_TAG = "</code></pre>";
 
     //场景
-    private static final String SCENARIO_START_TAG = "<scenario>";
-    private static final String SCENARIO_END_TAG = "</scenario>";
+    private static final String SCENARIO_START_TAG = "<span style='color:green'>";
+    private static final String SCENARIO_END_TAG = "</span>";
 
     //解决方案
-    private static final String SOLUTION_START_TAG = "<solution>";
-    private static final String SOLUTION_END_TAG = "</solution>";
+    private static final String SOLUTION_START_TAG = "<span style='color:blue'>";
+    private static final String SOLUTION_END_TAG = "</span>";
 
     private SentenceDetector sentenceDetector;
     private PartOfSpeechDetector partOfSpeechDetector;
@@ -85,7 +85,7 @@ public class RichDescriptionHelper {
 
     private void findSolution(){
 
-        wrapText("(modify|suggest|maybe|should|we can|it's better to).*? \\w+(?=[.,;:])", "solution");
+        wrapText("(modify|suggest|maybe|should|we can|it's better to|would like to|propose to).*? \\w+(?=[.,;:])", "solution");
 
         if(!solutionFound){
             wrapText("need to.*? \\w+(?=[.,;:])", "solution");
@@ -190,6 +190,8 @@ public class RichDescriptionHelper {
 
         final int endPoint = i + 1;
 
+        if(endPoint < startPoint)
+            return "\n";
         String result = s.substring(startPoint, endPoint) + "\n";
         int l;
         do{                 //去掉中间多余的行

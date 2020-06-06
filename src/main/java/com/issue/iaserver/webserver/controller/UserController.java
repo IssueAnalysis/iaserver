@@ -31,14 +31,14 @@ public class UserController {
                         @RequestParam(name="password")String password,
                         HttpSession session) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
-            throw new BusinessException(ErrorType.PARAMETER_VALIDATION_ERROR, "用户名密码不能为空");
+            return false;
         }
         UserDO user = userService.login(username, password);
         if(user!= null){
             session.setAttribute("user_id", user.getId());
             return true;
         }else{
-            throw new BusinessException(ErrorType.PARAMETER_VALIDATION_ERROR,"用户名密码错误");
+            return false;
         }
 
     }
