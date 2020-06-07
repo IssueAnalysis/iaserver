@@ -43,6 +43,14 @@ public class FocusServiceImpl implements FocusService {
         return focusDOS;
     }
 
+    @Override
+    public List<FocusDO> getAllIssueFocus() {
+        List<FocusDO> focusDOS = focusDao.findAll();
+        focusDOS.removeIf(focusDO -> focusDO.getIssue_id() < 0 || focusDO.getIssue_id() < 0);
+        return focusDOS;
+    }
+
+
     /**新增一个Focus*/
     @Override
     public long addFocus(Focus focus) {

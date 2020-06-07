@@ -20,6 +20,8 @@ public interface FocusService {
     /**获取全部的Focus*/
     List<FocusDO> getAllFocus();
 
+    List<FocusDO> getAllIssueFocus();
+
     /**新增focus*/
     long addFocus(Focus focus);
 

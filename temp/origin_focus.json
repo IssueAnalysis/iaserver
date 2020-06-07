@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Assertion-check logging",
+    "type": "categories",
+    "keywords": [
+      "assert","check",""
+    ]
+  },
+  {
+    "name": "Return-value-check logging",
+    "type": "categories",
+    "keywords": [
+      "return","check"
+    ]
+  },
+  {
+    "name": "Exception logging",
+    "type": "categories",
+    "keywords": [
+      "exception"
+    ]
+  },
+  {
+    "name": "Logic-branch logging",
+    "type": "categories",
+    "keywords": [
+      "if","branch"
+    ]
+  },
+  {
+    "name": "Observing-point logging",
+    "type": "categories",
+    "keywords": [
+      "point"
+    ]
+  }
+
+]

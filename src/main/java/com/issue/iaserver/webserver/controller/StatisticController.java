@@ -1,5 +1,7 @@
 package com.issue.iaserver.webserver.controller;
 
+import com.issue.iaserver.data.mysql.entity.FocusDO;
+import com.issue.iaserver.data.service.FocusService;
 import com.issue.iaserver.extractor.focus.Focus;
 import com.issue.iaserver.extractor.keyword.Keyword;
 import com.issue.iaserver.extractor.server.FocusInfoService;
@@ -23,6 +25,8 @@ public class StatisticController {
 
     @Resource(name = "focusInfoService")
     private FocusInfoService focusInfoService;
+
+    private FocusService focusService;
 
     @GetMapping("focus_info")
     public List<StatisticFocus> getAllFocusInfo(){
@@ -64,7 +68,25 @@ public class StatisticController {
 
     @GetMapping("focus_issue")
     public FocusIssueMap getFocusIssues(){
-        //TODO
-        return null;
+        List<FocusDO> focusDOS = focusService.getAllIssueFocus();
+        List<Focus> focusList = focusInfoService.getAllFocus();
+        FocusIssueMap focusIssueMap = new FocusIssueMap();
+        List<String> focuses = new ArrayList<>();
+        List<Integer> issueCount = new ArrayList<>();
+        int count = 0;
+        for(Focus focus : focusList){
+            focuses.add(focus.getFocusDescription());
+            count = 0;
+            for(FocusDO focusDO : focusDOS){
+                if(focusDO.getFocusDescription().equals(focus.getFocusDescription())
+                && focusDO.getFocusType().equals(focus.getFocusType())){
+                    count++;
+                }
+            }
+            issueCount.add(count);
+        }
+        focusIssueMap.setCounts(issueCount);
+        focusIssueMap.setFocuses(focuses);
+        return focusIssueMap;
     }
 }
