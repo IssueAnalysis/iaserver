@@ -38,16 +38,11 @@ public class FocusInfoController implements FocusInfoService{
     }
 
     @Override
-    public ExtractMessage addFocus(Focus focus) {
+    public long addFocus(Focus focus) {
         if(daoController.isStatisticHasFocus(focus)){
-            return ExtractMessage.DUPLICATED;
+            return -1;
         }
-        boolean res = daoController.addStatisticFocus(focus);
-        if(res){
-            return ExtractMessage.SUCCESS;
-        }else{
-            return ExtractMessage.DATA_ERROR;
-        }
+        return daoController.addStatisticFocus(focus);
     }
 
     @Override

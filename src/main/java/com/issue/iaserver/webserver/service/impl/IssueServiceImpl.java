@@ -105,7 +105,7 @@ public class IssueServiceImpl implements IssueService {
         List<Keyword> votedKeywords = voteService.getVotedKeyword(id, csv_id,user_id);
         for(Focus focus : votedFocus){
             for(com.issue.iaserver.webserver.model.Focus focus1 : foci){
-                if(focus1.getId() == focus.getId()) focus1.setVoted();
+                if(focus1.getId() == focus.getId()) focus1.setVoted(true);
             }
         }
         for(Keyword keyword : votedKeywords){

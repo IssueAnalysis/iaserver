@@ -11,7 +11,7 @@ import java.util.List;
 public interface FocusInfoService {
     List<Focus> getAllFocus();
 
-    ExtractMessage addFocus(Focus focus);
+    long addFocus(Focus focus);
 
     ExtractMessage updateFocus(Focus focus);
 }

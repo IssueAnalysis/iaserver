@@ -64,7 +64,7 @@ public class DaoController {
      * @param focus 关注点
      * @return 是否添加成功
      */
-    public boolean addStatisticFocus(Focus focus){
+    public long addStatisticFocus(Focus focus){
         return focusService.addFocus(focus);
     }
 

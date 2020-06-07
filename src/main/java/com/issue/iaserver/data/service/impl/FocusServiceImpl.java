@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,20 +38,24 @@ public class FocusServiceImpl implements FocusService {
     /**获取全部的Focus*/
     @Override
     public List<FocusDO> getAllFocus() {
-        return focusDao.findAll();
+        List<FocusDO> focusDOS = focusDao.findAll();
+        focusDOS.removeIf(focusDO -> focusDO.getCsv_id() >= 0 && focusDO.getIssue_id() >= 0);
+        return focusDOS;
     }
 
     /**新增一个Focus*/
     @Override
-    public boolean addFocus(Focus focus) {
+    public long addFocus(Focus focus) {
         FocusDO focusDO = new FocusDO(focus);
         List<Keyword> keywords = focus.getKeywordList();
         for(Keyword Keyword : keywords) {
             KeywordDO keywordDO = new KeywordDO(Keyword);
             keywordDao.saveAndFlush(keywordDO);
         }
-        focusDao.saveAndFlush(focusDO);
-        return true;
+        focusDO.setCsv_id(-1);
+        focusDO.setIssue_id(-1);
+        focusDO = focusDao.saveAndFlush(focusDO);
+        return focusDO.getId();
     }
 
     @Override
@@ -61,7 +66,7 @@ public class FocusServiceImpl implements FocusService {
                 FocusDO focusDO1 = new FocusDO(focus);
                 long id = focus.getId();
                 focusDO1.setId(id);
-                focusDao.saveAndFlush(focusDO);
+                focusDao.saveAndFlush(focusDO1);
                 return true;
             }
         }
@@ -133,12 +138,12 @@ public class FocusServiceImpl implements FocusService {
                                             long userId) {
 
         for (Focus focus : focusList) {
-            List<Keyword> keywords1 = focus.getKeywordList();
-            for(Keyword keyword : keywords1){
-                KeywordDO keywordDO = new KeywordDO(keyword, csvId, issueId);
-                keywordDao.saveAndFlush(keywordDO);
-                System.out.println("[INFO] :关注点对应的关键词id是"+keywordDO.getId());
-            }
+//            List<Keyword> keywords1 = focus.getKeywordList();
+//            for(Keyword keyword : keywords1){
+//                KeywordDO keywordDO = new KeywordDO(keyword, csvId, issueId);
+//                keywordDao.saveAndFlush(keywordDO);
+//                System.out.println("[INFO] :关注点对应的关键词id是"+keywordDO.getId());
+//            }
 
             FocusDO focusDO = new FocusDO(focus, csvId, issueId);
             focusDao.saveAndFlush(focusDO);
@@ -185,10 +190,10 @@ public class FocusServiceImpl implements FocusService {
     public List<Focus> getMarkedIssueFocus(long issue_id, long csv_id) {
 
         List<Focus> res = new ArrayList<Focus>();
-        List<Long> focusDOS = voteDao.getFocusIdByIssueID(csv_id, issue_id);
+        List<FocusDO> focusDOS = focusDao.getFocusByIssueId(csv_id, issue_id);
         if(focusDOS.size() == 0) return res;
-        for(Long focusID : focusDOS){
-            FocusDO focusDO = focusDao.getOne(focusID);
+        for(FocusDO focusDO : focusDOS){
+//            FocusDO focusDO = focusDao.getOne(focusID);
             int vote = sum(voteDao.getFocusVote(csv_id, issue_id, focusDO.getId()));
             Focus focus = new Focus(focusDO);
             res.add(focus);

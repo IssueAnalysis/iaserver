@@ -21,7 +21,7 @@ public interface FocusService {
     List<FocusDO> getAllFocus();
 
     /**新增focus*/
-    boolean addFocus(Focus focus);
+    long addFocus(Focus focus);
 
     boolean updateFocus(Focus focus);
 

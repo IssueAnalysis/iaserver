@@ -34,7 +34,7 @@ public class StatisticController {
     }
 
     @PostMapping("add_focus")
-    public void addFocus(@RequestBody StatisticFocus statisticFocus){
+    public long addFocus(@RequestBody StatisticFocus statisticFocus){
         List<StatisticKeyword> statisticKeywords = statisticFocus.getKeywordList();
         long id = statisticFocus.getId();
         String description = statisticFocus.getDescription();
@@ -44,11 +44,11 @@ public class StatisticController {
             keywords.add(new Keyword(keyword.getDescription(),0));
         }
         Focus focus = new Focus(id,description,keywords,type);
-        focusInfoService.addFocus(focus);
+        return focusInfoService.addFocus(focus);
     }
 
     @PostMapping("update_focus")
-    public void updateFocus(@RequestBody StatisticFocus statisticFocus){
+    public String updateFocus(@RequestBody StatisticFocus statisticFocus){
         List<StatisticKeyword> statisticKeywords = statisticFocus.getKeywordList();
         long id = statisticFocus.getId();
         String description = statisticFocus.getDescription();
@@ -58,6 +58,6 @@ public class StatisticController {
             keywords.add(new Keyword(keyword.getDescription(),0));
         }
         Focus focus = new Focus(id,description,keywords,type);
-        focusInfoService.updateFocus(focus);
+        return focusInfoService.updateFocus(focus).getMessage();
     }
 }

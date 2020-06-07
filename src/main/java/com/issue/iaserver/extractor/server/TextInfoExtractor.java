@@ -73,8 +73,8 @@ public class TextInfoExtractor implements InfoExtractor{
             return daoController.getMarkedIssueKeywords(issueId,csvId);
         }else{
             List<Keyword> keywords = findKeyWords(text);
-            List<Focus> focusList = findIssueFocus(keywords);
-            daoController.setIssueKeywordsAndFocus(issueId,csvId,focusList,keywords);
+            //List<Focus> focusList = findIssueFocus(keywords);
+            daoController.setIssueKeywordsAndFocus(issueId,csvId,new ArrayList<>(),keywords);
             daoController.markIssueExtracted(issueId, csvId);
             keywords = daoController.getMarkedIssueKeywords(issueId,csvId);
             return keywords;
@@ -115,19 +115,32 @@ public class TextInfoExtractor implements InfoExtractor{
 
     @Override
     public List<Focus> findIssueFocus(long issueId, long csvId,String text) {
+        List<Focus> oldFocus;
         if(daoController.isIssueExtracted(issueId, csvId)){
-            return daoController.getMarkedIssueFocus(issueId, csvId);
+             oldFocus = daoController.getMarkedIssueFocus(issueId, csvId);
+        }else{
+            daoController.markIssueExtracted(issueId,csvId);
+            oldFocus = new ArrayList<>();
         }
-        List<Keyword> keywords = findKeyWords(issueId,csvId,text);
+        List<Keyword> keywords = findKeyWords(text);
         List<Focus> focusList = findIssueFocus(keywords);
-        daoController.setIssueKeywordsAndFocus(issueId,csvId,focusList,keywords);
-        return focusList;
+        for(Focus focus :oldFocus){
+            focusList.removeIf(focus1 -> focus1.getFocusDescription().equals(focus.getFocusDescription())
+            && focus1.getFocusType().equals(focus.getFocusType()));
+        }
+        List<Focus> focusList1 = new ArrayList<>();
+        for(Focus focus : focusList){
+            focusList1.add(new Focus(focus));
+        }
+        daoController.setIssueKeywordsAndFocus(issueId,csvId,focusList1,keywords);
+        return daoController.getMarkedIssueFocus(issueId, csvId);
     }
 
 
     @Override
     public List<Focus> findIssueFocus(List<Keyword> keywords) {
         List<Focus> focusList = focusController.getAllFocus();
+        List<Focus> res = new ArrayList<>(focusList.size());
         for(Focus focus : focusList){
             // 计算关注点权值
             List<Keyword> focusKeyWords = focus.getKeywordList();
@@ -167,9 +180,12 @@ public class TextInfoExtractor implements InfoExtractor{
                 }
             }
             focus.setCount(count);
+            if(focus.getCount() > focusKeyWords.size()/2){
+                res.add(focus);
+            }
         }
-        focusList.sort(Comparator.naturalOrder());
-        return focusList;
+        res.sort(Comparator.naturalOrder());
+        return res;
 
     }
 

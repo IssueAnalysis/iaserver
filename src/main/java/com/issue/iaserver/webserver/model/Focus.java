@@ -18,8 +18,26 @@ public class Focus {
         this.vote = String.valueOf(focus.getVote());
         this.isVoted = false;
     }
-    public void setVoted(){
-        this.isVoted = true;
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setVote(String vote) {
+        this.vote = vote;
+    }
+
+    public void setVoted(boolean voted) {
+        isVoted = voted;
     }
 
     public long getId() {

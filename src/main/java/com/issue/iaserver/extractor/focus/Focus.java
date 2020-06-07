@@ -18,6 +18,14 @@ public class Focus implements Comparable<Focus> {
     private double p;                   // 权值
     private int count;
 
+    public Focus(Focus focus){
+        //this.id = focus.getId();
+        this.focusDescription = focus.getFocusDescription();
+        this.keywordList = focus.getKeywordList();
+        this.focusType = focus.getFocusType();
+        this.vote = focus.getVote();
+    }
+
     public Focus(long id, String focusDescription, List<Keyword> keywordList, String focusType) {
         this.id = id;
         this.focusDescription = focusDescription;
@@ -32,6 +40,7 @@ public class Focus implements Comparable<Focus> {
     }
 
     public Focus(FocusDO focusDO){
+        this.id = focusDO.getId();
         this.focusDescription = focusDO.getFocusDescription();
         this.focusType = focusDO.getFocusType();
         this.keywordList = focusDO.getKeywordList();
