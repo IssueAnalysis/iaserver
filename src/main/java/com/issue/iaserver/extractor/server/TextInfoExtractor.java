@@ -180,7 +180,7 @@ public class TextInfoExtractor implements InfoExtractor{
                 }
             }
             focus.setCount(count);
-            if(focus.getCount() > focusKeyWords.size()/2){
+            if(focus.getCount() >= 1){
                 res.add(focus);
             }
         }

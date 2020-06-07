@@ -3,6 +3,7 @@ package com.issue.iaserver.webserver.controller;
 import com.issue.iaserver.extractor.focus.Focus;
 import com.issue.iaserver.extractor.keyword.Keyword;
 import com.issue.iaserver.extractor.server.FocusInfoService;
+import com.issue.iaserver.webserver.model.FocusIssueMap;
 import com.issue.iaserver.webserver.model.StatisticFocus;
 import com.issue.iaserver.webserver.model.StatisticKeyword;
 import org.springframework.web.bind.annotation.*;
@@ -59,5 +60,11 @@ public class StatisticController {
         }
         Focus focus = new Focus(id,description,keywords,type);
         return focusInfoService.updateFocus(focus).getMessage();
+    }
+
+    @GetMapping("focus_issue")
+    public FocusIssueMap getFocusIssues(){
+        //TODO
+        return null;
     }
 }
