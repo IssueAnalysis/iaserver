@@ -74,6 +74,8 @@ public class FocusServiceImpl implements FocusService {
                 FocusDO focusDO1 = new FocusDO(focus);
                 long id = focus.getId();
                 focusDO1.setId(id);
+                focusDO1.setCsv_id(-1);
+                focusDO1.setIssue_id(-1);
                 focusDao.saveAndFlush(focusDO1);
                 return true;
             }
